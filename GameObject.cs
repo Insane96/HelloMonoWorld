@@ -10,6 +10,7 @@ internal abstract class GameObject
 	public string Id { get; private set; }
 
     public Vector2 position;
+    public Vector2 origin = new Vector2(0.5f, 0.5f);
 
     public bool Enabled { get; set; } = true;
     public bool Visible { get; set; } = true;
@@ -28,12 +29,25 @@ internal abstract class GameObject
 
     public abstract void Initialize();
 
-    public void LoadContent(ContentManager contentManager)
+    public virtual void LoadContent(ContentManager contentManager)
     {
         this.texture = contentManager.Load<Texture2D>(this.spriteName);
     }
 
     public abstract void Update();
 
-    public abstract void Draw(SpriteBatch spriteBatch);
+    public virtual void Draw(SpriteBatch spriteBatch)
+    {
+        spriteBatch.Draw(
+            this.texture,
+            this.position,
+            null,
+            Color.Black,
+            0f,
+            new Vector2(this.texture.Width * this.origin.X, this.texture.Height * this.origin.Y),
+            Vector2.One,
+            SpriteEffects.None,
+            0f
+        );
+    }
 }

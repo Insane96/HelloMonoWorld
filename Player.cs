@@ -22,22 +22,22 @@ internal class Player : GameObject
     {
         var kstate = Keyboard.GetState();
 
-        if (kstate.IsKeyDown(Keys.Up))
+        if (kstate.IsKeyDown(Keys.W))
         {
             this.position.Y -= (float)(movementSpeed * Time.DeltaTime);
         }
 
-        if (kstate.IsKeyDown(Keys.Down))
+        if (kstate.IsKeyDown(Keys.A))
         {
             this.position.Y += (float)(movementSpeed * Time.DeltaTime);
         }
 
-        if (kstate.IsKeyDown(Keys.Left))
+        if (kstate.IsKeyDown(Keys.S))
         {
             this.position.X -= (float)(movementSpeed * Time.DeltaTime);
         }
 
-        if (kstate.IsKeyDown(Keys.Right))
+        if (kstate.IsKeyDown(Keys.D))
         {
             this.position.X += (float)(movementSpeed * Time.DeltaTime);
         }
@@ -45,18 +45,6 @@ internal class Player : GameObject
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Begin();
-        spriteBatch.Draw(
-            this.texture,
-            this.position,
-            null,
-            Color.Black,
-            0f,
-            new Vector2(this.texture.Width / 2, this.texture.Height / 2),
-            Vector2.One,
-            SpriteEffects.None,
-            0f
-        );
-        spriteBatch.End();
+        base.Draw(spriteBatch);
     }
 }

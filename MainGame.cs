@@ -57,7 +57,12 @@ public class MainGame : Game
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
+        _spriteBatch.Begin();
+
         player.Draw(_spriteBatch);
+
+        _spriteBatch.End();
+
 
         base.Draw(gameTime);
     }
