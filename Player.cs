@@ -15,7 +15,7 @@ internal class Player : GameObject
 
     public override void Initialize()
     {
-
+        this.color = Color.Black;
     }
 
     public override void Update()

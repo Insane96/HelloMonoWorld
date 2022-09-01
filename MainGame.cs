@@ -13,9 +13,11 @@ public class MainGame : Game
 
     public MainGame()
     {
-        _graphics = new GraphicsDeviceManager(this);
-        _graphics.PreferredBackBufferWidth = 1280;
-        _graphics.PreferredBackBufferHeight = 720;
+        _graphics = new(this)
+        {
+            PreferredBackBufferWidth = 1280,
+            PreferredBackBufferHeight = 720
+        };
         _graphics.ApplyChanges();
 
         Graphics.screenWidth = _graphics.GraphicsDevice.Viewport.Width;
@@ -37,8 +39,6 @@ public class MainGame : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         player.LoadContent(this.Content);
-
-        // TODO: use this.Content to load your game content here
     }
 
     protected override void Update(GameTime gameTime)

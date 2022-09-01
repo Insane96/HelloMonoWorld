@@ -10,7 +10,9 @@ internal abstract class GameObject
 	public string Id { get; private set; }
 
     public Vector2 position;
-    public Vector2 origin = new Vector2(0.5f, 0.5f);
+    public Vector2 origin = new(0.5f, 0.5f);
+
+    public Color color = Color.White;
 
     public bool Enabled { get; set; } = true;
     public bool Visible { get; set; } = true;
@@ -42,7 +44,7 @@ internal abstract class GameObject
             this.texture,
             this.position,
             null,
-            Color.Black,
+            color,
             0f,
             new Vector2(this.texture.Width * this.origin.X, this.texture.Height * this.origin.Y),
             Vector2.One,
