@@ -29,12 +29,12 @@ internal class Player : GameObject
 
         if (kstate.IsKeyDown(Keys.A))
         {
-            this.position.Y += (float)(movementSpeed * Time.DeltaTime);
+            this.position.X -= (float)(movementSpeed * Time.DeltaTime);
         }
 
         if (kstate.IsKeyDown(Keys.S))
         {
-            this.position.X -= (float)(movementSpeed * Time.DeltaTime);
+            this.position.Y += (float)(movementSpeed * Time.DeltaTime);
         }
 
         if (kstate.IsKeyDown(Keys.D))
