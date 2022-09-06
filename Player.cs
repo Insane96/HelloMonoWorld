@@ -4,13 +4,18 @@ using Microsoft.Xna.Framework.Input;
 
 namespace HelloMonoWorld;
 
-internal class Player : GameObject
+public class Player : Entity 
 {
-    private float movementSpeed = 50f;
+    public double attackTime = 0d;
+    public Weapon weapon;
 
-    public Player() : base("player", "player")
+    public static readonly Vector2 LeftHand = new();
+
+    public Player() : base("player", "stickman")
     {
         this.position = new Vector2(Graphics.screenWidth / 2, Graphics.screenHeight / 2);
+        this.weapon = new("sword", "sword", 0.5d, this);
+        MainGame.gameObjects.Add(this.weapon);
     }
 
     public override void Initialize()
@@ -22,25 +27,31 @@ internal class Player : GameObject
     {
         var kstate = Keyboard.GetState();
 
-        if (kstate.IsKeyDown(Keys.W))
+        this.deltaMovement = Vector2.Zero;
+        foreach (Direction direction in Direction.directions)
         {
-            this.position.Y -= (float)(movementSpeed * Time.DeltaTime);
+            if (kstate.IsKeyDown(direction.key))
+            {
+                this.deltaMovement += direction.vector;
+            }
         }
 
-        if (kstate.IsKeyDown(Keys.A))
+        if (kstate.IsKeyDown(Keys.Left))
         {
-            this.position.X -= (float)(movementSpeed * Time.DeltaTime);
+            this.attackTime = this.weapon.attackSpeed;
+            this.weapon.Attack(Direction.LEFT.vector);
+        }
+        else if (kstate.IsKeyDown(Keys.Right))
+        {
+            this.attackTime = this.weapon.attackSpeed;
+            this.weapon.Attack(Direction.RIGHT.vector);
+        }
+        if (this.attackTime > 0d)
+        {
+            this.attackTime -= Time.DeltaTime;
         }
 
-        if (kstate.IsKeyDown(Keys.S))
-        {
-            this.position.Y += (float)(movementSpeed * Time.DeltaTime);
-        }
-
-        if (kstate.IsKeyDown(Keys.D))
-        {
-            this.position.X += (float)(movementSpeed * Time.DeltaTime);
-        }
+        base.Update();
     }
 
     public override void Draw(SpriteBatch spriteBatch)

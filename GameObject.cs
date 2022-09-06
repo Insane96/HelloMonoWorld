@@ -1,11 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace HelloMonoWorld;
 
-internal abstract class GameObject
+public abstract class GameObject
 {
 	public string Id { get; private set; }
 
@@ -13,6 +12,7 @@ internal abstract class GameObject
     public Vector2 origin = new(0.5f, 0.5f);
 
     public Color color = Color.White;
+    public SpriteEffects spriteEffect = SpriteEffects.None;
 
     public bool Enabled { get; set; } = true;
     public bool Visible { get; set; } = true;
@@ -33,7 +33,7 @@ internal abstract class GameObject
 
     public virtual void LoadContent(ContentManager contentManager)
     {
-        this.texture = contentManager.Load<Texture2D>(this.spriteName);
+        this.texture = contentManager.Load<Texture2D>($"sprites/{this.spriteName}");
     }
 
     public abstract void Update();
@@ -48,8 +48,14 @@ internal abstract class GameObject
             0f,
             new Vector2(this.texture.Width * this.origin.X, this.texture.Height * this.origin.Y),
             Vector2.One,
-            SpriteEffects.None,
+            spriteEffect,
             0f
         );
     }
+
+    public void Enable() => this.Enabled = true;
+    public void Disable() => this.Enabled = false;
+
+    public void Show() => this.Visible = true;
+    public void Hide() => this.Visible = false;
 }
