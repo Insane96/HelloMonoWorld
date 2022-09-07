@@ -15,8 +15,8 @@ public class Entity : GameObject
 
     public Rectangle Bounds;
 
-    public Vector2 LeftHand { get; private set; } = new(40, 50);
-    public Vector2 RightHand { get; private set; } = new(4, 50);
+    public Vector2 LeftHand { get; private set; } = new(40, 54);
+    public Vector2 RightHand { get; private set; } = new(4, 54);
 
     public Entity(string id) : base(id, id)
     {
