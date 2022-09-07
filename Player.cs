@@ -9,13 +9,10 @@ public class Player : Entity
     public double attackTime = 0d;
     public Weapon weapon;
 
-    public static readonly Vector2 LeftHand = new();
-
     public Player() : base("player", "stickman")
     {
         this.position = new Vector2(Graphics.screenWidth / 2, Graphics.screenHeight / 2);
         this.weapon = new("sword", "sword", 0.5d, this);
-        MainGame.gameObjects.Add(this.weapon);
     }
 
     public override void Initialize()
@@ -39,16 +36,20 @@ public class Player : Entity
         if (kstate.IsKeyDown(Keys.Left))
         {
             this.attackTime = this.weapon.attackSpeed;
-            this.weapon.Attack(Direction.LEFT.vector);
+            this.attackDirection = Direction.LEFT;
+            this.weapon.Attack();
         }
         else if (kstate.IsKeyDown(Keys.Right))
         {
             this.attackTime = this.weapon.attackSpeed;
-            this.weapon.Attack(Direction.RIGHT.vector);
+            this.attackDirection = Direction.RIGHT;
+            this.weapon.Attack();
         }
         if (this.attackTime > 0d)
         {
             this.attackTime -= Time.DeltaTime;
+            if (attackTime <= 0d)
+                this.weapon.Hide();
         }
 
         base.Update();

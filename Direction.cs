@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HelloMonoWorld;
 
-internal class Direction
+public class Direction
 {
     public readonly Vector2 vector;
     public readonly Keys key;

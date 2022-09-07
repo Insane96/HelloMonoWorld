@@ -38,6 +38,7 @@ public class MainGame : Game
     {
         player = new Player();
         gameObjects.Add(player);
+        gameObjects.Add(player.weapon);
         enemy = new("test_enemy", "stickman");
         gameObjects.Add(enemy);
 
@@ -82,7 +83,7 @@ public class MainGame : Game
 
         _spriteBatch.Begin();
 
-        _spriteBatch.DrawString(debugFont, $"player{{pos: {player.position.ToString("N1")}, deltaMov: {player.deltaMovement.ToString("N1")}}}{Environment.NewLine}" +
+        _spriteBatch.DrawString(debugFont, $"player{{pos: {player.position.ToString("N1")}, deltaMov: {player.deltaMovement.ToString("N1")}, rect: {player.texture.Bounds}}}{Environment.NewLine}" +
             $"enemy{{pos: {enemy.position.ToString("N1")}, deltaMov: {enemy.deltaMovement.ToString("N1")}}}", Vector2.One, Color.OrangeRed);
 
         foreach(GameObject gameObject in gameObjects)
