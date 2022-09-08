@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace HelloMonoWorld;
 
@@ -22,17 +23,46 @@ public class Player : Entity
 
     public override void Update()
     {
+        CheckMovementInput();
+        CheckAttackInput();
+        if (this.attackTime > 0d)
+        {
+            this.attackTime -= Time.DeltaTime;
+            if (attackTime <= 0d)
+                this.weapon.Hide();
+        }
+        base.Update();
+    }
+
+    public override void Draw(SpriteBatch spriteBatch)
+    {
+        base.Draw(spriteBatch);
+    }
+
+    private void CheckMovementInput()
+    {
         var kstate = Keyboard.GetState();
 
-        this.deltaMovement = Vector2.Zero;
+        Vector2 inputMovement = Vector2.Zero;
         foreach (Direction direction in Direction.directions)
         {
-            if (kstate.IsKeyDown(direction.key))
+            /*if (kstate.IsKeyDown(direction.key))
             {
-                this.deltaMovement += direction.vector;
-            }
-        }
+                inputMovement += Vector2.Multiply(direction.vector, this.movementSpeed);
+            }*/
 
+            if (direction.key == Keys.A)
+                inputMovement += Vector2.Multiply(direction.vector, this.movementSpeed);
+        }
+        if (inputMovement != Vector2.Zero)
+        {
+            this.deltaMovement = new Vector2(Math.Max(this.deltaMovement.X, inputMovement.X), Math.Max(this.deltaMovement.Y, inputMovement.Y));
+        }
+    }
+
+    private void CheckAttackInput()
+    {
+        var kstate = Keyboard.GetState();
         if (kstate.IsKeyDown(Keys.Left))
         {
             this.attackTime = this.weapon.attackSpeed;
@@ -45,18 +75,5 @@ public class Player : Entity
             this.attackDirection = Direction.RIGHT;
             this.weapon.Attack();
         }
-        if (this.attackTime > 0d)
-        {
-            this.attackTime -= Time.DeltaTime;
-            if (attackTime <= 0d)
-                this.weapon.Hide();
-        }
-
-        base.Update();
-    }
-
-    public override void Draw(SpriteBatch spriteBatch)
-    {
-        base.Draw(spriteBatch);
     }
 }

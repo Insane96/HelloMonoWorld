@@ -36,14 +36,18 @@ public class Entity : GameObject
     public override void Update()
     {
         this.Move();
+        this.Bounds = new Rectangle((int)(this.position.X - (this.texture.Width * this.origin.X)), (int)this.position.Y, this.texture.Width, this.texture.Height);
     }
 
     public void Move()
     {
         if (deltaMovement != Vector2.Zero)
         {
-            this.deltaMovement.Normalize();
-            this.position += Vector2.Multiply(this.deltaMovement, (float)(movementSpeed * Time.DeltaTime));
+            //this.deltaMovement.Normalize();
+            //this.position += Vector2.Multiply(this.deltaMovement, (float)(movementSpeed * Time.DeltaTime));
+            this.position += Vector2.Multiply(this.deltaMovement, (float)Time.DeltaTime);
+
+            this.deltaMovement = Vector2.Zero;
         }
     }
 }
