@@ -13,6 +13,7 @@ public class Enemy : Entity
     {
         this.movementSpeed = 90f;
         this.position = new Vector2(500, 500);
+        this.health = 1f;
     }
 
     public override void Initialize()

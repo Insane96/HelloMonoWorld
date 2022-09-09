@@ -76,6 +76,8 @@ public class MainGame : Game
                 gameObject.Update();
         }
 
+        gameObjects.RemoveAll(g => g.RemovalMark);
+
         base.Update(gameTime);
     }
 

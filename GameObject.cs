@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System.Transactions;
 
 namespace HelloMonoWorld;
 
@@ -16,6 +17,7 @@ public abstract class GameObject
 
     public bool Enabled { get; set; } = true;
     public bool Visible { get; set; } = true;
+    public bool RemovalMark { get; set; }
 
     public string spriteName { get; private set; }
     public Texture2D texture { get; private set; }
@@ -58,6 +60,7 @@ public abstract class GameObject
 
     public void Show() => this.Visible = true;
     public void Hide() => this.Visible = false;
+    public void MarkForRemoval() => this.RemovalMark = true;
 
     public void HideAndDisable()
     {

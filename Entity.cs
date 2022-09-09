@@ -51,16 +51,6 @@ public class Entity : GameObject
             this.immunityTime -= Time.DeltaTime;
     }
 
-    public virtual bool IsImmune()
-    {
-        return this.immunityTime > 0d;
-    }
-
-    public virtual bool IsDead()
-    {
-        return this.health <= 0d;
-    }
-
     public void Move()
     {
         if (deltaMovement != Vector2.Zero)
@@ -85,9 +75,19 @@ public class Entity : GameObject
         this.immunityTime = immunityTime;
         if (this.IsDead())
         {
-            this.HideAndDisable();
+            this.MarkForRemoval();
         }
         return true;
+    }
+
+    public virtual bool IsImmune()
+    {
+        return this.immunityTime > 0d;
+    }
+
+    public virtual bool IsDead()
+    {
+        return this.health <= 0d;
     }
 
     public virtual List<Entity> GetCollisions()
