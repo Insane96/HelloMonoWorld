@@ -13,5 +13,7 @@ namespace HelloMonoWorld
         public static int screenHeight;
 
         public static GraphicsDeviceManager graphics;
+
+        public static bool DebugBounds;
     }
 }

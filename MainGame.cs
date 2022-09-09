@@ -67,6 +67,9 @@ public class MainGame : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
+        if (GamePad.GetState(PlayerIndex.One).DPad.Down == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.F3))
+            Graphics.DebugBounds = !Graphics.DebugBounds;
+
         foreach (GameObject gameObject in gameObjects)
         {
             if (gameObject.Enabled)

@@ -132,8 +132,11 @@ public class Entity : GameObject
     public override void Draw(SpriteBatch spriteBatch)
     {
         base.Draw(spriteBatch);
-        var t = new Texture2D(Graphics.graphics.GraphicsDevice, 1, 1);
-        t.SetData(new[] { Color.White });
-        spriteBatch.Draw(t, this.Bounds, Color.FromNonPremultiplied(255, 0, 0, 64));
+        if (Graphics.DebugBounds)
+        {
+            var t = new Texture2D(Graphics.graphics.GraphicsDevice, 1, 1);
+            t.SetData(new[] { Color.White });
+            spriteBatch.Draw(t, this.Bounds, Color.FromNonPremultiplied(255, 0, 0, 64));
+        }
     }
 }
