@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,7 @@ namespace HelloMonoWorld
     {
         public static int screenWidth;
         public static int screenHeight;
+
+        public static GraphicsDeviceManager graphics;
     }
 }

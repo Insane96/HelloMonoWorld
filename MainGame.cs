@@ -13,22 +13,21 @@ public class MainGame : Game
 
     public static List<GameObject> gameObjects = new();
 
-    private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
     private SpriteFont debugFont;
 
     public MainGame()
     {
-        _graphics = new(this)
+        Graphics.graphics = new(this)
         {
             PreferredBackBufferWidth = 1280,
             PreferredBackBufferHeight = 720
         };
-        _graphics.ApplyChanges();
+        Graphics.graphics.ApplyChanges();
 
-        Graphics.screenWidth = _graphics.GraphicsDevice.Viewport.Width;
-        Graphics.screenHeight = _graphics.GraphicsDevice.Viewport.Height;
+        Graphics.screenWidth = Graphics.graphics.GraphicsDevice.Viewport.Width;
+        Graphics.screenHeight = Graphics.graphics.GraphicsDevice.Viewport.Height;
 
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
@@ -83,8 +82,8 @@ public class MainGame : Game
 
         _spriteBatch.Begin();
 
-        _spriteBatch.DrawString(debugFont, $"player{{pos: {player.position.ToString("N1")}, deltaMov: {player.deltaMovement.ToString("N1")}, rect: {player.texture.Bounds}}}{Environment.NewLine}" +
-            $"enemy{{pos: {enemy.position.ToString("N1")}, deltaMov: {enemy.deltaMovement.ToString("N1")}}}", Vector2.One, Color.OrangeRed);
+        _spriteBatch.DrawString(debugFont, $"player{{pos: {player.position.ToString("N1")}, deltaMov: {player.deltaMovement.ToString("N1")}, rect: {player.Bounds}, health: {player.health}, immunity: {player.immunityTime}}}{Environment.NewLine}" +
+            $"enemy{{pos: {enemy.position.ToString("N1")}, deltaMov: {enemy.deltaMovement.ToString("N1")}, rect: {enemy.Bounds}, health: {enemy.health}, immunity: {enemy.immunityTime:N1}}}", Vector2.One, Color.OrangeRed);
 
         foreach(GameObject gameObject in gameObjects)
         {
