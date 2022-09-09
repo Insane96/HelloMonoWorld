@@ -22,7 +22,7 @@ public class Enemy : Entity
 
     public override void Update()
     {
-        this.deltaMovement = new Vector2(MainGame.player.position.X - this.position.X, MainGame.player.position.Y - this.position.Y);
+        this.deltaMovement = GetRelativeMovement(new Vector2(MainGame.player.position.X - this.position.X, MainGame.player.position.Y - this.position.Y));
         base.Update();
     }
 }

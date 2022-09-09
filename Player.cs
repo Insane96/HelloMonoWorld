@@ -46,18 +46,13 @@ public class Player : Entity
         Vector2 inputMovement = Vector2.Zero;
         foreach (Direction direction in Direction.directions)
         {
-            /*if (kstate.IsKeyDown(direction.key))
+            if (kstate.IsKeyDown(direction.key))
             {
-                inputMovement += Vector2.Multiply(direction.vector, this.movementSpeed);
-            }*/
+                inputMovement += direction.vector;
+            }
+        }
 
-            if (direction.key == Keys.A)
-                inputMovement += Vector2.Multiply(direction.vector, this.movementSpeed);
-        }
-        if (inputMovement != Vector2.Zero)
-        {
-            this.deltaMovement = new Vector2(Math.Max(this.deltaMovement.X, inputMovement.X), Math.Max(this.deltaMovement.Y, inputMovement.Y));
-        }
+        this.deltaMovement += GetRelativeMovement(inputMovement);
     }
 
     private void CheckAttackInput()

@@ -43,11 +43,17 @@ public class Entity : GameObject
     {
         if (deltaMovement != Vector2.Zero)
         {
-            //this.deltaMovement.Normalize();
-            //this.position += Vector2.Multiply(this.deltaMovement, (float)(movementSpeed * Time.DeltaTime));
             this.position += Vector2.Multiply(this.deltaMovement, (float)Time.DeltaTime);
 
             this.deltaMovement = Vector2.Zero;
         }
+    }
+
+    protected Vector2 GetRelativeMovement(Vector2 input)
+    {
+        float length = input.LengthSquared();
+        if (length < 1e-4)
+            return Vector2.Zero;
+        return Vector2.Multiply(length > 1.0d ? Vector2.Normalize(input) : input, this.movementSpeed);
     }
 }
