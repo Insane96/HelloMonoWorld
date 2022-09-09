@@ -13,7 +13,7 @@ public class Player : Entity
     public Player() : base("player", "stickman")
     {
         this.position = new Vector2(Graphics.screenWidth / 2, Graphics.screenHeight / 2);
-        this.weapon = new("sword", "sword", 0.5d, this);
+        this.weapon = new("sword", "sword", 1d, 0.5d, this);
     }
 
     public override void Initialize()
@@ -29,7 +29,9 @@ public class Player : Entity
         {
             this.attackTime -= Time.DeltaTime;
             if (attackTime <= 0d)
-                this.weapon.Hide();
+            {
+                this.weapon.HideAndDisable();
+            }
         }
         base.Update();
     }

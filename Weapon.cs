@@ -1,22 +1,28 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace HelloMonoWorld;
 
-public class Weapon : GameObject
+public class Weapon : Entity
 {
+    public double damage;
     public double attackSpeed;
     public Entity wielder;
 
-    public Weapon(string id, string spriteName, double attackSpeed, Entity wielder) : base(id, spriteName)
+    public Weapon(string id, string spriteName, double damage, double attackSpeed, Entity wielder) : base(id, spriteName)
     {
+        this.damage = damage;
         this.attackSpeed = attackSpeed;
         this.wielder = wielder;
+        this.movementSpeed = 0f;
+        this.ShouldUpdateBounds = false;
     }
 
     public override void Initialize()
     {
         this.Hide();
+        this.Disable();
     }
 
     public override void Update()
@@ -26,8 +32,9 @@ public class Weapon : GameObject
 
     public void Attack()
     {
-        this.position = this.wielder.position;
+        this.FollowWielder();
         this.Show();
+        this.Enable();
         if (this.wielder.attackDirection.Equals(Direction.RIGHT))
         {
             this.origin = new(0f, 0.5f);
@@ -38,6 +45,9 @@ public class Weapon : GameObject
             this.origin = new(1f, 0.5f);
             this.spriteEffect = SpriteEffects.FlipHorizontally;
         }
+        this.UpdateBounds();
+        List<Entity> entitiesCollided = this.GetCollisions(this.wielder);
+        entitiesCollided.ForEach(entity => entity.Hurt(this.damage, this.attackSpeed));
     }
 
     private void FollowWielder()

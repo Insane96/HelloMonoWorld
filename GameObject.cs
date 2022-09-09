@@ -6,7 +6,7 @@ namespace HelloMonoWorld;
 
 public abstract class GameObject
 {
-	public string Id { get; private set; }
+    public string Id { get; private set; }
 
     public Vector2 position;
     public Vector2 origin = new(0.5f, 0.5f);
@@ -58,4 +58,10 @@ public abstract class GameObject
 
     public void Show() => this.Visible = true;
     public void Hide() => this.Visible = false;
+
+    public void HideAndDisable()
+    {
+        this.Disable();
+        this.Hide();
+    }
 }
