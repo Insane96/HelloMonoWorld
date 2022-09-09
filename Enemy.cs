@@ -12,6 +12,7 @@ public class Enemy : Entity
     public Enemy(string id, string spriteName) : base(id, spriteName)
     {
         this.movementSpeed = 90f;
+        this.position = new Vector2(500, 500);
     }
 
     public override void Initialize()
@@ -22,7 +23,7 @@ public class Enemy : Entity
 
     public override void Update()
     {
-        this.deltaMovement = GetRelativeMovement(new Vector2(MainGame.player.position.X - this.position.X, MainGame.player.position.Y - this.position.Y));
+        //this.deltaMovement = GetRelativeMovement(new Vector2(MainGame.player.position.X - this.position.X, MainGame.player.position.Y - this.position.Y));
         base.Update();
     }
 }
