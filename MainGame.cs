@@ -67,8 +67,9 @@ public class MainGame : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        if (GamePad.GetState(PlayerIndex.One).DPad.Down == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.F3))
-            Graphics.DebugBounds = !Graphics.DebugBounds;
+        /*if (GamePad.GetState(PlayerIndex.One).DPad.Down == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.F3))
+            Graphics.DebugBounds = !Graphics.DebugBounds;*/
+        Graphics.TryToggleDebug(Keyboard.GetState());
 
         foreach (GameObject gameObject in gameObjects)
         {
@@ -87,8 +88,11 @@ public class MainGame : Game
 
         _spriteBatch.Begin();
 
-        _spriteBatch.DrawString(debugFont, $"player{{pos: {player.position.ToString("N1")}, deltaMov: {player.deltaMovement.ToString("N1")}, rect: {player.Bounds}, health: {player.health}, immunity: {player.immunityTime}}}{Environment.NewLine}" +
-            $"enemy{{pos: {enemy.position.ToString("N1")}, deltaMov: {enemy.deltaMovement.ToString("N1")}, rect: {enemy.Bounds}, health: {enemy.health}, immunity: {enemy.immunityTime:N1}}}", Vector2.One, Color.OrangeRed);
+        if (Graphics.Debug)
+        {
+            _spriteBatch.DrawString(debugFont, $"player{{pos: {player.position.ToString("N1")}, deltaMov: {player.deltaMovement.ToString("N1")}, rect: {player.Bounds}, health: {player.health}, immunity: {player.immunityTime}}}{Environment.NewLine}" +
+                $"enemy{{pos: {enemy.position.ToString("N1")}, deltaMov: {enemy.deltaMovement.ToString("N1")}, rect: {enemy.Bounds}, health: {enemy.health}, immunity: {enemy.immunityTime:N1}}}", Vector2.One, Color.OrangeRed);
+        }
 
         foreach(GameObject gameObject in gameObjects)
         {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,5 @@ namespace HelloMonoWorld
         public static int screenHeight;
 
         public static GraphicsDeviceManager graphics;
-
-        public static bool DebugBounds;
     }
 }
