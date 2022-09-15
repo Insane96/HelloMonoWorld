@@ -53,14 +53,12 @@ public class MainGame : Game
 
     protected override void Update(GameTime gameTime)
     {
-        Time.UpdateDeltaTime(gameTime);
-
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
         Options.TryToggleDebug(Keyboard.GetState());
 
-        Engine.Engine.UpdateGameObjects();
+        Engine.Engine.UpdateGameObjects(gameTime);
 
         base.Update(gameTime);
     }
@@ -73,7 +71,7 @@ public class MainGame : Game
 
         if (Options.Debug)
         {
-            _spriteBatch.DrawString(debugFont, $"player{{pos: {player.position.ToString("N1")}, deltaMov: {player.deltaMovement.ToString("N1")}, rect: {player.Bounds}, health: {player.health}, immunity: {player.immunityTime}}}{Environment.NewLine}", Vector2.One, Color.OrangeRed);
+            Engine.Engine.DrawText(_spriteBatch, debugFont, $"{player.position.ToString("N1")}(DeltaMov: {player.deltaMovement.ToString("N1")}){Environment.NewLine}Bounds: {player.Bounds}{Environment.NewLine}Health: {player.health}{Environment.NewLine}Immunity: {player.immunityTime}", Vector2.One.Sum(2, 2), Color.White, Color.Black);
         }
 
         Engine.Engine.DrawGameObjects(_spriteBatch);

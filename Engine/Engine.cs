@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -25,8 +26,10 @@ namespace HelloMonoWorld.Engine
             gameObject.Initialize(contentManager);
         }
 
-        public static void UpdateGameObjects()
+        public static void UpdateGameObjects(GameTime gameTime)
         {
+            Time.UpdateDeltaTime(gameTime);
+
             foreach (GameObject gameObject in gameObjects)
             {
                 if (gameObject.Enabled)
@@ -43,6 +46,13 @@ namespace HelloMonoWorld.Engine
                 if (gameObject.Visible)
                     gameObject.Draw(spriteBatch);
             }
+        }
+
+        public static void DrawText(SpriteBatch spriteBatch, SpriteFont font, string text, Vector2 position, Color color, Color? shadowColor = null)
+        {
+            if (shadowColor.HasValue)
+                spriteBatch.DrawString(font, text, position, shadowColor.Value);
+            spriteBatch.DrawString(font, text, position, color);
         }
     }
 }
