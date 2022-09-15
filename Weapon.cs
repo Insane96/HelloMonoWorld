@@ -34,7 +34,7 @@ public class Weapon : Entity
         this.FollowWielder();
         this.Show();
         this.Enable();
-        this.GetAttackSound().Play(0.5f, Mth.NextFloat(MainGame.random, 0.75f, 1.25f), 0f);
+        this.GetAttackSound().Play(0.5f * Options.Volume, Mth.NextFloat(MainGame.random, -0.25f, 0.25f), 0f);
         if (this.wielder.attackDirection.Equals(Direction.RIGHT))
         {
             this.origin = new(0f, 0.5f);

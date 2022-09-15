@@ -57,6 +57,7 @@ public class MainGame : Game
             Exit();
 
         Options.TryToggleDebug(Keyboard.GetState());
+        Options.TryToggleMute(Keyboard.GetState());
 
         Engine.Engine.UpdateGameObjects(gameTime);
 

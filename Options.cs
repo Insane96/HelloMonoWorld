@@ -9,6 +9,7 @@ namespace HelloMonoWorld
 {
     internal class Options
     {
+        public static float Volume { get; set; } = 0f;
         public static bool Debug;
         //TODO Add a class to handle one time key down and key up
         private static bool F3KeyDown = false;
@@ -28,6 +29,28 @@ namespace HelloMonoWorld
                 if (F3KeyDown)
                 {
                     F3KeyDown = false;
+                }
+            }
+        }
+
+        //TODO Add a class to handle one time key down and key up
+        private static bool NumPad0KeyDown = false;
+
+        public static void TryToggleMute(KeyboardState kState)
+        {
+            if (kState.IsKeyDown(Keys.NumPad0))
+            {
+                if (!NumPad0KeyDown)
+                {
+                    NumPad0KeyDown = true;
+                    Volume = Math.Abs(Volume - 1);
+                }
+            }
+            else
+            {
+                if (NumPad0KeyDown)
+                {
+                    NumPad0KeyDown = false;
                 }
             }
         }
