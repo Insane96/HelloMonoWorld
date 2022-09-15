@@ -17,7 +17,6 @@ public class AbstractEnemy : Entity
 
     public override void Update()
     {
-        //this.deltaMovement = GetRelativeMovement(new Vector2(MainGame.player.position.X - this.position.X, 0));
         base.Update();
     }
 }
