@@ -28,4 +28,9 @@ public class Direction
     {
         UP, RIGHT, DOWN, LEFT
     };
+
+    public static readonly List<Direction> upDownDirections = new()
+    {
+        UP, DOWN
+    };
 }

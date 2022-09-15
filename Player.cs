@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using HelloMonoWorld.Engine;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -12,12 +14,8 @@ public class Player : Entity
 
     public Player() : base("player", "stickman")
     {
-        this.position = new Vector2(Graphics.screenWidth / 2, Graphics.screenHeight / 2);
-        this.weapon = new("sword", "sword", 1d, 0.5d, this);
-    }
-
-    public override void Initialize()
-    {
+        this.position = new Vector2(100, Graphics.ScreenHeight / 2);
+        this.weapon = new("sword", "sword", 1d, 0.8d, this);
         this.color = Color.Black;
     }
 
@@ -46,7 +44,7 @@ public class Player : Entity
         var kstate = Keyboard.GetState();
 
         Vector2 inputMovement = Vector2.Zero;
-        foreach (Direction direction in Direction.directions)
+        foreach (Direction direction in Direction.upDownDirections)
         {
             if (kstate.IsKeyDown(direction.key))
             {
@@ -62,13 +60,13 @@ public class Player : Entity
         if (this.attackTime > 0d)
             return;
         var kstate = Keyboard.GetState();
-        if (kstate.IsKeyDown(Keys.Left))
+        /*if (kstate.IsKeyDown(Keys.Left))
         {
             this.attackTime = this.weapon.attackSpeed;
             this.attackDirection = Direction.LEFT;
             this.weapon.Attack();
         }
-        else if (kstate.IsKeyDown(Keys.Right))
+        else*/ if (kstate.IsKeyDown(Keys.Right))
         {
             this.attackTime = this.weapon.attackSpeed;
             this.attackDirection = Direction.RIGHT;

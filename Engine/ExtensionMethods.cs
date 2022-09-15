@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace HelloMonoWorld
+namespace HelloMonoWorld.Engine
 {
     internal static class ExtensionMethods
     {
@@ -14,7 +14,7 @@ namespace HelloMonoWorld
         {
             return $"{{X:{vector.X.ToString(format)} Y:{vector.Y.ToString(format)}}}";
         }
-        
+
         public static Vector2 Sum(this Vector2 vector, float x, float y)
         {
             return new Vector2(vector.X + x, vector.Y + y);

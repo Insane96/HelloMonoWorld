@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using HelloMonoWorld.Engine;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -9,9 +10,9 @@ namespace HelloMonoWorld;
 public class MainGame : Game
 {
     public static Player player;
-    public static Enemy enemy;
+    public static Spawner spawner;
 
-    public static Random random = new Random();
+    public static Random random = new();
 
     public static List<GameObject> gameObjects = new();
 
@@ -28,9 +29,6 @@ public class MainGame : Game
         };
         Graphics.graphics.ApplyChanges();
 
-        Graphics.screenWidth = Graphics.graphics.GraphicsDevice.Viewport.Width;
-        Graphics.screenHeight = Graphics.graphics.GraphicsDevice.Viewport.Height;
-
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }
@@ -40,25 +38,21 @@ public class MainGame : Game
         player = new Player();
         gameObjects.Add(player);
         gameObjects.Add(player.weapon);
-        enemy = new("test_enemy", "stickman");
-        gameObjects.Add(enemy);
-
-        base.Initialize();
+        spawner = new(2.5d, 5d);
+        gameObjects.Add(spawner);
 
         foreach (GameObject gameObject in gameObjects)
         {
-            gameObject.Initialize();
+            gameObject.Initialize(this.Content);
         }
+
+        base.Initialize();
     }
 
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        foreach (GameObject gameObject in gameObjects)
-        {
-            gameObject.LoadContent(this.Content);
-        }
         debugFont = Content.Load<SpriteFont>("debug");
         Sounds.LoadContent(this.Content);
     }
@@ -91,8 +85,7 @@ public class MainGame : Game
 
         if (Options.Debug)
         {
-            _spriteBatch.DrawString(debugFont, $"player{{pos: {player.position.ToString("N1")}, deltaMov: {player.deltaMovement.ToString("N1")}, rect: {player.Bounds}, health: {player.health}, immunity: {player.immunityTime}}}{Environment.NewLine}" +
-                $"enemy{{pos: {enemy.position.ToString("N1")}, deltaMov: {enemy.deltaMovement.ToString("N1")}, rect: {enemy.Bounds}, health: {enemy.health}, immunity: {enemy.immunityTime:N1}}}", Vector2.One, Color.OrangeRed);
+            _spriteBatch.DrawString(debugFont, $"player{{pos: {player.position.ToString("N1")}, deltaMov: {player.deltaMovement.ToString("N1")}, rect: {player.Bounds}, health: {player.health}, immunity: {player.immunityTime}}}{Environment.NewLine}", Vector2.One, Color.OrangeRed);
         }
 
         foreach(GameObject gameObject in gameObjects)
@@ -105,5 +98,10 @@ public class MainGame : Game
 
 
         base.Draw(gameTime);
+    }
+
+    public static void Instantiate(GameObject gameObject)
+    {
+
     }
 }

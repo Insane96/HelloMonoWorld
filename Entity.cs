@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using HelloMonoWorld.Engine;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -33,11 +35,6 @@ public class Entity : GameObject
     }
 
     public Entity(string id, string spriteName) : base(id, spriteName)
-    {
-
-    }
-
-    public override void Initialize()
     {
 
     }

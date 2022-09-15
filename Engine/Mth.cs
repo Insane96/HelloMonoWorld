@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HelloMonoWorld
+namespace HelloMonoWorld.Engine
 {
     public class Mth
     {
@@ -16,13 +16,13 @@ namespace HelloMonoWorld
         public static double NextDouble(Random random, double min, double max)
         {
             if (max < min || min == max) return min;
-            return (random.NextDouble() * (max - min)) / (max - min);
+            return random.NextDouble() * (max - min) / (max - min);
         }
 
         public static float NextFloat(Random random, float min, float max)
         {
             if (max < min || min == max) return min;
-            return (random.NextSingle() * (max - min)) / (max - min);
+            return random.NextSingle() * (max - min) / (max - min);
         }
     }
 }

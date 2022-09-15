@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework;
+﻿using HelloMonoWorld.Engine;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
@@ -18,10 +20,6 @@ public class Weapon : Entity
         this.wielder = wielder;
         this.movementSpeed = 0f;
         this.ShouldUpdateBounds = false;
-    }
-
-    public override void Initialize()
-    {
         this.Hide();
         this.Disable();
     }

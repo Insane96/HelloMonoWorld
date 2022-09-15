@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Transactions;
 
-namespace HelloMonoWorld;
+namespace HelloMonoWorld.Engine;
 
 public abstract class GameObject
 {
@@ -22,20 +23,26 @@ public abstract class GameObject
     public string spriteName { get; private set; }
     public Texture2D texture { get; private set; }
 
+    public GameObject(string id) : this(id, "", Vector2.Zero) { Visible = false; }
+
     public GameObject(string id, string spriteName) : this(id, spriteName, Vector2.Zero) { }
 
     public GameObject(string id, string spriteName, Vector2 position)
     {
-        this.Id = id;
+        Id = id;
         this.spriteName = spriteName;
         this.position = position;
     }
 
-    public abstract void Initialize();
+    public virtual void Initialize(ContentManager contentManager)
+    {
+        LoadContent(contentManager);
+    }
 
     public virtual void LoadContent(ContentManager contentManager)
     {
-        this.texture = contentManager.Load<Texture2D>($"sprites/{this.spriteName}");
+        if (!string.IsNullOrEmpty(spriteName))
+            texture = contentManager.Load<Texture2D>($"sprites/{spriteName}");
     }
 
     public abstract void Update();
@@ -43,28 +50,28 @@ public abstract class GameObject
     public virtual void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Draw(
-            this.texture,
-            this.position,
+            texture,
+            position,
             null,
             color,
             0f,
-            new Vector2(this.texture.Width * this.origin.X, this.texture.Height * this.origin.Y),
+            new Vector2(texture.Width * origin.X, texture.Height * origin.Y),
             Vector2.One,
             spriteEffect,
             0f
         );
     }
 
-    public void Enable() => this.Enabled = true;
-    public void Disable() => this.Enabled = false;
+    public void Enable() => Enabled = true;
+    public void Disable() => Enabled = false;
 
-    public void Show() => this.Visible = true;
-    public void Hide() => this.Visible = false;
-    public void MarkForRemoval() => this.RemovalMark = true;
+    public void Show() => Visible = true;
+    public void Hide() => Visible = false;
+    public void MarkForRemoval() => RemovalMark = true;
 
     public void HideAndDisable()
     {
-        this.Disable();
-        this.Hide();
+        Disable();
+        Hide();
     }
 }
