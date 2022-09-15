@@ -132,7 +132,7 @@ public class Entity : GameObject
     public override void Draw(SpriteBatch spriteBatch)
     {
         base.Draw(spriteBatch);
-        if (Graphics.Debug)
+        if (Options.Debug)
         {
             var t = new Texture2D(Graphics.graphics.GraphicsDevice, 1, 1);
             t.SetData(new[] { Color.White });

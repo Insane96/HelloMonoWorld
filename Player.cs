@@ -59,6 +59,8 @@ public class Player : Entity
 
     private void CheckAttackInput()
     {
+        if (this.attackTime > 0d)
+            return;
         var kstate = Keyboard.GetState();
         if (kstate.IsKeyDown(Keys.Left))
         {

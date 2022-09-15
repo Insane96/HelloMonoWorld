@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
@@ -35,6 +36,7 @@ public class Weapon : Entity
         this.FollowWielder();
         this.Show();
         this.Enable();
+        this.GetAttackSound().Play(0.5f, Mth.NextFloat(MainGame.random, 0.75f, 1.25f), 0f);
         if (this.wielder.attackDirection.Equals(Direction.RIGHT))
         {
             this.origin = new(0f, 0.5f);
@@ -54,5 +56,10 @@ public class Weapon : Entity
     {
         Vector2 weaponPos = this.wielder.attackDirection == Direction.RIGHT ? this.wielder.LeftHand : this.wielder.RightHand;
         this.position = new Vector2(this.wielder.position.X - (this.wielder.texture.Width * this.wielder.origin.X) + weaponPos.X, this.wielder.position.Y - (this.wielder.texture.Height * this.wielder.origin.Y) + weaponPos.Y);
+    }
+
+    private SoundEffect GetAttackSound()
+    {
+        return Sounds.SwordSwing;
     }
 }

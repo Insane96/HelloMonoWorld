@@ -11,6 +11,8 @@ public class MainGame : Game
     public static Player player;
     public static Enemy enemy;
 
+    public static Random random = new Random();
+
     public static List<GameObject> gameObjects = new();
 
     private SpriteBatch _spriteBatch;
@@ -58,6 +60,7 @@ public class MainGame : Game
             gameObject.LoadContent(this.Content);
         }
         debugFont = Content.Load<SpriteFont>("debug");
+        Sounds.LoadContent(this.Content);
     }
 
     protected override void Update(GameTime gameTime)
@@ -67,8 +70,6 @@ public class MainGame : Game
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        /*if (GamePad.GetState(PlayerIndex.One).DPad.Down == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.F3))
-            Graphics.DebugBounds = !Graphics.DebugBounds;*/
         Options.TryToggleDebug(Keyboard.GetState());
 
         foreach (GameObject gameObject in gameObjects)
