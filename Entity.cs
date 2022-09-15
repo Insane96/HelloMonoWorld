@@ -90,7 +90,7 @@ public class Entity : GameObject
     public virtual List<Entity> GetCollisions()
     {
         List<Entity> list = new();
-        MainGame.gameObjects.ForEach(g =>
+        Engine.Engine.gameObjects.ForEach(g =>
         {
             if (g is not Entity entity
                     || g == this)
@@ -105,7 +105,7 @@ public class Entity : GameObject
     public virtual List<Entity> GetCollisions(params Entity[] toIgnore)
     {
         List<Entity> list = new();
-        MainGame.gameObjects.ForEach(g =>
+        Engine.Engine.gameObjects.ForEach(g =>
         {
             if (g is not Entity entity
                     || g == this

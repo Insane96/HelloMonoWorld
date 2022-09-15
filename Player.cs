@@ -16,6 +16,7 @@ public class Player : Entity
     {
         this.position = new Vector2(100, Graphics.ScreenHeight / 2);
         this.weapon = new("sword", "sword", 1d, 0.8d, this);
+        Engine.Engine.Instantiate(this.weapon);
         this.color = Color.Black;
     }
 

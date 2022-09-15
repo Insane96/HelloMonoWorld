@@ -18,6 +18,9 @@ public abstract class GameObject
 
     public bool Enabled { get; set; } = true;
     public bool Visible { get; set; } = true;
+    /// <summary>
+    /// If true, the GameObject is marked for removal and will be removed at the end of the current update frame
+    /// </summary>
     public bool RemovalMark { get; set; }
 
     public string spriteName { get; private set; }

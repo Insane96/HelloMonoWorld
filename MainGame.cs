@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace HelloMonoWorld;
 
@@ -13,8 +14,6 @@ public class MainGame : Game
     public static Spawner spawner;
 
     public static Random random = new();
-
-    public static List<GameObject> gameObjects = new();
 
     private SpriteBatch _spriteBatch;
 
@@ -30,21 +29,16 @@ public class MainGame : Game
         Graphics.graphics.ApplyChanges();
 
         Content.RootDirectory = "Content";
+        Engine.Engine.Init(this.Content);
         IsMouseVisible = true;
     }
 
     protected override void Initialize()
     {
         player = new Player();
-        gameObjects.Add(player);
-        gameObjects.Add(player.weapon);
+        Engine.Engine.Instantiate(player);
         spawner = new(2.5d, 5d);
-        gameObjects.Add(spawner);
-
-        foreach (GameObject gameObject in gameObjects)
-        {
-            gameObject.Initialize(this.Content);
-        }
+        Engine.Engine.Instantiate(spawner);
 
         base.Initialize();
     }
@@ -66,13 +60,7 @@ public class MainGame : Game
 
         Options.TryToggleDebug(Keyboard.GetState());
 
-        foreach (GameObject gameObject in gameObjects)
-        {
-            if (gameObject.Enabled)
-                gameObject.Update();
-        }
-
-        gameObjects.RemoveAll(g => g.RemovalMark);
+        Engine.Engine.UpdateGameObjects();
 
         base.Update(gameTime);
     }
@@ -88,20 +76,11 @@ public class MainGame : Game
             _spriteBatch.DrawString(debugFont, $"player{{pos: {player.position.ToString("N1")}, deltaMov: {player.deltaMovement.ToString("N1")}, rect: {player.Bounds}, health: {player.health}, immunity: {player.immunityTime}}}{Environment.NewLine}", Vector2.One, Color.OrangeRed);
         }
 
-        foreach(GameObject gameObject in gameObjects)
-        {
-            if (gameObject.Visible)
-                gameObject.Draw(_spriteBatch);
-        }
+        Engine.Engine.DrawGameObjects(_spriteBatch);
 
         _spriteBatch.End();
 
 
         base.Draw(gameTime);
-    }
-
-    public static void Instantiate(GameObject gameObject)
-    {
-
     }
 }
