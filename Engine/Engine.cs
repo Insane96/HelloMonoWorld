@@ -14,6 +14,7 @@ namespace HelloMonoWorld.Engine
         static ContentManager contentManager;
 
         public static List<GameObject> gameObjects = new();
+        private static List<GameObject> newGameObjects = new();
 
         public static void Init(ContentManager content)
         {
@@ -22,7 +23,7 @@ namespace HelloMonoWorld.Engine
 
         public static void Instantiate(GameObject gameObject)
         {
-            gameObjects.Add(gameObject);
+            newGameObjects.Add(gameObject);
             gameObject.Initialize(contentManager);
         }
 
@@ -37,6 +38,11 @@ namespace HelloMonoWorld.Engine
             }
 
             gameObjects.RemoveAll(g => g.RemovalMark);
+            if (newGameObjects.Count > 0)
+            {
+                gameObjects.AddRange(newGameObjects);
+                newGameObjects.Clear();
+            }
         }
 
         public static void DrawGameObjects(SpriteBatch spriteBatch)
