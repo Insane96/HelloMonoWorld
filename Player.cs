@@ -14,10 +14,11 @@ public class Player : Entity
 
     public Player() : base("player", "stickman")
     {
-        this.position = new Vector2(100, Graphics.ScreenHeight / 2);
+        this.position = new Vector2(200, Graphics.ScreenHeight / 2);
         this.weapon = new("sword", "sword", 1d, 0.8d, this);
         Engine.Engine.Instantiate(this.weapon);
         this.color = Color.Black;
+        this.movementSpeed = 200f;
     }
 
     public override void Update()
@@ -37,6 +38,7 @@ public class Player : Entity
 
     public override void Draw(SpriteBatch spriteBatch)
     {
+        Engine.Engine.DrawText(spriteBatch, MainGame.font, $"{this.health:0.#} HP", this.position.Sum(0, -this.Bounds.Height / 2 - 25), Color.DarkRed, new Vector2(0.5f), Color.Black);
         base.Draw(spriteBatch);
     }
 
@@ -56,18 +58,18 @@ public class Player : Entity
         this.deltaMovement += GetRelativeMovement(inputMovement);
     }
 
+    public override void OnDeath()
+    {
+        //Don't destroy the player, just hide him
+        this.HideAndDisable();
+    }
+
     private void CheckAttackInput()
     {
         if (this.attackTime > 0d)
             return;
         var kstate = Keyboard.GetState();
-        /*if (kstate.IsKeyDown(Keys.Left))
-        {
-            this.attackTime = this.weapon.attackSpeed;
-            this.attackDirection = Direction.LEFT;
-            this.weapon.Attack();
-        }
-        else*/ if (kstate.IsKeyDown(Keys.Right))
+        if (kstate.IsKeyDown(Keys.Right))
         {
             this.attackTime = this.weapon.attackSpeed;
             this.attackDirection = Direction.RIGHT;
