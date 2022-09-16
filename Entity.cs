@@ -84,16 +84,22 @@ public class Entity : GameObject
 
     public virtual bool Hurt(double damage, double immunityTime = 0.5d)
     {
-        if (this.IsImmune())
+        if (this.IsImmune() 
+            || this.IsDead())
             return false;
 
         this.health -= damage;
         this.immunityTime = immunityTime;
         if (this.IsDead())
         {
-            this.MarkForRemoval();
+            this.OnDeath();
         }
         return true;
+    }
+
+    public virtual void OnDeath()
+    {
+        this.MarkForRemoval();
     }
 
     public virtual bool IsImmune()
