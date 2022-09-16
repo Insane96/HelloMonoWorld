@@ -14,14 +14,14 @@ namespace HelloMonoWorld
         {
             this.movementSpeed = 50f;
             //this.position = new Vector2(500, 500);
-            this.health = 10f;
+            this.health = 1f;
             this.color = Color.FromNonPremultiplied(183, 138, 16, 255);
         }
 
         public override void Update()
         {
             if (!this.knockbacked)
-                this.deltaMovement += GetRelativeMovement(new Vector2(MainGame.player.position.X - this.position.X, 0));
+                this.deltaMovement += GetRelativeMovement(Direction.LEFT.vector);
             base.Update();
         }
 
