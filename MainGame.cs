@@ -17,14 +17,15 @@ public class MainGame : Game
 
     private SpriteBatch _spriteBatch;
 
-    private SpriteFont debugFont;
+    public static SpriteFont font;
+    public static SpriteFont debugFont;
 
     public MainGame()
     {
         Graphics.graphics = new(this)
         {
-            PreferredBackBufferWidth = 1280,
-            PreferredBackBufferHeight = 720
+            PreferredBackBufferWidth = 1920,
+            PreferredBackBufferHeight = 1080
         };
         Graphics.graphics.ApplyChanges();
 
@@ -48,6 +49,7 @@ public class MainGame : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         debugFont = Content.Load<SpriteFont>("debug");
+        font = Content.Load<SpriteFont>("font");
         Sounds.LoadContent(this.Content);
     }
 
@@ -72,7 +74,7 @@ public class MainGame : Game
 
         if (Options.Debug)
         {
-            Engine.Engine.DrawText(_spriteBatch, debugFont, $"{player.position.ToString("N1")}(DeltaMov: {player.deltaMovement.ToString("N1")}){Environment.NewLine}Bounds: {player.Bounds}{Environment.NewLine}Health: {player.health}{Environment.NewLine}Immunity: {player.immunityTime}", Vector2.One.Sum(2, 2), Color.White, Color.Black);
+            Engine.Engine.DrawText(_spriteBatch, debugFont, $"{player.position.ToString("N1")}(DeltaMov: {player.deltaMovement.ToString("N1")}){Environment.NewLine}Bounds: {player.Bounds}{Environment.NewLine}Health: {player.health}{Environment.NewLine}Immunity: {player.immunityTime}", Vector2.One.Sum(2, 2), Color.White, Vector2.Zero, Color.Black);
         }
 
         Engine.Engine.DrawGameObjects(_spriteBatch);
