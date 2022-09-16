@@ -18,6 +18,8 @@ public class Entity : GameObject
 
     public double health = 10d;
     public double immunityTime = 0d;
+    public bool knockbacked = false;
+    public double knockbackResistance = 0.9d;
 
     public Rectangle Bounds;
 
@@ -50,12 +52,29 @@ public class Entity : GameObject
 
     public void Move()
     {
-        if (deltaMovement != Vector2.Zero)
+        if (this.deltaMovement != Vector2.Zero)
         {
             this.position += Vector2.Multiply(this.deltaMovement, (float)Time.DeltaTime);
 
-            this.deltaMovement = Vector2.Zero;
+            if (!this.knockbacked)
+                this.deltaMovement = Vector2.Zero;
+            else
+            {
+                this.deltaMovement = Vector2.Multiply(this.deltaMovement, (float)this.knockbackResistance);
+                if (this.deltaMovement.Length() < 5f)
+                {
+                    this.knockbacked = false;
+                }
+            }
         }
+    }
+
+    public void Knockback(Vector2 direction, float force)
+    {
+        if (force == 0f)
+            return;
+        this.knockbacked = true;
+        this.deltaMovement = Vector2.Multiply(direction, force);
     }
 
     public void UpdateBounds()

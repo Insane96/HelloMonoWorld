@@ -20,8 +20,19 @@ namespace HelloMonoWorld
 
         public override void Update()
         {
-            this.deltaMovement = GetRelativeMovement(new Vector2(MainGame.player.position.X - this.position.X, 0));
+            if (!this.knockbacked)
+                this.deltaMovement += GetRelativeMovement(new Vector2(MainGame.player.position.X - this.position.X, 0));
             base.Update();
+        }
+
+        public override bool Hurt(double damage, double immunityTime = 0.5)
+        {
+            if (base.Hurt(damage, immunityTime))
+            {
+                this.Knockback(Direction.RIGHT.vector, (float)damage * 50);
+                return true;
+            }
+            return false;
         }
     }
 }

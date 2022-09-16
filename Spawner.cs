@@ -23,7 +23,7 @@ namespace HelloMonoWorld
             this.minSpawnTime = minSpawnTime;
             this.maxSpawnTime = maxSpawnTime;
             this.spawnTime = Mth.NextDouble(MainGame.random, minSpawnTime, maxSpawnTime);
-            this.position = new Vector2(Graphics.ScreenWidth + 200, Graphics.ScreenHeight / 2);
+            this.position = new Vector2(/*Graphics.ScreenWidth + 200*/350, Graphics.ScreenHeight / 2);
         }
 
         public override void Update()
