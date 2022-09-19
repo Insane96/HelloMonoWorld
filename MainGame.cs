@@ -18,7 +18,6 @@ public class MainGame : Game
     private SpriteBatch _spriteBatch;
     private RenderTarget2D target;
 
-    public static SpriteFont font;
     public static SpriteFont debugFont;
 
     public MainGame()
@@ -48,10 +47,9 @@ public class MainGame : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        target = new(GraphicsDevice, 1280, 720);
+        target = new(GraphicsDevice, Graphics.UnscaledWidth, Graphics.UnscaledHeight);
 
         debugFont = Content.Load<SpriteFont>("debug");
-        font = Content.Load<SpriteFont>("font");
         Sounds.LoadContent(this.Content);
     }
 
@@ -86,8 +84,9 @@ public class MainGame : Game
         GraphicsDevice.SetRenderTarget(null);
 
         _spriteBatch.Begin();
-        _spriteBatch.Draw(target, Vector2.Zero, Color.White);
-        //_spriteBatch.Draw(target, new Rectangle(0, 0, Graphics.ScreenWidth, Graphics.ScreenHeight), Color.White);
+        //_spriteBatch.Draw(target, Vector2.Zero, Color.White);
+        _spriteBatch.Draw(target, new Rectangle(0, 0, Graphics.ScreenWidth, Graphics.ScreenHeight), Color.White);
+        Engine.Engine.DrawStrings(_spriteBatch);
         _spriteBatch.End();
 
         base.Draw(gameTime);

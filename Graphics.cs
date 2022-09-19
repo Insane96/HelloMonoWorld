@@ -15,6 +15,11 @@ namespace HelloMonoWorld
 
         public static int ScreenHeight { get => graphics.GraphicsDevice.Viewport.Height; }
 
+        public static int UnscaledWidth { get => 1280; }
+        public static int UnscaledHeight { get => 720; }
+
+        public static float ScaledRatio { get => (float)ScreenWidth / (float)UnscaledWidth; }
+
         public static GraphicsDeviceManager graphics;
     }
 }

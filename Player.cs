@@ -38,7 +38,7 @@ public class Player : Entity
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-        Engine.Engine.DrawText(spriteBatch, MainGame.font, $"{this.health:0.#} HP", this.position.Sum(0, -this.Bounds.Height / 2 - 25), Color.DarkRed, new Vector2(0.5f), Color.Black);
+        Engine.Engine.DrawText(spriteBatch, UIText.SpriteFonts[1], $"{this.health:0.#} HP", this.position.Sum(0, -this.Bounds.Height / 2 - 25), Color.DarkRed, new Vector2(0.5f));
         base.Draw(spriteBatch);
     }
 

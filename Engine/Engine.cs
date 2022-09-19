@@ -17,9 +17,12 @@ namespace HelloMonoWorld.Engine
         public static List<GameObject> gameObjects = new();
         private static List<GameObject> newGameObjects = new();
 
+        public static List<UIText> stringsToDraw = new();
+
         public static void Init(ContentManager content)
         {
             contentManager = content;
+            UIText.Init(contentManager);
         }
 
         public static void Instantiate(GameObject gameObject)
@@ -55,12 +58,29 @@ namespace HelloMonoWorld.Engine
             }
         }
 
+        public static void DrawStrings(SpriteBatch spriteBatch)
+        {
+            foreach (UIText text in stringsToDraw)
+            {
+                Vector2 textSize = text.SpriteFont.MeasureString(text.Text);
+                if (text.ShadowColor.HasValue)
+                    spriteBatch.DrawString(text.SpriteFont, text.Text, text.Position.Sum(-textSize.X * text.Origin.X, textSize.Y * text.Origin.Y).Sum(1, 1).Multiply(Graphics.ScaledRatio), text.ShadowColor.Value);
+                spriteBatch.DrawString(text.SpriteFont, text.Text, text.Position.Sum(-textSize.X * text.Origin.X, textSize.Y * text.Origin.Y).Multiply(Graphics.ScaledRatio), text.Color);
+            }
+            stringsToDraw.Clear();
+        }
+
         public static void DrawText(SpriteBatch spriteBatch, SpriteFont font, string text, Vector2 position, Color color, Vector2 origin, Color? shadowColor = null)
         {
-            Vector2 textSize = font.MeasureString(text);
-            if (shadowColor.HasValue)
-                spriteBatch.DrawString(font, text, position.Sum(-textSize.X * origin.X, textSize.Y * origin.Y).Sum(1, 1), shadowColor.Value);
-            spriteBatch.DrawString(font, text, position.Sum(-textSize.X * origin.X, textSize.Y * origin.Y), color);
+            stringsToDraw.Add(new UIText()
+            {
+                Text = text,
+                SpriteFont = font,
+                Position = position,
+                Color = color,
+                Origin = origin,
+                ShadowColor = shadowColor
+            });
         }
     }
 }
