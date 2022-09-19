@@ -16,6 +16,7 @@ public class MainGame : Game
     public static Random random = new();
 
     private SpriteBatch _spriteBatch;
+    private RenderTarget2D target;
 
     public static SpriteFont font;
     public static SpriteFont debugFont;
@@ -47,6 +48,7 @@ public class MainGame : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+        target = new(GraphicsDevice, 1280, 720);
 
         debugFont = Content.Load<SpriteFont>("debug");
         font = Content.Load<SpriteFont>("font");
@@ -68,8 +70,8 @@ public class MainGame : Game
 
     protected override void Draw(GameTime gameTime)
     {
+        GraphicsDevice.SetRenderTarget(target);
         GraphicsDevice.Clear(Color.CornflowerBlue);
-
         _spriteBatch.Begin();
 
         if (Options.Debug)
@@ -81,6 +83,12 @@ public class MainGame : Game
 
         _spriteBatch.End();
 
+        GraphicsDevice.SetRenderTarget(null);
+
+        _spriteBatch.Begin();
+        _spriteBatch.Draw(target, Vector2.Zero, Color.White);
+        //_spriteBatch.Draw(target, new Rectangle(0, 0, Graphics.ScreenWidth, Graphics.ScreenHeight), Color.White);
+        _spriteBatch.End();
 
         base.Draw(gameTime);
     }
