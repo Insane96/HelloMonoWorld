@@ -60,6 +60,8 @@ public class MainGame : Game
 
         Options.TryToggleDebug(Keyboard.GetState());
         Options.TryToggleMute(Keyboard.GetState());
+        Options.TryIncreaseFontSize(Keyboard.GetState());
+        Options.TryDecreaseFontSize(Keyboard.GetState());
 
         Engine.Engine.UpdateGameObjects(gameTime);
 

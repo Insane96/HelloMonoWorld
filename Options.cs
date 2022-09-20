@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Input;
+﻿using HelloMonoWorld.Engine;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,15 @@ namespace HelloMonoWorld
     internal class Options
     {
         public static float Volume { get; set; } = 0f;
+
+        public static int FontSize { get; private set; } = 2;
+
+        public static SpriteFont GetFont() => UIText.SpriteFonts[FontSize];
+
+        public static void IncreaseFontSize() => FontSize = Math.Clamp(FontSize + 1, 0, UIText.SpriteFonts.Length - 1);
+
+        public static void DecreaseFontSize() => FontSize = Math.Clamp(FontSize - 1, 0, UIText.SpriteFonts.Length - 1);
+
         public static bool Debug;
         //TODO Add a class to handle one time key down and key up
         private static bool F3KeyDown = false;
@@ -51,6 +62,48 @@ namespace HelloMonoWorld
                 if (NumPad0KeyDown)
                 {
                     NumPad0KeyDown = false;
+                }
+            }
+        }
+
+        private static bool NumPadAddDown = false;
+
+        public static void TryIncreaseFontSize(KeyboardState kState)
+        {
+            if (kState.IsKeyDown(Keys.Add))
+            {
+                if (!NumPadAddDown)
+                {
+                    NumPadAddDown = true;
+                    IncreaseFontSize();
+                }
+            }
+            else
+            {
+                if (NumPadAddDown)
+                {
+                    NumPadAddDown = false;
+                }
+            }
+        }
+
+        private static bool NumPadMinusDown = false;
+
+        public static void TryDecreaseFontSize(KeyboardState kState)
+        {
+            if (kState.IsKeyDown(Keys.Subtract))
+            {
+                if (!NumPadMinusDown)
+                {
+                    NumPadMinusDown = true;
+                    DecreaseFontSize();
+                }
+            }
+            else
+            {
+                if (NumPadMinusDown)
+                {
+                    NumPadMinusDown = false;
                 }
             }
         }

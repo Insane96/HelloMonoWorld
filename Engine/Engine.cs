@@ -62,10 +62,11 @@ namespace HelloMonoWorld.Engine
         {
             foreach (UIText text in stringsToDraw)
             {
-                Vector2 textSize = text.SpriteFont.MeasureString(text.Text).Multiply(Graphics.ScaledRatio);
+                Vector2 textSize = text.SpriteFont.MeasureString(text.Text);
+                Vector2 position = text.Position.Multiply(Graphics.ScaledRatio).Sum(-textSize.X * text.Origin.X, -textSize.Y * text.Origin.Y);
                 if (text.ShadowColor.HasValue)
-                    spriteBatch.DrawString(text.SpriteFont, text.Text, text.Position.Sum(-textSize.X * text.Origin.X, textSize.Y * text.Origin.Y).Sum(1, 1).Multiply(Graphics.ScaledRatio), text.ShadowColor.Value);
-                spriteBatch.DrawString(text.SpriteFont, text.Text, text.Position.Sum(-textSize.X * text.Origin.X, textSize.Y * text.Origin.Y).Multiply(Graphics.ScaledRatio), text.Color);
+                    spriteBatch.DrawString(text.SpriteFont, text.Text, position.Sum(1, 1), text.ShadowColor.Value);
+                spriteBatch.DrawString(text.SpriteFont, text.Text, position, text.Color);
             }
             stringsToDraw.Clear();
         }
