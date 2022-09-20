@@ -1,59 +1,39 @@
 ﻿using HelloMonoWorld.Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
-using System.Collections.Generic;
 
 namespace HelloMonoWorld;
 
-public class Weapon : Entity
+public class Weapon
 {
+    public string id;
+    public string spriteName;
     public double damage;
+    public double knockback;
+    public double projectileSpeed;
     public double attackSpeed;
     public Entity wielder;
 
-    public Weapon(string id, string spriteName, double damage, double attackSpeed, Entity wielder) : base(id, spriteName)
+    public Weapon(string id, string spriteName, double damage, double projectileSpeed, double knockback, double attackSpeed, Entity wielder)
     {
+        this.id = id;
+        this.spriteName = spriteName;
         this.damage = damage;
+        this.projectileSpeed = projectileSpeed;
+        this.knockback = knockback;
         this.attackSpeed = attackSpeed;
         this.wielder = wielder;
-        this.movementSpeed = 0f;
-        this.ShouldUpdateBounds = false;
-        this.Hide();
-        this.Disable();
     }
 
-    public override void Update()
+    public virtual void Attack()
     {
-        FollowWielder();
-    }
-
-    public void Attack()
-    {
-        this.FollowWielder();
-        this.Show();
-        this.Enable();
         this.GetAttackSound().Play(0.5f * Options.Volume, Mth.NextFloat(MainGame.random, -0.25f, 0.25f), 0f);
-        if (this.wielder.attackDirection.Equals(Direction.RIGHT))
+        Projectile projectile = new("projectile", "sword", this.damage, this.knockback, this.wielder)
         {
-            this.origin = new(0f, 0.5f);
-            this.spriteEffect = SpriteEffects.None;
-        }
-        else
-        {
-            this.origin = new(1f, 0.5f);
-            this.spriteEffect = SpriteEffects.FlipHorizontally;
-        }
-        this.UpdateBounds();
-        List<Entity> entitiesCollided = this.GetCollisions(this.wielder);
-        entitiesCollided.ForEach(entity => entity.Hurt(this.damage, this.attackSpeed));
-    }
-
-    private void FollowWielder()
-    {
-        Vector2 weaponPos = this.wielder.attackDirection == Direction.RIGHT ? this.wielder.LeftHand : this.wielder.RightHand;
-        this.position = new Vector2(this.wielder.position.X - (this.wielder.texture.Width * this.wielder.origin.X) + weaponPos.X, this.wielder.position.Y - (this.wielder.texture.Height * this.wielder.origin.Y) + weaponPos.Y);
+            position = new Vector2(this.wielder.position.X - (this.wielder.texture.Width * this.wielder.origin.X) + this.wielder.LeftHand.X, this.wielder.position.Y - (this.wielder.texture.Height * this.wielder.origin.Y) + this.wielder.LeftHand.Y),
+            movementSpeed = (float)this.projectileSpeed
+        };
+        Engine.Engine.Instantiate(projectile);
     }
 
     private SoundEffect GetAttackSound()

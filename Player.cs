@@ -14,9 +14,9 @@ public class Player : Entity
 
     public Player() : base("player", "stickman")
     {
-        this.position = new Vector2(200, Graphics.ScreenHeight / 2);
-        this.weapon = new("sword", "sword", 1d, 0.8d, this);
-        Engine.Engine.Instantiate(this.weapon);
+        this.position = new Vector2(200, Graphics.UnscaledHeight / 2);
+        this.weapon = new("sword", "sword", 1d, 250d, 20d, 1d, this);
+        //Engine.Engine.Instantiate(this.weapon);
         this.color = Color.Black;
         this.movementSpeed = 200f;
     }
@@ -28,10 +28,10 @@ public class Player : Entity
         if (this.attackTime > 0d)
         {
             this.attackTime -= Time.DeltaTime;
-            if (attackTime <= 0d)
+            /*if (attackTime <= 0d)
             {
                 this.weapon.HideAndDisable();
-            }
+            }*/
         }
         base.Update();
     }
@@ -72,7 +72,7 @@ public class Player : Entity
         if (kstate.IsKeyDown(Keys.Right))
         {
             this.attackTime = this.weapon.attackSpeed;
-            this.attackDirection = Direction.RIGHT;
+            //this.attackDirection = Direction.RIGHT;
             this.weapon.Attack();
         }
     }

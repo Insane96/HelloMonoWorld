@@ -14,7 +14,6 @@ public class Entity : GameObject
 {
     public float movementSpeed = 100f;
     public Vector2 deltaMovement = Vector2.Zero;
-    public Direction attackDirection = null;
 
     public double health = 10d;
     public double immunityTime = 0d;
@@ -31,14 +30,14 @@ public class Entity : GameObject
     public Vector2 LeftHand { get; private set; } = new(40, 54);
     public Vector2 RightHand { get; private set; } = new(4, 54);
 
-    public Entity(string id) : base(id, id)
+    public Entity(string id) : this(id, id)
     {
-        this.UpdateBounds();
+
     }
 
     public Entity(string id, string spriteName) : base(id, spriteName)
     {
-
+        //this.UpdateBounds();
     }
 
     public override void Update()
@@ -82,14 +81,14 @@ public class Entity : GameObject
         this.Bounds = new Rectangle((int)(this.position.X - (this.texture.Width * this.origin.X)), (int)(this.position.Y - (this.texture.Height * this.origin.Y)), this.texture.Width, this.texture.Height);
     }
 
-    public virtual bool Hurt(double damage, double immunityTime = 0.5d)
+    public virtual bool Hurt(double damage, double knockback)
     {
         if (this.IsImmune() 
             || this.IsDead())
             return false;
 
         this.health -= damage;
-        this.immunityTime = immunityTime;
+        //this.immunityTime = immunityTime;
         if (this.IsDead())
         {
             this.OnDeath();
