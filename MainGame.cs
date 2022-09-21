@@ -23,7 +23,7 @@ public class MainGame : Game
     public MainGame()
     {
         Content.RootDirectory = "Content";
-        Engine.Engine.Init(this, 1280, 720, 1920, 1080);
+        Engine.Engine.Init(this, 1280, 720);
         IsMouseVisible = false;
     }
 
@@ -55,6 +55,7 @@ public class MainGame : Game
         Options.TryToggleMute(Keyboard.GetState());
         Options.TryIncreaseFontSize(Keyboard.GetState());
         Options.TryDecreaseFontSize(Keyboard.GetState());
+        Options.TryFullScreen(Keyboard.GetState());
 
         Engine.Engine.UpdateGameObjects(gameTime);
 

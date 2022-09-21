@@ -22,15 +22,15 @@ namespace HelloMonoWorld.Engine
 
         public static GraphicsDeviceManager graphics;
 
-        public static void Init(Game game, int width, int height, int viewportWidth, int viewportHeight)
+        public static void Init(Game game, int width, int height)
         {
             Width = width;
             Height = height;
 
             graphics = new(game)
             {
-                PreferredBackBufferWidth = viewportWidth,
-                PreferredBackBufferHeight = viewportHeight,
+                PreferredBackBufferWidth = width,
+                PreferredBackBufferHeight = height,
             };
             graphics.ApplyChanges();
         }

@@ -19,10 +19,10 @@ namespace HelloMonoWorld.Engine
 
         public static List<UIText> stringsToDraw = new();
 
-        public static void Init(Game game, int width, int height, int viewportWidth, int viewportHeight)
+        public static void Init(Game game, int width, int height)
         {
             contentManager = game.Content;
-            Graphics.Init(game, width, height, viewportWidth, viewportHeight);
+            Graphics.Init(game, width, height);
             UIText.Init(contentManager);
         }
 

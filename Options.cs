@@ -13,7 +13,7 @@ namespace HelloMonoWorld
     {
         public static float Volume { get; set; } = 0f;
 
-        public static int FontSize { get; private set; } = 2;
+        public static int FontSize { get; private set; } = 1;
 
         public static SpriteFont GetFont() => UIText.SpriteFonts[FontSize];
 
@@ -104,6 +104,37 @@ namespace HelloMonoWorld
                 if (NumPadMinusDown)
                 {
                     NumPadMinusDown = false;
+                }
+            }
+        }
+
+        private static bool F11Down = false;
+
+        public static void TryFullScreen(KeyboardState kState)
+        {
+            if (kState.IsKeyDown(Keys.F11))
+            {
+                if (!F11Down)
+                {
+                    F11Down = true;
+                    if (Graphics.graphics.IsFullScreen)
+                    {
+                        Graphics.graphics.PreferredBackBufferWidth = Graphics.Width;
+                        Graphics.graphics.PreferredBackBufferHeight = Graphics.Height;
+                    }
+                    else
+                    {
+                        Graphics.graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                        Graphics.graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                    }
+                    Graphics.graphics.ToggleFullScreen();
+                }
+            }
+            else
+            {
+                if (F11Down)
+                {
+                    F11Down = false;
                 }
             }
         }
