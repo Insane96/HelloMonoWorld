@@ -22,16 +22,9 @@ public class MainGame : Game
 
     public MainGame()
     {
-        Graphics.graphics = new(this)
-        {
-            PreferredBackBufferWidth = 1920,
-            PreferredBackBufferHeight = 1080
-        };
-        Graphics.graphics.ApplyChanges();
-
         Content.RootDirectory = "Content";
-        Engine.Engine.Init(this.Content);
-        IsMouseVisible = true;
+        Engine.Engine.Init(this, 1280, 720, 1920, 1080);
+        IsMouseVisible = false;
     }
 
     protected override void Initialize()
@@ -47,7 +40,7 @@ public class MainGame : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        target = new(GraphicsDevice, Graphics.UnscaledWidth, Graphics.UnscaledHeight);
+        target = new(GraphicsDevice, Graphics.Width, Graphics.Height);
 
         debugFont = Content.Load<SpriteFont>("debug");
         Sounds.LoadContent(this.Content);
@@ -87,7 +80,7 @@ public class MainGame : Game
 
         _spriteBatch.Begin();
         //_spriteBatch.Draw(target, Vector2.Zero, Color.White);
-        _spriteBatch.Draw(target, new Rectangle(0, 0, Graphics.ScreenWidth, Graphics.ScreenHeight), Color.White); //Change to force 16:9
+        _spriteBatch.Draw(target, new Rectangle(0, 0, Graphics.ViewportWidth, Graphics.ViewportHeight), Color.White); //Change to force 16:9
         Engine.Engine.DrawStrings(_spriteBatch);
         _spriteBatch.End();
 
