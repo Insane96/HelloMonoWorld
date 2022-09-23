@@ -28,7 +28,7 @@ public class Weapon
     public virtual void Attack()
     {
         this.GetAttackSound().Play(0.5f * Options.Volume, Mth.NextFloat(MainGame.random, -0.25f, 0.25f), 0f);
-        Projectile projectile = new("projectile", "sword", this.damage, this.knockback, this.wielder)
+        Projectile projectile = new("projectile", "magic_bullet", this.damage, this.knockback, this.wielder)
         {
             position = new Vector2(this.wielder.position.X - (this.wielder.texture.Width * this.wielder.origin.X) + this.wielder.LeftHand.X, this.wielder.position.Y - (this.wielder.texture.Height * this.wielder.origin.Y) + this.wielder.LeftHand.Y),
             movementSpeed = (float)this.projectileSpeed
