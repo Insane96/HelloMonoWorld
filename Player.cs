@@ -15,7 +15,7 @@ public class Player : Entity
     public Player() : base("player", "stickman")
     {
         this.position = new Vector2(200, Graphics.Height / 2);
-        this.weapon = new("sword", "sword", 1d, 250d, 20d, 1d, this);
+        this.weapon = new("sword", "sword", 1d, 250d, 20d, 2d, this);
         this.color = Color.Black;
         this.movementSpeed = 200f;
     }

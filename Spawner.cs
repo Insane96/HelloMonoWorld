@@ -36,7 +36,7 @@ namespace HelloMonoWorld
                     this.spawnTime = Mth.NextDouble(MainGame.random, this.minSpawnTime, this.maxSpawnTime);
                     ZombieEnemy zombie = new($"zombie{spawnId++}", "stickman")
                     {
-                        position = new Vector2(this.position.X, Mth.NextInt(MainGame.random, 100, Graphics.ViewportHeight - 100)),
+                        position = new Vector2(this.position.X, Mth.NextInt(MainGame.random, 100, Graphics.Height - 100)),
                     };
                     Engine.Engine.Instantiate(zombie);
                 }
