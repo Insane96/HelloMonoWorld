@@ -196,9 +196,7 @@ public class Entity : GameObject
         }
         if (this.ShouldDrawHealth)
         {
-            //spriteBatch.Draw(healthBarTexture, this.position.Sum(0, this.Bounds.Height / 2 + 25), null, Color.PapayaWhip, 0f, this.origin, new Vector2(52, 12), SpriteEffects.None, 0f);
-            //TODO Make an actual health bar
-            spriteBatch.Draw(healthBarTexture, this.position.Sum(0, this.Bounds.Height / 2 + 25), null, Color.FromNonPremultiplied(255, 100, 100, 128), 0f, this.origin, new Vector2((float)(this.Health / this.MaxHealth) * 50, 10), SpriteEffects.None, 0f);
+            spriteBatch.Draw(healthBarTexture, this.position.Sum(-25, this.Bounds.Height / 2 + 25), null, Color.FromNonPremultiplied(255, 100, 100, 128), 0f, Origins.CenterLeft, new Vector2((float)(this.Health / this.MaxHealth) * 50, 10), SpriteEffects.None, 0f);
         }
     }
 }
