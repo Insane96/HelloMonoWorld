@@ -14,7 +14,7 @@ namespace HelloMonoWorld
         {
             this.movementSpeed = 50f;
             //this.position = new Vector2(500, 500);
-            this.health = 1f;
+            this.MaxHealth = 2f;
             this.color = Color.FromNonPremultiplied(183, 138, 16, 255);
         }
 

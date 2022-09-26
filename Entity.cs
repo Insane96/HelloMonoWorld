@@ -15,29 +15,53 @@ public class Entity : GameObject
     public float movementSpeed = 100f;
     public Vector2 deltaMovement = Vector2.Zero;
 
-    public double health = 10d;
+    private float maxHealth;
+
+    public float MaxHealth
+    {
+        get { return maxHealth; }
+        //If higher max health than before then heal by the difference, otherwise prevent health from begin higher than MaxHealth
+        set
+        {
+            float diff = value - this.maxHealth;
+            maxHealth = value;
+            if (diff > 0)
+                this.Health += diff;
+            else if (diff < 0)
+                this.Health = Math.Min(this.Health, this.maxHealth);
+        }
+    }
+
+    public double Health { get; set; }
     public double immunityTime = 0d;
     public bool knockbacked = false;
     public double knockbackResistance = 0.9d;
 
-    public Rectangle Bounds;
+    public Rectangle Bounds = Rectangle.Empty;
 
     /// <summary>
     /// If true, Bounds will be updated each cycle
     /// </summary>
     public bool ShouldUpdateBounds { get; set; } = true;
 
+    /// <summary>
+    /// If true, health bar will be rendered at the bottom of the sprite
+    /// </summary>
+    public bool ShouldDrawHealth { get; set; } = false;
+
     public Vector2 LeftHand { get; private set; } = new(40, 54);
     public Vector2 RightHand { get; private set; } = new(4, 54);
 
+    public static Texture2D healthBarTexture = new(Graphics.graphics.GraphicsDevice, 1, 1);
+
     public Entity(string id) : this(id, id)
     {
-
     }
 
     public Entity(string id, string spriteName) : base(id, spriteName)
     {
         //this.UpdateBounds();
+        healthBarTexture.SetData(new[] { Color.White });
     }
 
     public override void Update()
@@ -83,17 +107,28 @@ public class Entity : GameObject
 
     public virtual bool Hurt(double damage, double knockback)
     {
-        if (this.IsImmune() 
+        if (this.IsImmune()
             || this.IsDead())
             return false;
 
-        this.health -= damage;
+        this.Health -= damage;
         //this.immunityTime = immunityTime;
         if (this.IsDead())
         {
             this.OnDeath();
         }
         return true;
+    }
+
+    public virtual void Kill()
+    {
+        this.Health = 0f;
+        this.OnDeath();
+    }
+
+    public void Discard()
+    {
+        this.MarkForRemoval();
     }
 
     public virtual void OnDeath()
@@ -108,7 +143,7 @@ public class Entity : GameObject
 
     public virtual bool IsDead()
     {
-        return this.health <= 0d;
+        return this.Health <= 0f;
     }
 
     public virtual List<Entity> GetCollisions()
@@ -158,6 +193,12 @@ public class Entity : GameObject
             var t = new Texture2D(Graphics.graphics.GraphicsDevice, 1, 1);
             t.SetData(new[] { Color.White });
             spriteBatch.Draw(t, this.Bounds, Color.FromNonPremultiplied(255, 0, 0, 64));
+        }
+        if (this.ShouldDrawHealth)
+        {
+            //spriteBatch.Draw(healthBarTexture, this.position.Sum(0, this.Bounds.Height / 2 + 25), null, Color.PapayaWhip, 0f, this.origin, new Vector2(52, 12), SpriteEffects.None, 0f);
+            //TODO Make an actual health bar
+            spriteBatch.Draw(healthBarTexture, this.position.Sum(0, this.Bounds.Height / 2 + 25), null, Color.FromNonPremultiplied(255, 100, 100, 128), 0f, this.origin, new Vector2((float)(this.Health / this.MaxHealth) * 50, 10), SpriteEffects.None, 0f);
         }
     }
 }

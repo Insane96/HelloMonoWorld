@@ -30,7 +30,7 @@ namespace HelloMonoWorld
                 hasCollided = true;
             });
             if (hasCollided)
-                this.Hurt(999, 0);
+                this.Discard();
             base.Update();
         }
     }

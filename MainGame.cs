@@ -70,7 +70,7 @@ public class MainGame : Game
 
         if (Options.Debug)
         {
-            Engine.Engine.DrawText(debugFont, $"{player.position.ToString("N1")}(DeltaMov: {player.deltaMovement.ToString("N1")}){Environment.NewLine}Bounds: {player.Bounds}{Environment.NewLine}Health: {player.health}{Environment.NewLine}Immunity: {player.immunityTime}", Vector2.One.Sum(2, 2), Color.White, Vector2.Zero, Color.Black);
+            Engine.Engine.DrawText(debugFont, $"{player.position.ToString("N1")}(DeltaMov: {player.deltaMovement.ToString("N1")}){Environment.NewLine}Bounds: {player.Bounds}{Environment.NewLine}Health: {player.Health}{Environment.NewLine}Immunity: {player.immunityTime}", Vector2.One.Sum(2, 2), Color.White, Vector2.Zero, Color.Black);
         }
 
         Engine.Engine.DrawGameObjects(_spriteBatch);

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HelloMonoWorld.Engine;
+using Microsoft.Xna.Framework.Graphics;
+using System.Transactions;
 
 namespace HelloMonoWorld;
 
@@ -19,6 +21,7 @@ public class AbstractEnemy : Entity
     public AbstractEnemy(string id, string spriteName) : base(id, spriteName)
     {
         this.attackTime = this.attackSpeed;
+        this.ShouldDrawHealth = true;
     }
 
     public override void Update()
@@ -37,6 +40,23 @@ public class AbstractEnemy : Entity
             }
         }
         base.Update();
+    }
+
+    public override void Draw(SpriteBatch spriteBatch)
+    {
+        base.Draw(spriteBatch);
+        spriteBatch.Draw(
+            texture,
+            position,
+            null,
+            color,
+            0f,
+            new Vector2(texture.Width * origin.X, texture.Height * origin.Y),
+            Vector2.One,
+            spriteEffect,
+            0f
+        );
+
     }
 }
 

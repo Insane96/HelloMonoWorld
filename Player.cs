@@ -33,7 +33,7 @@ public class Player : Entity
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-        Engine.Engine.DrawText(Options.GetFont(), $"{this.health:0.#} / 10", new Vector2(0, Graphics.Height), Color.DarkRed, new Vector2(0, 1f));
+        Engine.Engine.DrawText(Options.GetFont(), $"{this.Health:0.#} / 10", new Vector2(0, Graphics.Height), Color.DarkRed, new Vector2(0, 1f));
         base.Draw(spriteBatch);
     }
 
