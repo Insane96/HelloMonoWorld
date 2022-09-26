@@ -17,6 +17,7 @@ public class Player : Entity
         this.Position = new Vector2(200, Graphics.Height / 2);
         this.weapon = new("sword", "sword", 1f, 250f, 50f, 2f, this);
         this.OriginalColor = Color.Black;
+        this.MaxHealth = 10;
         this.MovementSpeed = 200f;
     }
 
@@ -33,7 +34,7 @@ public class Player : Entity
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-        Engine.Engine.DrawText(Options.GetFont(), $"{this.Health:0.#} / 10", new Vector2(0, Graphics.Height), Color.DarkRed, new Vector2(0, 1f));
+        Engine.Engine.DrawText(Options.GetFont(), $"{this.Health:0.#} / {this.MaxHealth:0.#}", new Vector2(0, Graphics.Height), Color.DarkRed, new Vector2(0, 1f));
         base.Draw(spriteBatch);
     }
 

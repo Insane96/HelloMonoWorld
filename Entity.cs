@@ -100,7 +100,7 @@ public class Entity : GameObject
             else
             {
                 this.DeltaMovement = Vector2.Multiply(this.DeltaMovement, (float)(1f - this.KnockbackResistance));
-                if (this.DeltaMovement.Length() < 5f)
+                if (this.DeltaMovement.Length() < 8f)
                 {
                     this.Knockbacked = false;
                 }
