@@ -31,7 +31,7 @@ public class MainGame : Game
     {
         player = new Player();
         Engine.Engine.Instantiate(player);
-        spawner = new(2.5d, 5d);
+        spawner = new(5d, 8d);
         Engine.Engine.Instantiate(spawner);
 
         base.Initialize();
@@ -70,7 +70,7 @@ public class MainGame : Game
 
         if (Options.Debug)
         {
-            Engine.Engine.DrawText(debugFont, $"{player.position.ToString("N1")}(DeltaMov: {player.deltaMovement.ToString("N1")}){Environment.NewLine}Bounds: {player.Bounds}{Environment.NewLine}Health: {player.Health}{Environment.NewLine}Immunity: {player.immunityTime}", Vector2.One.Sum(2, 2), Color.White, Vector2.Zero, Color.Black);
+            Engine.Engine.DrawText(debugFont, $"{player.Position.ToString("N1")}(DeltaMov: {player.DeltaMovement.ToString("N1")}){Environment.NewLine}Bounds: {player.Bounds}{Environment.NewLine}Health: {player.Health}", Vector2.One.Sum(2, 2), Color.White, Vector2.Zero, Color.Black);
         }
 
         Engine.Engine.DrawGameObjects(_spriteBatch);
