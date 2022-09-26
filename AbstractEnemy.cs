@@ -13,10 +13,9 @@ namespace HelloMonoWorld;
 
 public class AbstractEnemy : Entity
 {
-
-    public double attackSpeed = 1d;
+    public float attackSpeed = 1f;
+    public float attackDamage = 1f;
     public double attackTime;
-    public double attackDamage = 1d;
 
     public AbstractEnemy(string id, string spriteName) : base(id, spriteName)
     {
@@ -34,7 +33,7 @@ public class AbstractEnemy : Entity
                 this.attackTime -= Time.DeltaTime;
                 if (this.attackTime <= 0d)
                 {
-                    MainGame.player.Hurt(this.attackDamage, 0d);
+                    MainGame.player.Hurt(this.attackDamage);
                     this.attackTime = this.attackSpeed;
                 }
             }

@@ -9,11 +9,11 @@ namespace HelloMonoWorld
 {
     public class Projectile : Entity
     {
-        public double damage;
-        public double knockback;
+        public float damage;
+        public float knockback;
         public Entity owner;
 
-        public Projectile(string id, string spriteName, double damage, double knockback, Entity owner) : base(id, spriteName)
+        public Projectile(string id, string spriteName, float damage, float knockback, Entity owner) : base(id, spriteName)
         {
             this.damage = damage;
             this.knockback = knockback;

@@ -32,7 +32,7 @@ public class Entity : GameObject
         }
     }
 
-    public double Health { get; set; }
+    public float Health { get; set; } = 0f;
     public double immunityTime = 0d;
     public bool knockbacked = false;
     public double knockbackResistance = 0.9d;
@@ -105,7 +105,7 @@ public class Entity : GameObject
         this.Bounds = new Rectangle((int)(this.position.X - (this.texture.Width * this.origin.X)), (int)(this.position.Y - (this.texture.Height * this.origin.Y)), this.texture.Width, this.texture.Height);
     }
 
-    public virtual bool Hurt(double damage, double knockback)
+    public virtual bool Hurt(float damage, float knockback = 0f)
     {
         if (this.IsImmune()
             || this.IsDead())
@@ -196,7 +196,7 @@ public class Entity : GameObject
         }
         if (this.ShouldDrawHealth)
         {
-            spriteBatch.Draw(healthBarTexture, this.position.Sum(-25, this.Bounds.Height / 2 + 25), null, Color.FromNonPremultiplied(255, 100, 100, 128), 0f, Origins.CenterLeft, new Vector2((float)(this.Health / this.MaxHealth) * 50, 10), SpriteEffects.None, 0f);
+            spriteBatch.Draw(healthBarTexture, this.position.Sum(-25, this.Bounds.Height / 2 + 25), null, Color.FromNonPremultiplied(255, 100, 100, 192), 0f, Origins.CenterLeft, new Vector2((float)(this.Health / this.MaxHealth) * 50, 10), SpriteEffects.None, 0f);
         }
     }
 }

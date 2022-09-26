@@ -8,13 +8,13 @@ public class Weapon
 {
     public string id;
     public string spriteName;
-    public double damage;
-    public double knockback;
-    public double projectileSpeed;
-    public double attackSpeed;
+    public float damage;
+    public float knockback;
+    public float projectileSpeed;
+    public float attackSpeed;
     public Entity wielder;
 
-    public Weapon(string id, string spriteName, double damage, double projectileSpeed, double knockback, double attackSpeed, Entity wielder)
+    public Weapon(string id, string spriteName, float damage, float projectileSpeed, float knockback, float attackSpeed, Entity wielder)
     {
         this.id = id;
         this.spriteName = spriteName;

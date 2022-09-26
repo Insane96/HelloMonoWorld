@@ -25,11 +25,12 @@ namespace HelloMonoWorld
             base.Update();
         }
 
-        public override bool Hurt(double damage, double knockback = 50d)
+        public override bool Hurt(float damage, float knockback = 0)
         {
-            if (base.Hurt(damage, immunityTime))
+            if (base.Hurt(damage))
             {
-                this.Knockback(Direction.RIGHT.vector, (float)knockback);
+                if (knockback != 0f)
+                    this.Knockback(Direction.RIGHT.vector, knockback);
                 return true;
             }
             return false;
