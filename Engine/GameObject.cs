@@ -10,11 +10,11 @@ public abstract class GameObject
 {
     public string Id { get; private set; }
 
-    public Vector2 position;
-    public Vector2 origin = new(0.5f, 0.5f);
+    public Vector2 Position { get; set; }
+    public Vector2 Origin { get; set; } = new(0.5f, 0.5f);
 
-    public Color color = Color.White;
-    public SpriteEffects spriteEffect = SpriteEffects.None;
+    public Color Color { get; set; } = Color.White;
+    public SpriteEffects SpriteEffect { get; private set; } = SpriteEffects.None;
 
     public bool Enabled { get; set; } = true;
     public bool Visible { get; set; } = true;
@@ -23,8 +23,8 @@ public abstract class GameObject
     /// </summary>
     public bool RemovalMark { get; set; }
 
-    public string spriteName { get; private set; }
-    public Texture2D texture { get; private set; }
+    public string SpriteName { get; private set; }
+    public Texture2D Texture { get; private set; }
 
     public GameObject(string id) : this(id, "", Vector2.Zero) { Visible = false; }
 
@@ -33,8 +33,8 @@ public abstract class GameObject
     public GameObject(string id, string spriteName, Vector2 position)
     {
         Id = id;
-        this.spriteName = spriteName;
-        this.position = position;
+        this.SpriteName = spriteName;
+        this.Position = position;
     }
 
     public virtual void Initialize(ContentManager contentManager)
@@ -44,8 +44,8 @@ public abstract class GameObject
 
     public virtual void LoadContent(ContentManager contentManager)
     {
-        if (!string.IsNullOrEmpty(spriteName))
-            texture = contentManager.Load<Texture2D>($"sprites/{spriteName}");
+        if (!string.IsNullOrEmpty(SpriteName))
+            Texture = contentManager.Load<Texture2D>($"sprites/{SpriteName}");
     }
 
     public abstract void Update();
@@ -53,14 +53,14 @@ public abstract class GameObject
     public virtual void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Draw(
-            texture,
-            position,
+            Texture,
+            Position,
             null,
-            color,
+            Color,
             0f,
-            new Vector2(texture.Width * origin.X, texture.Height * origin.Y),
+            new Vector2(Texture.Width * Origin.X, Texture.Height * Origin.Y),
             Vector2.One,
-            spriteEffect,
+            SpriteEffect,
             0f
         );
     }
