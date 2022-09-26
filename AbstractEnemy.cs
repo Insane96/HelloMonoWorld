@@ -25,9 +25,9 @@ public class AbstractEnemy : Entity
 
     public override void Update()
     {
-        if (this.position.X <= 300)
+        if (this.Position.X <= 300)
         {
-            this.deltaMovement = Vector2.Zero;
+            this.DeltaMovement = Vector2.Zero;
             if (this.attackTime > 0d)
             {
                 this.attackTime -= Time.DeltaTime;
@@ -45,14 +45,14 @@ public class AbstractEnemy : Entity
     {
         base.Draw(spriteBatch);
         spriteBatch.Draw(
-            texture,
-            position,
+            Texture,
+            Position,
             null,
-            color,
+            Color,
             0f,
-            new Vector2(texture.Width * origin.X, texture.Height * origin.Y),
+            new Vector2(Texture.Width * Origin.X, Texture.Height * Origin.Y),
             Vector2.One,
-            spriteEffect,
+            SpriteEffect,
             0f
         );
 

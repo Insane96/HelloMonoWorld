@@ -12,16 +12,16 @@ namespace HelloMonoWorld
     {
         public ZombieEnemy(string id, string spriteName) : base(id, spriteName)
         {
-            this.movementSpeed = 50f;
+            this.MovementSpeed = 50f;
             //this.position = new Vector2(500, 500);
-            this.MaxHealth = 2f;
-            this.color = Color.FromNonPremultiplied(183, 138, 16, 255);
+            this.MaxHealth = 4f;
+            this.OriginalColor = Color.FromNonPremultiplied(183, 138, 16, 255);
         }
 
         public override void Update()
         {
-            if (!this.knockbacked)
-                this.deltaMovement += GetRelativeMovement(Direction.LEFT.vector);
+            if (!this.Knockbacked)
+                this.DeltaMovement += GetRelativeMovement(Direction.LEFT.vector);
             base.Update();
         }
 

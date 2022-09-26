@@ -14,10 +14,10 @@ public class Player : Entity
 
     public Player() : base("player", "stickman")
     {
-        this.position = new Vector2(200, Graphics.Height / 2);
-        this.weapon = new("sword", "sword", 1f, 250f, 20f, 2f, this);
-        this.color = Color.Black;
-        this.movementSpeed = 200f;
+        this.Position = new Vector2(200, Graphics.Height / 2);
+        this.weapon = new("sword", "sword", 1f, 250f, 50f, 2f, this);
+        this.OriginalColor = Color.Black;
+        this.MovementSpeed = 200f;
     }
 
     public override void Update()
@@ -50,7 +50,7 @@ public class Player : Entity
             }
         }
 
-        this.deltaMovement += GetRelativeMovement(inputMovement);
+        this.DeltaMovement += GetRelativeMovement(inputMovement);
     }
 
     public override void OnDeath()

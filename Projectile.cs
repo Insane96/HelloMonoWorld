@@ -22,7 +22,7 @@ namespace HelloMonoWorld
 
         public override void Update()
         {
-            this.deltaMovement = new Vector2(this.movementSpeed, 0);
+            this.DeltaMovement = new Vector2(this.MovementSpeed, 0);
             List<Entity> entitiesCollided = this.GetCollisions(this.owner);
             bool hasCollided = false;
             entitiesCollided.ForEach(entity => {
