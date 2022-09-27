@@ -24,18 +24,18 @@ public class MainGame : Game
     public MainGame()
     {
         Content.RootDirectory = "Content";
-        Engine.Engine.Init(this, 1280, 720);
+        MonoEngine.Init(this, 1280, 720);
         IsMouseVisible = false;
     }
 
     protected override void Initialize()
     {
         player = new Player();
-        Engine.Engine.Instantiate(player);
+        MonoEngine.Instantiate(player);
         hero = new Hero();
-        Engine.Engine.Instantiate(hero);
+        MonoEngine.Instantiate(hero);
         spawner = new(5d, 8d);
-        Engine.Engine.Instantiate(spawner);
+        MonoEngine.Instantiate(spawner);
 
         base.Initialize();
     }
@@ -60,7 +60,7 @@ public class MainGame : Game
         Options.TryDecreaseFontSize(Keyboard.GetState());
         Options.TryFullScreen(Keyboard.GetState());
 
-        Engine.Engine.UpdateGameObjects(gameTime);
+        MonoEngine.UpdateGameObjects(gameTime);
 
         base.Update(gameTime);
     }
@@ -73,10 +73,10 @@ public class MainGame : Game
 
         if (Options.Debug)
         {
-            Engine.Engine.DrawText(debugFont, $"{player.Position.ToString("N1")}(DeltaMov: {player.DeltaMovement.ToString("N1")}){Environment.NewLine}Bounds: {player.Bounds}{Environment.NewLine}Health: {player.Health}", Vector2.One.Sum(2, 2), Color.White, Vector2.Zero, Color.Black);
+            MonoEngine.DrawText(debugFont, $"{player.Position.ToString("N1")}(DeltaMov: {player.DeltaMovement.ToString("N1")}){Environment.NewLine}Bounds: {player.Bounds}{Environment.NewLine}Health: {player.Health}", Vector2.One.Sum(2, 2), Color.White, Vector2.Zero, Color.Black);
         }
 
-        Engine.Engine.DrawGameObjects(_spriteBatch);
+        MonoEngine.DrawGameObjects(_spriteBatch);
 
         _spriteBatch.End();
 
@@ -85,7 +85,7 @@ public class MainGame : Game
         _spriteBatch.Begin();
         //_spriteBatch.Draw(target, Vector2.Zero, Color.White);
         _spriteBatch.Draw(target, new Rectangle(0, 0, Graphics.ViewportWidth, Graphics.ViewportHeight), Color.White); //Change to force 16:9
-        Engine.Engine.DrawStrings(_spriteBatch);
+        MonoEngine.DrawStrings(_spriteBatch);
         _spriteBatch.End();
 
         base.Draw(gameTime);

@@ -27,7 +27,7 @@ public class Player : Entity
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-        Engine.Engine.DrawText(Options.GetFont(), $"{this.Health:0.#} / {this.MaxHealth:0.#}", new Vector2(0, Graphics.Height), Color.DarkRed, new Vector2(0, 1f));
+        MonoEngine.DrawText(Options.GetFont(), $"{this.Health:0.#} / {this.MaxHealth:0.#}", new Vector2(0, Graphics.Height), Color.DarkRed, new Vector2(0, 1f));
         base.Draw(spriteBatch);
     }
 

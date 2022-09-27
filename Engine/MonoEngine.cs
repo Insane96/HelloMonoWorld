@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace HelloMonoWorld.Engine
 {
-    public class Engine
+    public class MonoEngine
     {
         static ContentManager contentManager;
 

@@ -33,12 +33,12 @@ public class Weapon
             Position = new Vector2(this.wielder.Position.X - (this.wielder.Texture.Width * this.wielder.Origin.X) + this.wielder.LeftHand.X, this.wielder.Position.Y - (this.wielder.Texture.Height * this.wielder.Origin.Y) + this.wielder.LeftHand.Y),
             MovementSpeed = (float)this.projectileSpeed
         };
-        Engine.Engine.Instantiate(projectile);
+        MonoEngine.Instantiate(projectile);
     }
 
     public virtual void AttackNearest()
     {
-        GameObject nearestEnemy = Engine.Engine.gameObjects.OrderBy(g => g.Position.X).FirstOrDefault(g => g is AbstractEnemy enemy);
+        GameObject nearestEnemy = MonoEngine.gameObjects.OrderBy(g => g.Position.X).FirstOrDefault(g => g is AbstractEnemy enemy);
         if (nearestEnemy == null) 
             return;
         
@@ -48,7 +48,7 @@ public class Weapon
             Position = new Vector2(this.wielder.Position.X - (this.wielder.Texture.Width * this.wielder.Origin.X) + this.wielder.LeftHand.X, this.wielder.Position.Y - (this.wielder.Texture.Height * this.wielder.Origin.Y) + this.wielder.LeftHand.Y),
             MovementSpeed = (float)this.projectileSpeed
         };
-        Engine.Engine.Instantiate(projectile);
+        MonoEngine.Instantiate(projectile);
     }
 
     private SoundEffect GetAttackSound()
