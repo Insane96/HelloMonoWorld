@@ -8,7 +8,7 @@ public class Hero : Entity
     public Hero() : base("hero", "stickman")
     {
         this.Position = new Vector2(80, Graphics.Height / 2);
-        this.Weapon = new("magic_bullet", 0.5f, 350f, 30f, 0.5f, this);
+        this.Weapon = new("magic_bullet", 0.5f, 350f, 30f, 1.5f, this);
         this.AttackTime = this.Weapon.attackSpeed;
         this.OriginalColor = Color.DarkViolet;
     }
