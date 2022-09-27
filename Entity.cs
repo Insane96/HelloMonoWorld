@@ -64,7 +64,7 @@ public class Entity : GameObject
         }
     }
 
-    public static Texture2D healthBarTexture = new(Graphics.graphics.GraphicsDevice, 1, 1);
+    public static Texture2D OneByOneTexture = new(Graphics.graphics.GraphicsDevice, 1, 1);
 
     public Entity(string id) : this(id, id)
     {
@@ -73,7 +73,7 @@ public class Entity : GameObject
 
     public Entity(string id, string spriteName) : base(id, spriteName)
     {
-        healthBarTexture.SetData(new[] { Color.White });
+        OneByOneTexture.SetData(new[] { Color.White });
     }
 
     public override void Update()
@@ -106,6 +106,14 @@ public class Entity : GameObject
                 }
             }
         }
+    }
+
+    protected Vector2 GetRelativeMovement(Vector2 input)
+    {
+        float length = input.LengthSquared();
+        if (length < 1e-4)
+            return Vector2.Zero;
+        return Vector2.Multiply(length > 1.0d ? Vector2.Normalize(input) : input, this.MovementSpeed);
     }
 
     public void Knockback(Vector2 direction, float force)
@@ -190,26 +198,16 @@ public class Entity : GameObject
         return list;
     }
 
-    protected Vector2 GetRelativeMovement(Vector2 input)
-    {
-        float length = input.LengthSquared();
-        if (length < 1e-4)
-            return Vector2.Zero;
-        return Vector2.Multiply(length > 1.0d ? Vector2.Normalize(input) : input, this.MovementSpeed);
-    }
-
     public override void Draw(SpriteBatch spriteBatch)
     {
         base.Draw(spriteBatch);
         if (Options.Debug)
         {
-            var t = new Texture2D(Graphics.graphics.GraphicsDevice, 1, 1);
-            t.SetData(new[] { Color.White });
-            spriteBatch.Draw(t, this.Bounds, Color.FromNonPremultiplied(255, 0, 0, 64));
+            spriteBatch.Draw(OneByOneTexture, this.Bounds, Color.FromNonPremultiplied(255, 0, 0, 64));
         }
         if (this.ShouldDrawHealth)
         {
-            spriteBatch.Draw(healthBarTexture, this.Position.Sum(-25, this.Bounds.Height / 2 + 10), null, Color.FromNonPremultiplied(255, 100, 100, 192), 0f, Origins.CenterLeft, new Vector2((float)(this.Health / this.MaxHealth) * 50, 8), SpriteEffects.None, 0f);
+            spriteBatch.Draw(OneByOneTexture, this.Position.Sum(-25, this.Bounds.Height / 2 + 10), null, Color.FromNonPremultiplied(255, 100, 100, 192), 0f, Origins.CenterLeft, new Vector2((float)(this.Health / this.MaxHealth) * 50, 8), SpriteEffects.None, 0f);
         }
     }
 }
