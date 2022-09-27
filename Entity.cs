@@ -198,6 +198,27 @@ public class Entity : GameObject
         return list;
     }
 
+    public virtual List<Entity> GetCollisions(params Type[] toIgnore)
+    {
+        List<Entity> list = new();
+        Engine.Engine.gameObjects.ForEach(g =>
+        {
+            if (g is not Entity entity
+                    || g == this)
+                return;
+
+            foreach (Type type in toIgnore)
+            {
+                if (g.GetType() == type)
+                    return;
+            }
+
+            if (entity.Enabled && this.Bounds.Intersects(entity.Bounds))
+                list.Add(entity);
+        });
+        return list;
+    }
+
     public override void Draw(SpriteBatch spriteBatch)
     {
         base.Draw(spriteBatch);

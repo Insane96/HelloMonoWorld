@@ -25,8 +25,8 @@ namespace HelloMonoWorld
 
         public override void Update()
         {
-            this.DeltaMovement = this.direction.Multiply(this.MovementSpeed, 0);
-            List<Entity> entitiesCollided = this.GetCollisions(this.owner);
+            this.DeltaMovement = this.direction.Multiply(this.MovementSpeed);
+            List<Entity> entitiesCollided = this.GetCollisions(typeof(Player), typeof(Hero));
             bool hasCollided = false;
             entitiesCollided.ForEach(entity => {
                 entity.Hurt(this.damage, this.knockback);

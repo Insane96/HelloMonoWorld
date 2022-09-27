@@ -30,7 +30,7 @@ public class Hero : Entity
             if (this.attackTime <= 0d && this.weapon != null)
             {
                 this.attackTime = this.weapon.attackSpeed;
-                this.weapon.Attack();
+                this.weapon.AttackNearest();
             }
         }
     }

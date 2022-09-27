@@ -38,12 +38,12 @@ public class Weapon
 
     public virtual void AttackNearest()
     {
-        GameObject nearestEnemy = Engine.Engine.gameObjects.OrderBy(g => g.Position).FirstOrDefault(g => g is AbstractEnemy enemy);
+        GameObject nearestEnemy = Engine.Engine.gameObjects.OrderBy(g => g.Position.X).FirstOrDefault(g => g is AbstractEnemy enemy);
         if (nearestEnemy == null) 
             return;
         
         this.GetAttackSound().Play(0.5f * Options.Volume, Mth.NextFloat(MainGame.random, -0.25f, 0.25f), 0f);
-        Projectile projectile = new("projectile", "magic_bullet", Vector2.Normalize(this.wielder.Position.Sum(this.wielder.LeftHand.X) - nearestEnemy.Position), this.damage, this.knockback, this.wielder)
+        Projectile projectile = new("projectile", "magic_bullet", Vector2.Normalize(nearestEnemy.Position - this.wielder.Position.Sum(this.wielder.LeftHand.X)), this.damage, this.knockback, this.wielder)
         {
             Position = new Vector2(this.wielder.Position.X - (this.wielder.Texture.Width * this.wielder.Origin.X) + this.wielder.LeftHand.X, this.wielder.Position.Y - (this.wielder.Texture.Height * this.wielder.Origin.Y) + this.wielder.LeftHand.Y),
             MovementSpeed = (float)this.projectileSpeed
