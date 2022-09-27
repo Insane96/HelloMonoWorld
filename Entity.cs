@@ -176,53 +176,69 @@ public class Entity : GameObject
 
     public virtual List<Entity> GetCollisions()
     {
+        return GetCollisionsIgnoring();
+    }
+
+    public virtual List<Entity> GetCollisionsIgnoring(params Entity[] entitiesToIgnore)
+    {
         List<Entity> list = new();
-        MonoEngine.gameObjects.ForEach(g =>
+        foreach (GameObject gameObject in GetUpdatableGameObjects())
         {
-            if (g is not Entity entity
-                    || g == this)
-                return;
+            if (gameObject is not Entity entity
+                    || gameObject == this
+                    || entitiesToIgnore.Contains(gameObject))
+                continue;
 
             if (entity.Enabled && this.Bounds.Intersects(entity.Bounds))
                 list.Add(entity);
-        });
+        }
         return list;
     }
 
-    public virtual List<Entity> GetCollisions(params Entity[] toIgnore)
+    public virtual List<Entity> GetCollisionsIgnoringClass(params Type[] classToIgnore)
     {
         List<Entity> list = new();
-        MonoEngine.gameObjects.ForEach(g =>
+        foreach (GameObject gameObject in GetUpdatableGameObjects())
         {
-            if (g is not Entity entity
-                    || g == this
-                    || toIgnore.Contains(g))
-                return;
+            if (gameObject is not Entity entity
+                    || gameObject == this)
+                continue;
 
-            if (entity.Enabled && this.Bounds.Intersects(entity.Bounds))
-                list.Add(entity);
-        });
-        return list;
-    }
-
-    public virtual List<Entity> GetCollisions(params Type[] toIgnore)
-    {
-        List<Entity> list = new();
-        MonoEngine.gameObjects.ForEach(g =>
-        {
-            if (g is not Entity entity
-                    || g == this)
-                return;
-
-            foreach (Type type in toIgnore)
+            bool flag = false;
+            foreach (Type type in classToIgnore)
             {
-                if (g.GetType() == type)
-                    return;
+                if (type.IsAssignableFrom(gameObject.GetType()))
+                    flag = true;
             }
+            if (flag)
+                continue;
 
             if (entity.Enabled && this.Bounds.Intersects(entity.Bounds))
                 list.Add(entity);
-        });
+        }
+        return list;
+    }
+
+    public virtual List<Entity> GetCollisionsOfClass(params Type[] clazz)
+    {
+        List<Entity> list = new();
+        foreach (GameObject gameObject in GetUpdatableGameObjects())
+        {
+            if (gameObject is not Entity entity
+                    || gameObject == this)
+                continue;
+
+            foreach (Type type in clazz)
+            {
+                if (type.IsAssignableFrom(gameObject.GetType())
+                    && entity.Enabled 
+                    && this.Bounds.Intersects(entity.Bounds))
+                {
+                    list.Add(entity);
+                    break;
+                }
+            }
+        }
         return list;
     }
 

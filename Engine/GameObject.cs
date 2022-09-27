@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Transactions;
 
 namespace HelloMonoWorld.Engine;
@@ -25,6 +27,9 @@ public abstract class GameObject
 
     public string SpriteName { get; private set; }
     public Texture2D Texture { get; private set; }
+
+    private static List<GameObject> GameObjects { get; } = new();
+    private static List<GameObject> GameObjectsToInstantiate { get; } = new();
 
     public GameObject(string id) : this(id, "", Vector2.Zero) { Visible = false; }
 
@@ -76,5 +81,53 @@ public abstract class GameObject
     {
         Disable();
         Hide();
+    }
+
+    public static void Instantiate(GameObject gameObject)
+    {
+        GameObjectsToInstantiate.Add(gameObject);
+        gameObject.Initialize(MonoEngine.contentManager);
+    }
+
+    internal static void UpdateGameObjects()
+    {
+        foreach (GameObject gameObject in GetUpdatableGameObjects())
+        {
+            gameObject.Update();
+        }
+        RemoveMarkedForRemoval();
+        AddInstantiated();
+    }
+
+    internal static void DrawGameObjects(SpriteBatch spriteBatch)
+    {
+        foreach (GameObject gameObject in GetDrawableGameObjects())
+        {
+            gameObject.Draw(spriteBatch);
+        }
+    }
+
+    public static IEnumerable<GameObject> GetUpdatableGameObjects()
+    {
+        return GameObjects.Where(g => g.Enabled);
+    }
+
+    internal static void RemoveMarkedForRemoval()
+    {
+        GameObjects.RemoveAll(g => g.RemovalMark);
+    }
+
+    internal static void AddInstantiated()
+    {
+        if (GameObjectsToInstantiate.Count > 0)
+        {
+            GameObjects.AddRange(GameObjectsToInstantiate);
+            GameObjectsToInstantiate.Clear();
+        }
+    }
+
+    internal static IEnumerable<GameObject> GetDrawableGameObjects()
+    {
+        return GameObjects.Where(g => g.Visible);
     }
 }

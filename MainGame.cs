@@ -31,11 +31,11 @@ public class MainGame : Game
     protected override void Initialize()
     {
         player = new Player();
-        MonoEngine.Instantiate(player);
+        GameObject.Instantiate(player);
         hero = new Hero();
-        MonoEngine.Instantiate(hero);
+        GameObject.Instantiate(hero);
         spawner = new(5d, 8d);
-        MonoEngine.Instantiate(spawner);
+        GameObject.Instantiate(spawner);
 
         base.Initialize();
     }

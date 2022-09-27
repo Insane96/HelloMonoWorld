@@ -12,12 +12,9 @@ namespace HelloMonoWorld.Engine
 {
     public class MonoEngine
     {
-        static ContentManager contentManager;
+        internal static ContentManager contentManager;
 
-        public static List<GameObject> gameObjects = new();
-        private static List<GameObject> newGameObjects = new();
-
-        public static List<UIText> stringsToDraw = new();
+        internal static List<UIText> StringsToDraw { get; } = new();
 
         public static void Init(Game game, int width, int height)
         {
@@ -26,42 +23,21 @@ namespace HelloMonoWorld.Engine
             UIText.Init(contentManager);
         }
 
-        public static void Instantiate(GameObject gameObject)
-        {
-            newGameObjects.Add(gameObject);
-            gameObject.Initialize(contentManager);
-        }
-
         public static void UpdateGameObjects(GameTime gameTime)
         {
             Time.UpdateDeltaTime(gameTime);
 
-            foreach (GameObject gameObject in gameObjects)
-            {
-                if (gameObject.Enabled)
-                    gameObject.Update();
-            }
-
-            gameObjects.RemoveAll(g => g.RemovalMark);
-            if (newGameObjects.Count > 0)
-            {
-                gameObjects.AddRange(newGameObjects);
-                newGameObjects.Clear();
-            }
+            GameObject.UpdateGameObjects();
         }
 
         public static void DrawGameObjects(SpriteBatch spriteBatch)
         {
-            foreach (GameObject gameObject in gameObjects)
-            {
-                if (gameObject.Visible)
-                    gameObject.Draw(spriteBatch);
-            }
+            GameObject.DrawGameObjects(spriteBatch);
         }
 
         public static void DrawStrings(SpriteBatch spriteBatch)
         {
-            foreach (UIText text in stringsToDraw)
+            foreach (UIText text in StringsToDraw)
             {
                 Vector2 textSize = text.SpriteFont.MeasureString(text.Text);
                 Vector2 position = text.Position.Multiply(Graphics.ScaledRatio).Sum(-textSize.X * text.Origin.X, -textSize.Y * text.Origin.Y);
@@ -69,12 +45,12 @@ namespace HelloMonoWorld.Engine
                     spriteBatch.DrawString(text.SpriteFont, text.Text, position.Sum(1, 1), text.ShadowColor.Value);
                 spriteBatch.DrawString(text.SpriteFont, text.Text, position, text.Color);
             }
-            stringsToDraw.Clear();
+            StringsToDraw.Clear();
         }
 
         public static void DrawText(SpriteFont font, string text, Vector2 position, Color color, Vector2 origin, Color? shadowColor = null)
         {
-            stringsToDraw.Add(new UIText()
+            StringsToDraw.Add(new UIText()
             {
                 Text = text,
                 SpriteFont = font,

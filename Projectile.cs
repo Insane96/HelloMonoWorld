@@ -22,7 +22,7 @@ public class Projectile : Entity
     public override void Update()
     {
         this.DeltaMovement = this.direction.Multiply(this.MovementSpeed);
-        List<Entity> entitiesCollided = this.GetCollisions(typeof(Player), typeof(Hero));
+        List<Entity> entitiesCollided = this.GetCollisionsOfClass(typeof(AbstractEnemy));
         bool hasCollided = false;
         entitiesCollided.ForEach(entity => {
             entity.Hurt(this.damage, this.knockback);

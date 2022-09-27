@@ -38,7 +38,7 @@ namespace HelloMonoWorld
                     {
                         Position = new Vector2(this.Position.X, Mth.NextInt(MainGame.random, 100, Graphics.Height - 100)),
                     };
-                    MonoEngine.Instantiate(zombie);
+                    Instantiate(zombie);
                 }
             }
         }
