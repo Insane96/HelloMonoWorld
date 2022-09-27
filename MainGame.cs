@@ -11,6 +11,7 @@ namespace HelloMonoWorld;
 public class MainGame : Game
 {
     public static Player player;
+    public static Hero hero;
     public static Spawner spawner;
 
     public static Random random = new();
@@ -31,6 +32,8 @@ public class MainGame : Game
     {
         player = new Player();
         Engine.Engine.Instantiate(player);
+        hero = new Hero();
+        Engine.Engine.Instantiate(hero);
         spawner = new(5d, 8d);
         Engine.Engine.Instantiate(spawner);
 
