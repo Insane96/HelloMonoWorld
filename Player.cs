@@ -9,13 +9,10 @@ namespace HelloMonoWorld;
 
 public class Player : Entity 
 {
-    public double attackTime = 0d;
-    public Weapon weapon;
-
     public Player() : base("player", "stickman")
     {
         this.Position = new Vector2(200, Graphics.Height / 2);
-        this.weapon = new("magic_bullet", 1f, 250f, 50f, 2f, this);
+        this.Weapon = new("magic_bullet", 1f, 250f, 50f, 2f, this);
         this.OriginalColor = Color.Black;
         this.MaxHealth = 10;
         this.MovementSpeed = 200f;
@@ -23,13 +20,9 @@ public class Player : Entity
 
     public override void Update()
     {
+        base.Update();
         CheckMovementInput();
         CheckAttackInput();
-        if (this.attackTime > 0d)
-        {
-            this.attackTime -= Time.DeltaTime;
-        }
-        base.Update();
     }
 
     public override void Draw(SpriteBatch spriteBatch)
@@ -62,13 +55,13 @@ public class Player : Entity
 
     private void CheckAttackInput()
     {
-        if (this.attackTime > 0d)
+        if (this.AttackTime > 0d)
             return;
         var kstate = Keyboard.GetState();
         if (kstate.IsKeyDown(Keys.Right))
         {
-            this.attackTime = this.weapon.attackSpeed;
-            this.weapon.Attack();
+            this.AttackTime = this.Weapon.attackSpeed;
+            this.Weapon.Attack();
         }
     }
 }

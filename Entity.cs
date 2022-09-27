@@ -32,6 +32,9 @@ public class Entity : GameObject
         }
     }
 
+    public double AttackTime { get; set; } = 0f;
+    public Weapon Weapon { get; set; }
+
     public float Health { get; set; } = 0f;
     public double HitTime { get; set; } = 0d;
     public bool Knockbacked { get; set; } = false;
@@ -86,6 +89,10 @@ public class Entity : GameObject
             this.HitTime -= Time.DeltaTime;
             if (this.HitTime <= 0d)
                 this.Color = this.OriginalColor;
+        }
+        if (this.AttackTime > 0d)
+        {
+            this.AttackTime -= Time.DeltaTime;
         }
     }
 

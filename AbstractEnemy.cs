@@ -13,13 +13,13 @@ namespace HelloMonoWorld;
 
 public class AbstractEnemy : Entity
 {
+    //TODO Use Weapon
     public float attackSpeed = 1f;
     public float attackDamage = 1f;
-    public double attackTime;
 
     public AbstractEnemy(string id, string spriteName) : base(id, spriteName)
     {
-        this.attackTime = this.attackSpeed;
+        this.AttackTime = this.attackSpeed;
         this.ShouldDrawHealth = true;
     }
 
@@ -28,13 +28,13 @@ public class AbstractEnemy : Entity
         if (this.Position.X <= 300)
         {
             this.DeltaMovement = Vector2.Zero;
-            if (this.attackTime > 0d)
+            if (this.AttackTime > 0d)
             {
-                this.attackTime -= Time.DeltaTime;
-                if (this.attackTime <= 0d)
+                this.AttackTime -= Time.DeltaTime;
+                if (this.AttackTime <= 0d)
                 {
                     MainGame.player.Hurt(this.attackDamage);
-                    this.attackTime = this.attackSpeed;
+                    this.AttackTime = this.attackSpeed;
                 }
             }
         }

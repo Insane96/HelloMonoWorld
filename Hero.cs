@@ -5,28 +5,21 @@ namespace HelloMonoWorld;
 
 public class Hero : Entity
 {
-    public double attackTime = 0d;
-    public Weapon weapon;
-
     public Hero() : base("hero", "stickman")
     {
         this.Position = new Vector2(80, Graphics.Height / 2);
-        this.weapon = new("magic_bullet", 1f, 250f, 50f, 2f, this);
-        this.attackTime = this.weapon.attackSpeed;
+        this.Weapon = new("magic_bullet", 0.5f, 350f, 30f, 0.5f, this);
+        this.AttackTime = this.Weapon.attackSpeed;
         this.OriginalColor = Color.DarkViolet;
     }
 
     public override void Update()
     {
         base.Update();
-        if (this.attackTime > 0d)
+        if (this.AttackTime <= 0d && this.Weapon != null)
         {
-            this.attackTime -= Time.DeltaTime;
-            if (this.attackTime <= 0d && this.weapon != null)
-            {
-                this.attackTime = this.weapon.attackSpeed;
-                this.weapon.AttackNearest();
-            }
+            this.AttackTime = this.Weapon.attackSpeed;
+            this.Weapon.AttackNearest();
         }
     }
 }
