@@ -9,7 +9,7 @@ using HelloMonoWorld.Engine;
 using Microsoft.Xna.Framework.Graphics;
 using System.Transactions;
 
-namespace HelloMonoWorld;
+namespace HelloMonoWorld.Game;
 
 public class AbstractEnemy : Entity
 {
@@ -19,23 +19,23 @@ public class AbstractEnemy : Entity
 
     public AbstractEnemy(string id, string spriteName) : base(id, spriteName)
     {
-        this.AttackTime = this.attackSpeed;
-        this.ShouldDrawHealth = true;
+        AttackTime = attackSpeed;
+        ShouldDrawHealth = true;
     }
 
     public override void Update()
     {
-        if (this.Position.X <= 300)
+        if (Position.X <= 300)
         {
-            this.DeltaMovement = Vector2.Zero;
-            if (this.AttackTime > 0d)
+            DeltaMovement = Vector2.Zero;
+            if (AttackTime > 0d)
             {
-                this.AttackTime -= Time.DeltaTime;
+                AttackTime -= Time.DeltaTime;
             }
             else
             {
-                MainGame.player.Hurt(this.attackDamage);
-                this.AttackTime = this.attackSpeed;
+                MainGame.player.Hurt(attackDamage);
+                AttackTime = attackSpeed;
             }
         }
         base.Update();

@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace HelloMonoWorld;
+namespace HelloMonoWorld.Game;
 
 public class MainGame : Microsoft.Xna.Framework.Game
 {
@@ -46,7 +46,7 @@ public class MainGame : Microsoft.Xna.Framework.Game
         target = new(GraphicsDevice, Graphics.Width, Graphics.Height);
 
         debugFont = Content.Load<SpriteFont>("fonts/debug");
-        Sounds.LoadContent(this.Content);
+        Sounds.LoadContent(Content);
     }
 
     protected override void Update(GameTime gameTime)

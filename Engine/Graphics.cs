@@ -22,7 +22,7 @@ namespace HelloMonoWorld.Engine
 
         public static GraphicsDeviceManager graphics;
 
-        public static void Init(Game game, int width, int height)
+        public static void Init(Microsoft.Xna.Framework.Game game, int width, int height)
         {
             Width = width;
             Height = height;

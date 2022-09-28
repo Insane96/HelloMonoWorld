@@ -16,7 +16,7 @@ namespace HelloMonoWorld.Engine
 
         internal static List<UIText> StringsToDraw { get; } = new();
 
-        public static void Init(Game game, int width, int height)
+        public static void Init(Microsoft.Xna.Framework.Game game, int width, int height)
         {
             contentManager = game.Content;
             Graphics.Init(game, width, height);

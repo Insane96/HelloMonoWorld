@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HelloMonoWorld
+namespace HelloMonoWorld.Game
 {
     public class Spawner : GameObject
     {
@@ -22,21 +22,21 @@ namespace HelloMonoWorld
         {
             this.minSpawnTime = minSpawnTime;
             this.maxSpawnTime = maxSpawnTime;
-            this.spawnTime = 1d / 60d;//Mth.NextDouble(MainGame.random, minSpawnTime, maxSpawnTime);
-            this.Position = new Vector2(Graphics.Width + 80, Graphics.Height / 2);
+            spawnTime = 1d / 60d;//Mth.NextDouble(MainGame.random, minSpawnTime, maxSpawnTime);
+            Position = new Vector2(Graphics.Width + 80, Graphics.Height / 2);
         }
 
         public override void Update()
         {
-            if (this.spawnTime > 0d)
+            if (spawnTime > 0d)
             {
-                this.spawnTime -= Time.DeltaTime;
-                if (this.spawnTime <= 0d)
+                spawnTime -= Time.DeltaTime;
+                if (spawnTime <= 0d)
                 {
-                    this.spawnTime = Mth.NextDouble(MainGame.random, this.minSpawnTime, this.maxSpawnTime);
+                    spawnTime = Mth.NextDouble(MainGame.random, minSpawnTime, maxSpawnTime);
                     ZombieEnemy zombie = new($"zombie{spawnId++}", "stickman")
                     {
-                        Position = new Vector2(this.Position.X, Mth.NextInt(MainGame.random, 100, Graphics.Height - 100)),
+                        Position = new Vector2(Position.X, Mth.NextInt(MainGame.random, 100, Graphics.Height - 100)),
                     };
                     Instantiate(zombie);
                 }

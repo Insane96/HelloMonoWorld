@@ -5,20 +5,20 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 
-namespace HelloMonoWorld;
+namespace HelloMonoWorld.Game;
 
-public class Player : Entity 
+public class Player : Entity
 {
     EnergyWeapon EnergyWeapon { get; set; }
-    
+
     public Player() : base("player", "stickman")
     {
-        this.Position = new Vector2(200, Graphics.Height / 2);
-        this.Weapon = new("magic_bullet", 1f, 250f, 50f, 2f, this);
-        this.EnergyWeapon = new("energy_ball", 1f, 400f, 0f, 5f, this);
-        this.OriginalColor = Color.Black;
-        this.MaxHealth = 10;
-        this.MovementSpeed = 222f;
+        Position = new Vector2(200, Graphics.Height / 2);
+        Weapon = new("magic_bullet", 1f, 250f, 50f, 2f, this);
+        EnergyWeapon = new("energy_ball", 1f, 400f, 0f, 5f, this);
+        OriginalColor = Color.Black;
+        MaxHealth = 10;
+        MovementSpeed = 222f;
     }
 
     public override void Update()
@@ -30,7 +30,7 @@ public class Player : Entity
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-        MonoEngine.DrawText(Options.GetFont(), $"{this.Health:0.#} / {this.MaxHealth:0.#}", new Vector2(0, Graphics.Height), Color.DarkRed, new Vector2(0, 1f));
+        MonoEngine.DrawText(Options.GetFont(), $"{Health:0.#} / {MaxHealth:0.#}", new Vector2(0, Graphics.Height), Color.DarkRed, new Vector2(0, 1f));
         base.Draw(spriteBatch);
     }
 
@@ -47,30 +47,30 @@ public class Player : Entity
             }
         }
 
-        this.DeltaMovement += GetRelativeMovement(inputMovement);
+        DeltaMovement += GetRelativeMovement(inputMovement);
     }
 
     public override void OnDeath()
     {
         //Don't destroy the player, just hide him
-        this.HideAndDisable();
+        HideAndDisable();
     }
 
     private void CheckAttackInput()
     {
-        if (this.AttackTime > 0d)
+        if (AttackTime > 0d)
             return;
         var kstate = Keyboard.GetState();
         if (kstate.IsKeyDown(Keys.Right))
         {
-            this.AttackTime = this.Weapon.AttackSpeed;
-            this.Weapon.Attack();
+            AttackTime = Weapon.AttackSpeed;
+            Weapon.Attack();
         }
 
         if (kstate.IsKeyDown(Keys.Space))
         {
-            this.AttackTime = this.EnergyWeapon.AttackSpeed;
-            this.EnergyWeapon.Attack();
+            AttackTime = EnergyWeapon.AttackSpeed;
+            EnergyWeapon.Attack();
         }
     }
 }

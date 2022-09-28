@@ -7,7 +7,7 @@ using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HelloMonoWorld
+namespace HelloMonoWorld.Game
 {
     public static class Sounds
     {

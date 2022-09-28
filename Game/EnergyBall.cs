@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HelloMonoWorld
+namespace HelloMonoWorld.Game
 {
     public class EnergyBall : Projectile
     {
@@ -15,26 +15,26 @@ namespace HelloMonoWorld
 
         public EnergyBall(string id, string spriteName, Vector2 direction, float damage, float knockback, Entity owner, double damageInterval) : base(id, spriteName, direction, damage, knockback, owner)
         {
-            this.DamageInterval = damageInterval;
-            this.AttackTime = damageInterval;
+            DamageInterval = damageInterval;
+            AttackTime = damageInterval;
         }
 
         public override void Update()
         {
-            if (this.AttackTime > 0d)
+            if (AttackTime > 0d)
             {
-                this.AttackTime -= Time.DeltaTime;
+                AttackTime -= Time.DeltaTime;
             }
             base.Update();
-            if (this.AttackTime <= 0)
-                this.AttackTime = this.DamageInterval;
+            if (AttackTime <= 0)
+                AttackTime = DamageInterval;
         }
 
         public override void OnEntityHit(Entity other)
         {
-            if (this.AttackTime <= 0d)
+            if (AttackTime <= 0d)
             {
-                if (other.Hurt(this.damage))
+                if (other.Hurt(damage))
                 {
                     Sounds.Hit.Play(0.5f * Options.Volume, Mth.NextFloat(MainGame.random, -0.25f, 0.25f), 0f);
                 }

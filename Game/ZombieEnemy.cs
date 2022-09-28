@@ -6,22 +6,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HelloMonoWorld
+namespace HelloMonoWorld.Game
 {
     public class ZombieEnemy : AbstractEnemy
     {
         public ZombieEnemy(string id, string spriteName) : base(id, spriteName)
         {
-            this.MovementSpeed = 50f;
+            MovementSpeed = 50f;
             //this.position = new Vector2(500, 500);
-            this.MaxHealth = 4f;
-            this.OriginalColor = Color.FromNonPremultiplied(183, 138, 16, 255);
+            MaxHealth = 4f;
+            OriginalColor = Color.FromNonPremultiplied(183, 138, 16, 255);
         }
 
         public override void Update()
         {
-            if (!this.Knockbacked)
-                this.DeltaMovement += GetRelativeMovement(Direction.LEFT.vector);
+            if (!Knockbacked)
+                DeltaMovement += GetRelativeMovement(Direction.LEFT.vector);
             base.Update();
         }
 
@@ -30,7 +30,7 @@ namespace HelloMonoWorld
             if (base.Hurt(damage))
             {
                 if (knockback != 0f)
-                    this.Knockback(Direction.RIGHT.vector, knockback);
+                    Knockback(Direction.RIGHT.vector, knockback);
                 return true;
             }
             return false;

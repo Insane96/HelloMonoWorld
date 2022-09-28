@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace HelloMonoWorld;
+namespace HelloMonoWorld.Game;
 
 public class Projectile : Entity
 {
@@ -23,17 +23,17 @@ public class Projectile : Entity
     public override void Update()
     {
         base.Update();
-        this.DeltaMovement = this.direction.Multiply(this.MovementSpeed);
-        Entity entityCollided = this.GetCollisionsOfClass(typeof(AbstractEnemy)).FirstOrDefault();
+        DeltaMovement = direction.Multiply(MovementSpeed);
+        Entity entityCollided = GetCollisionsOfClass(typeof(AbstractEnemy)).FirstOrDefault();
         if (entityCollided != null)
         {
-            this.OnEntityHit(entityCollided);
+            OnEntityHit(entityCollided);
         }
     }
 
     public virtual void OnEntityHit(Entity other)
     {
-        other.Hurt(this.damage, this.knockback);
-        this.Discard();
+        other.Hurt(damage, knockback);
+        Discard();
     }
 }
