@@ -1,6 +1,7 @@
 ﻿using HelloMonoWorld.Engine;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HelloMonoWorld;
 
@@ -21,15 +22,18 @@ public class Projectile : Entity
 
     public override void Update()
     {
-        this.DeltaMovement = this.direction.Multiply(this.MovementSpeed);
-        List<Entity> entitiesCollided = this.GetCollisionsOfClass(typeof(AbstractEnemy));
-        bool hasCollided = false;
-        entitiesCollided.ForEach(entity => {
-            entity.Hurt(this.damage, this.knockback);
-            hasCollided = true;
-        });
-        if (hasCollided)
-            this.Discard();
         base.Update();
+        this.DeltaMovement = this.direction.Multiply(this.MovementSpeed);
+        Entity entityCollided = this.GetCollisionsOfClass(typeof(AbstractEnemy)).FirstOrDefault();
+        if (entityCollided != null)
+        {
+            this.OnEntityHit(entityCollided);
+        }
+    }
+
+    public virtual void OnEntityHit(Entity other)
+    {
+        other.Hurt(this.damage, this.knockback);
+        this.Discard();
     }
 }

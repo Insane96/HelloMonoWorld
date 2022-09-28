@@ -9,13 +9,16 @@ namespace HelloMonoWorld;
 
 public class Player : Entity 
 {
+    EnergyWeapon EnergyWeapon { get; set; }
+    
     public Player() : base("player", "stickman")
     {
         this.Position = new Vector2(200, Graphics.Height / 2);
         this.Weapon = new("magic_bullet", 1f, 250f, 50f, 2f, this);
+        this.EnergyWeapon = new("energy_ball", 0.5f, 400f, 0f, 10f, this);
         this.OriginalColor = Color.Black;
         this.MaxHealth = 10;
-        this.MovementSpeed = 200f;
+        this.MovementSpeed = 222f;
     }
 
     public override void Update()
@@ -62,6 +65,12 @@ public class Player : Entity
         {
             this.AttackTime = this.Weapon.attackSpeed;
             this.Weapon.Attack();
+        }
+
+        if (kstate.IsKeyDown(Keys.Space))
+        {
+            this.AttackTime = 10f;
+            this.EnergyWeapon.Attack();
         }
     }
 }

@@ -86,7 +86,7 @@ public class MainGame : Game
 
         _spriteBatch.Begin();
         //_spriteBatch.Draw(target, Vector2.Zero, Color.White);
-        _spriteBatch.Draw(target, new Rectangle(0, 0, Graphics.ViewportWidth, Graphics.ViewportHeight), Color.White); //Change to force 16:9
+        _spriteBatch.Draw(target, new Rectangle(0, 0, Graphics.ViewportWidth, Graphics.ViewportHeight), Color.White); //TODO Force 16:9
         MonoEngine.DrawStrings(_spriteBatch);
         _spriteBatch.End();
 
