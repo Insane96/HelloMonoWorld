@@ -15,7 +15,7 @@ public class Player : Entity
     {
         this.Position = new Vector2(200, Graphics.Height / 2);
         this.Weapon = new("magic_bullet", 1f, 250f, 50f, 2f, this);
-        this.EnergyWeapon = new("energy_ball", 0.5f, 400f, 0f, 10f, this);
+        this.EnergyWeapon = new("energy_ball", 1f, 400f, 0f, 5f, this);
         this.OriginalColor = Color.Black;
         this.MaxHealth = 10;
         this.MovementSpeed = 222f;
@@ -63,13 +63,13 @@ public class Player : Entity
         var kstate = Keyboard.GetState();
         if (kstate.IsKeyDown(Keys.Right))
         {
-            this.AttackTime = this.Weapon.attackSpeed;
+            this.AttackTime = this.Weapon.AttackSpeed;
             this.Weapon.Attack();
         }
 
         if (kstate.IsKeyDown(Keys.Space))
         {
-            this.AttackTime = 10f;
+            this.AttackTime = this.EnergyWeapon.AttackSpeed;
             this.EnergyWeapon.Attack();
         }
     }

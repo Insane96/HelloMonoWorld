@@ -31,11 +31,11 @@ public class AbstractEnemy : Entity
             if (this.AttackTime > 0d)
             {
                 this.AttackTime -= Time.DeltaTime;
-                if (this.AttackTime <= 0d)
-                {
-                    MainGame.player.Hurt(this.attackDamage);
-                    this.AttackTime = this.attackSpeed;
-                }
+            }
+            else
+            {
+                MainGame.player.Hurt(this.attackDamage);
+                this.AttackTime = this.attackSpeed;
             }
         }
         base.Update();

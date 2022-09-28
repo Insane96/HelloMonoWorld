@@ -34,7 +34,7 @@ public class MainGame : Game
         GameObject.Instantiate(player);
         hero = new Hero();
         GameObject.Instantiate(hero);
-        spawner = new(5d, 8d);
+        spawner = new(1d, 2d);
         GameObject.Instantiate(spawner);
 
         base.Initialize();

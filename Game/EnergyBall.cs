@@ -33,7 +33,12 @@ namespace HelloMonoWorld
         public override void OnEntityHit(Entity other)
         {
             if (this.AttackTime <= 0d)
-                other.Hurt(this.damage);
+            {
+                if (other.Hurt(this.damage))
+                {
+                    Sounds.Hit.Play(0.5f * Options.Volume, Mth.NextFloat(MainGame.random, -0.25f, 0.25f), 0f);
+                }
+            }
         }
     }
 }

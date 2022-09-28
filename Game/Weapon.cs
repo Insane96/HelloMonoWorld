@@ -12,7 +12,8 @@ public class Weapon
     public float damage;
     public float knockback;
     public float projectileSpeed;
-    public float attackSpeed;
+    public float AttackSpeed { get; set; }
+    private double AttackTime { get; set; }
     public Entity wielder;
 
     public Weapon(string id, float damage, float projectileSpeed, float knockback, float attackSpeed, Entity wielder)
@@ -21,7 +22,7 @@ public class Weapon
         this.damage = damage;
         this.projectileSpeed = projectileSpeed;
         this.knockback = knockback;
-        this.attackSpeed = attackSpeed;
+        this.AttackSpeed = attackSpeed;
         this.wielder = wielder;
     }
 
