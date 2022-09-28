@@ -25,7 +25,7 @@ namespace HelloMonoWorld.Engine
         {
             for (int i = 0; i < SpriteFonts.Length; i++)
             {
-                SpriteFonts[i] = contentManager.Load<SpriteFont>($"font{i}");
+                SpriteFonts[i] = contentManager.Load<SpriteFont>($"fonts/font{i}");
             }
         }
     }

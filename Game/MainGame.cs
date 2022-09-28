@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace HelloMonoWorld;
 
-public class MainGame : Game
+public class MainGame : Microsoft.Xna.Framework.Game
 {
     public static Player player;
     public static Hero hero;
@@ -45,7 +45,7 @@ public class MainGame : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         target = new(GraphicsDevice, Graphics.Width, Graphics.Height);
 
-        debugFont = Content.Load<SpriteFont>("debug");
+        debugFont = Content.Load<SpriteFont>("fonts/debug");
         Sounds.LoadContent(this.Content);
     }
 
