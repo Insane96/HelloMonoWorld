@@ -14,11 +14,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin fonts/ChailceNogginRegular.ttf
-/importer:
-/processor:
-/build:fonts/ChailceNogginRegular.ttf
-
 #begin fonts/debug.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
