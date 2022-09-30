@@ -1,5 +1,6 @@
 ﻿using HelloMonoWorld.Engine;
 using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +8,19 @@ namespace HelloMonoWorld.Game.Projectile;
 
 public class BasicProjectile : Entity
 {
-    public Vector2 Direction { get; set; }
+    private Vector2 direction;
+    public Vector2 Direction
+    {
+        get
+        {
+            return direction;
+        }
+        set
+        {
+            this.direction = value;
+            this.Rotation = ((float)(Math.Acos(value.X)));
+        }
+    }
     public float Damage { get; set; }
     public float Knockback { get; set; }
     public Entity Owner { get; set; }

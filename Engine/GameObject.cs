@@ -16,6 +16,7 @@ public abstract class GameObject
     public Vector2 Origin { get; set; } = new(0.5f, 0.5f);
 
     public Color Color { get; set; } = Color.White;
+    public float Rotation { get; set; }
     public SpriteEffects SpriteEffect { get; private set; } = SpriteEffects.None;
 
     public bool Enabled { get; set; } = true;
@@ -58,14 +59,14 @@ public abstract class GameObject
     public virtual void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Draw(
-            Texture,
-            Position,
+            this.Texture,
+            this.Position,
             null,
-            Color,
-            0f,
-            new Vector2(Texture.Width * Origin.X, Texture.Height * Origin.Y),
+            this.Color,
+            this.Rotation,
+            new Vector2(this.Texture.Width * this.Origin.X, this.Texture.Height * this.Origin.Y),
             Vector2.One,
-            SpriteEffect,
+            this.SpriteEffect,
             0f
         );
     }

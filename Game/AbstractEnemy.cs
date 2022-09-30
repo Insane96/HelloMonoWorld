@@ -13,8 +13,8 @@ namespace HelloMonoWorld.Game;
 
 public class AbstractEnemy : Entity
 {
-    //TODO Use Weapon
-    public float attackSpeed = 1f;
+    //TODO Use Spell
+    public float attackSpeed = 2f;
     public float attackDamage = 1f;
 
     public AbstractEnemy(string id, string spriteName) : base(id, spriteName, Direction.LEFT.vector)
