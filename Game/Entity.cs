@@ -1,4 +1,5 @@
 ﻿using HelloMonoWorld.Engine;
+using HelloMonoWorld.Game.Spell;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -33,7 +34,8 @@ public class Entity : GameObject
     }
 
     public double AttackTime { get; set; } = 0f;
-    public Weapon Weapon { get; set; }
+    public Vector2? AttackDirection { get; set; }
+    public SpellInstance BaseSpell { get; set; }
 
     public float Health { get; set; } = 0f;
     public double HitTime { get; set; } = 0d;
@@ -67,16 +69,23 @@ public class Entity : GameObject
         }
     }
 
+    //TODO Make a static instance somewhere else
     public static Texture2D OneByOneTexture = new(Graphics.graphics.GraphicsDevice, 1, 1);
 
-    public Entity(string id) : this(id, id)
+    public Entity(string id) : this(id, null)
     {
 
     }
 
-    public Entity(string id, string spriteName) : base(id, spriteName)
+    public Entity(string id, Vector2? attackDirection) : this(id, id, attackDirection)
+    {
+
+    }
+
+    public Entity(string id, string spriteName, Vector2? attackDirection) : base(id, spriteName)
     {
         OneByOneTexture.SetData(new[] { Color.White });
+        this.AttackDirection = attackDirection;
     }
 
     public override void Update()
@@ -123,7 +132,7 @@ public class Entity : GameObject
         return Vector2.Multiply(length > 1.0d ? Vector2.Normalize(input) : input, MovementSpeed);
     }
 
-    public void Knockback(Vector2 direction, float force)
+    public void Push(Vector2 direction, float force)
     {
         if (force == 0f)
             return;

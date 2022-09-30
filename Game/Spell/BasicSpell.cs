@@ -1,35 +1,48 @@
 ﻿using HelloMonoWorld.Engine;
+using HelloMonoWorld.Game.Projectile;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace HelloMonoWorld.Game;
+namespace HelloMonoWorld.Game.Spell;
 
-public class Weapon
+public class BasicSpell
 {
-    public string id;
-    public float damage;
-    public float knockback;
-    public float projectileSpeed;
-    public float AttackSpeed { get; set; }
-    private double AttackTime { get; set; }
-    public Entity wielder;
+    public string Id { get; set; }
+    public float Damage { get; set; }
+    public float Knockback { get; set; }
+    public float ProjectileSpeed { get; set; }
+    public float Cooldown { get; set; }
 
-    public Weapon(string id, float damage, float projectileSpeed, float knockback, float attackSpeed, Entity wielder)
+    public BasicSpell(string id, float damage, float knockback, float projectileSpeed, float cooldown)
     {
-        this.id = id;
-        this.damage = damage;
-        this.projectileSpeed = projectileSpeed;
-        this.knockback = knockback;
-        this.AttackSpeed = attackSpeed;
-        this.wielder = wielder;
+        Id = id;
+        Damage = damage;
+        Knockback = knockback;
+        ProjectileSpeed = projectileSpeed;
+        Cooldown = cooldown;
     }
 
-    public virtual void Attack()
+    public virtual BasicProjectile GetProjectile()
+    {
+        return new(this.Id, this.Damage, this.Knockback);
+    }
+
+    public virtual void Cast(Entity owner, Vector2 direction)
+    {
+        this.GetCastSound().Play(0.5f * Options.Volume, Mth.NextFloat(MainGame.random, -0.25f, 0.25f), 0f);
+        BasicProjectile projectile = this.GetProjectile();
+        projectile.Owner = owner;
+        projectile.Direction = direction;
+        projectile.MovementSpeed = this.ProjectileSpeed;
+        projectile.Position = owner.Position;
+        GameObject.Instantiate(projectile);
+    }
+
+    /*public virtual void Attack()
     {
         this.GetAttackSound().Play(0.5f * Options.Volume, Mth.NextFloat(MainGame.random, -0.25f, 0.25f), 0f);
-        Projectile projectile = new("projectile", "magic_bullet", Direction.RIGHT.vector, this.damage, this.knockback, this.wielder)
+        Projectile projectile = new("projectile", "magic_bullet", Direction.RIGHT.vector, this.Damage, this.Knockback, this.wielder)
         {
             Position = new Vector2(this.wielder.Position.X - (this.wielder.Texture.Width * this.wielder.Origin.X) + this.wielder.LeftHand.X, this.wielder.Position.Y - (this.wielder.Texture.Height * this.wielder.Origin.Y) + this.wielder.LeftHand.Y),
             MovementSpeed = projectileSpeed
@@ -50,11 +63,11 @@ public class Weapon
             MovementSpeed = projectileSpeed
         };
         GameObject.Instantiate(projectile);
-    }
+    }*/
 
-
-    private SoundEffect GetAttackSound()
+    private SoundEffect GetCastSound()
     {
         return Sounds.SwordSwing;
     }
 }
+

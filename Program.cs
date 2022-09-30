@@ -1,3 +1,4 @@
-﻿
-using var game = new HelloMonoWorld.MainGame();
+﻿using HelloMonoWorld.Game;
+
+using var game = new MainGame();
 game.Run();

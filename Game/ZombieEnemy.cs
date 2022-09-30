@@ -30,7 +30,7 @@ namespace HelloMonoWorld.Game
             if (base.Hurt(damage))
             {
                 if (knockback != 0f)
-                    Knockback(Direction.RIGHT.vector, knockback);
+                    Push(Direction.RIGHT.vector, knockback);
                 return true;
             }
             return false;

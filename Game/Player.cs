@@ -1,4 +1,5 @@
 ﻿using HelloMonoWorld.Engine;
+using HelloMonoWorld.Game.Spell;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,13 +10,11 @@ namespace HelloMonoWorld.Game;
 
 public class Player : Entity
 {
-    EnergyWeapon EnergyWeapon { get; set; }
-
-    public Player() : base("player", "stickman")
+    public Player() : base("stickman", Direction.RIGHT.vector)
     {
         Position = new Vector2(200, Graphics.Height / 2);
-        Weapon = new("magic_bullet", 1f, 250f, 50f, 2f, this);
-        EnergyWeapon = new("energy_ball", 1f, 400f, 0f, 5f, this);
+        BaseSpell = new(Spells.MagicBullet, this);
+        //EnergyWeapon = new("energy_ball", 1f, 400f, 0f, 5f, this);
         OriginalColor = Color.Black;
         MaxHealth = 10;
         MovementSpeed = 222f;
@@ -25,7 +24,7 @@ public class Player : Entity
     {
         base.Update();
         CheckMovementInput();
-        CheckAttackInput();
+        UpdateAttack();
     }
 
     public override void Draw(SpriteBatch spriteBatch)
@@ -56,21 +55,19 @@ public class Player : Entity
         HideAndDisable();
     }
 
-    private void CheckAttackInput()
+    private void UpdateAttack()
     {
-        if (AttackTime > 0d)
-            return;
+        this.BaseSpell.Update();
         var kstate = Keyboard.GetState();
         if (kstate.IsKeyDown(Keys.Right))
         {
-            AttackTime = Weapon.AttackSpeed;
-            Weapon.Attack();
+            this.BaseSpell.TryCast(this.AttackDirection);
         }
 
-        if (kstate.IsKeyDown(Keys.Space))
+        /*if (kstate.IsKeyDown(Keys.Space))
         {
             AttackTime = EnergyWeapon.AttackSpeed;
             EnergyWeapon.Attack();
-        }
+        }*/
     }
 }

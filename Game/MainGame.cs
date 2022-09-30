@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 
 namespace HelloMonoWorld.Game;
 
@@ -34,7 +32,7 @@ public class MainGame : Microsoft.Xna.Framework.Game
         GameObject.Instantiate(player);
         hero = new Hero();
         GameObject.Instantiate(hero);
-        spawner = new(1d, 2d);
+        spawner = new(2d, 3d);
         GameObject.Instantiate(spawner);
 
         base.Initialize();
