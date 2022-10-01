@@ -42,10 +42,13 @@ public class BasicProjectile : Entity
     {
         base.Update();
         DeltaMovement = Direction.Multiply(MovementSpeed);
-        Entity entityCollided = GetCollisionsOfClass(typeof(AbstractEnemy)).FirstOrDefault();
-        if (entityCollided != null)
+        IEnumerable<Entity> entitiesCollided = GetCollisionsOfClass(typeof(AbstractEnemy));
+
+        foreach (Entity entity in entitiesCollided)
         {
-            OnEntityHit(entityCollided);
+            OnEntityHit(entity);
+            if (this.RemovalMark)
+                break;
         }
     }
 
