@@ -18,7 +18,7 @@ public class BasicProjectile : Entity
         set
         {
             this.direction = value;
-            this.Rotation = ((float)(Math.Acos(value.X)));
+            this.Rotation = ((float)(Math.Asin(value.Y / value.Length())));
         }
     }
     public float Damage { get; set; }
