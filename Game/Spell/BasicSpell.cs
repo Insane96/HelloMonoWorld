@@ -30,7 +30,7 @@ public class BasicSpell
 
     public virtual void Cast(Entity owner, Vector2 direction)
     {
-        this.GetCastSound().Play(0.5f * Options.Volume, Mth.NextFloat(MainGame.random, -0.25f, 0.25f), 0f);
+        Sounds.PlaySoundVariated(this.GetCastSound(), 0.5f, 0.25f);
         BasicProjectile projectile = this.GetProjectile();
         projectile.Owner = owner;
         projectile.Direction = direction;

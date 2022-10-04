@@ -1,8 +1,10 @@
-﻿using Microsoft.Xna.Framework.Audio;
+﻿using HelloMonoWorld.Engine;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +30,25 @@ namespace HelloMonoWorld.Game
             RockHit = contentManager.Load<SoundEffect>("sounds/rocks_hit_01");
             WaterSpell = contentManager.Load<SoundEffect>("sounds/water_spell_01");
             WaterHit = contentManager.Load<SoundEffect>("sounds/water_hit_02");
+        }
+
+        //TODO Left-Right sounds with pan
+        public static void PlaySound(SoundEffect sound, float volume, float pitch)
+        {
+            sound.Play(volume * Options.Volume, pitch, 0f);
+        }
+        public static void PlaySound(SoundEffect sound, float volume)
+        {
+            PlaySound(sound, volume, 0f);
+        }
+        public static void PlaySound(SoundEffect sound)
+        {
+            PlaySound(sound, 1f, 0f);
+        }
+
+        public static void PlaySoundVariated(SoundEffect sound, float volume, float pitchVariation)
+        {
+            PlaySound(sound, volume, Mth.NextFloat(MainGame.random, -pitchVariation, pitchVariation));
         }
     }
 }

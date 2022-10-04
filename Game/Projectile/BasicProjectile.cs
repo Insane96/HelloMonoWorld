@@ -56,7 +56,7 @@ public class BasicProjectile : Entity
     public virtual void OnEntityHit(Entity other)
     {
         other.Hurt(Damage, Knockback);
-        this.GetHitSound().Play(0.5f * Options.Volume, Mth.NextFloat(MainGame.random, -0.25f, 0.25f), 0f);
+        Sounds.PlaySoundVariated(this.GetHitSound(), 0.5f, 0.25f);
         Discard();
     }
 
