@@ -59,6 +59,7 @@ public class MainGame : Microsoft.Xna.Framework.Game
         Options.TryIncreaseFontSize(Keyboard.GetState());
         Options.TryDecreaseFontSize(Keyboard.GetState());
         Options.TryFullScreen(Keyboard.GetState());
+        Options.oldKeyBoardState = Keyboard.GetState();
 
         MonoEngine.UpdateGameObjects(gameTime);
 

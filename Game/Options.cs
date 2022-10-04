@@ -22,110 +22,46 @@ namespace HelloMonoWorld.Game
         public static void DecreaseFontSize() => FontSize = Math.Clamp(FontSize - 1, 0, UIText.SpriteFonts.Length - 1);
 
         public static bool Debug;
-        //TODO Add a class to handle one time key down and key up
-        private static bool F3KeyDown = false;
+
+        public static KeyboardState oldKeyBoardState = Keyboard.GetState();
 
         public static void TryToggleDebug(KeyboardState kState)
         {
-            if (kState.IsKeyDown(Keys.F3))
+            if (kState.IsKeyDown(Keys.F3) && !oldKeyBoardState.IsKeyDown(Keys.F3))
             {
-                if (!F3KeyDown)
-                {
-                    F3KeyDown = true;
-                    Debug = !Debug;
-                }
-            }
-            else
-            {
-                if (F3KeyDown)
-                {
-                    F3KeyDown = false;
-                }
+                Debug = !Debug;
             }
         }
-
-        //TODO Add a class to handle one time key down and key up
-        private static bool NumPad0KeyDown = false;
 
         public static void TryToggleMute(KeyboardState kState)
         {
-            if (kState.IsKeyDown(Keys.NumPad0))
+            if (kState.IsKeyDown(Keys.NumPad0) && !oldKeyBoardState.IsKeyDown(Keys.NumPad0))
             {
-                if (!NumPad0KeyDown)
-                {
-                    NumPad0KeyDown = true;
-                    Volume = Math.Abs(Volume - 1);
-                }
-            }
-            else
-            {
-                if (NumPad0KeyDown)
-                {
-                    NumPad0KeyDown = false;
-                }
+                Volume = Math.Abs(Volume - 1);
             }
         }
-
-        private static bool NumPadAddDown = false;
 
         public static void TryIncreaseFontSize(KeyboardState kState)
         {
-            if (kState.IsKeyDown(Keys.Add))
+            if (kState.IsKeyDown(Keys.Add) && !oldKeyBoardState.IsKeyDown(Keys.Add))
             {
-                if (!NumPadAddDown)
-                {
-                    NumPadAddDown = true;
-                    IncreaseFontSize();
-                }
-            }
-            else
-            {
-                if (NumPadAddDown)
-                {
-                    NumPadAddDown = false;
-                }
+                IncreaseFontSize();
             }
         }
-
-        private static bool NumPadMinusDown = false;
 
         public static void TryDecreaseFontSize(KeyboardState kState)
         {
-            if (kState.IsKeyDown(Keys.Subtract))
+            if (kState.IsKeyDown(Keys.Subtract) && !oldKeyBoardState.IsKeyDown(Keys.Subtract))
             {
-                if (!NumPadMinusDown)
-                {
-                    NumPadMinusDown = true;
-                    DecreaseFontSize();
-                }
-            }
-            else
-            {
-                if (NumPadMinusDown)
-                {
-                    NumPadMinusDown = false;
-                }
+                DecreaseFontSize();
             }
         }
 
-        private static bool F11Down = false;
-
         public static void TryFullScreen(KeyboardState kState)
         {
-            if (kState.IsKeyDown(Keys.F11))
+            if (kState.IsKeyDown(Keys.F11) && !oldKeyBoardState.IsKeyDown(Keys.F11))
             {
-                if (!F11Down)
-                {
-                    F11Down = true;
-                    Graphics.graphics.ToggleFullScreen();
-                }
-            }
-            else
-            {
-                if (F11Down)
-                {
-                    F11Down = false;
-                }
+                Graphics.graphics.ToggleFullScreen();
             }
         }
     }
