@@ -14,7 +14,6 @@ public class Player : Entity
     {
         Position = new Vector2(200, Graphics.Height / 2);
         BaseSpell = new(Spells.MagicBullet, this);
-        //EnergyWeapon = new("energy_ball", 1f, 400f, 0f, 5f, this);
         OriginalColor = Color.Black;
         MaxHealth = 10;
         MovementSpeed = 222f;

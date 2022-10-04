@@ -1,5 +1,6 @@
 ﻿using HelloMonoWorld.Engine;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,9 +42,14 @@ namespace HelloMonoWorld.Game.Projectile.Projectile
             {
                 if (other.Hurt(this.Damage))
                 {
-                    Sounds.Hit.Play(0.5f * Options.Volume, Mth.NextFloat(MainGame.random, -0.25f, 0.25f), 0f);
+                    this.GetHitSound().Play(0.5f * Options.Volume, Mth.NextFloat(MainGame.random, -0.25f, 0.25f), 0f);
                 }
             }
+        }
+
+        protected override SoundEffect GetHitSound()
+        {
+            return Sounds.WaterHit;
         }
     }
 }

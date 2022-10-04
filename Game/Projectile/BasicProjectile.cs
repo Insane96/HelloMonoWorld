@@ -1,5 +1,6 @@
 ﻿using HelloMonoWorld.Engine;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +56,12 @@ public class BasicProjectile : Entity
     public virtual void OnEntityHit(Entity other)
     {
         other.Hurt(Damage, Knockback);
+        this.GetHitSound().Play(0.5f * Options.Volume, Mth.NextFloat(MainGame.random, -0.25f, 0.25f), 0f);
         Discard();
+    }
+
+    protected virtual SoundEffect GetHitSound()
+    {
+        return Sounds.RockHit;
     }
 }
