@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,24 @@ namespace HelloMonoWorld.Engine
                 PreferredBackBufferHeight = height,
             };
             graphics.ApplyChanges();
+        }
+
+        public static void ToggleFullscreen()
+        {
+            if (graphics.IsFullScreen)
+            {
+                graphics.PreferredBackBufferWidth = Width;
+                graphics.PreferredBackBufferHeight = Height;
+                graphics.HardwareModeSwitch = false;
+            }
+            else
+            {
+                graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                graphics.HardwareModeSwitch = false;
+            }
+
+            graphics.ToggleFullScreen();
         }
     }
 }

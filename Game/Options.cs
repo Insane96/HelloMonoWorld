@@ -117,16 +117,6 @@ namespace HelloMonoWorld.Game
                 if (!F11Down)
                 {
                     F11Down = true;
-                    if (Graphics.graphics.IsFullScreen)
-                    {
-                        Graphics.graphics.PreferredBackBufferWidth = Graphics.Width;
-                        Graphics.graphics.PreferredBackBufferHeight = Graphics.Height;
-                    }
-                    else
-                    {
-                        Graphics.graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-                        Graphics.graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-                    }
                     Graphics.graphics.ToggleFullScreen();
                 }
             }
