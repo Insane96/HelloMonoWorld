@@ -21,6 +21,8 @@ namespace HelloMonoWorld.Engine
             contentManager = game.Content;
             Graphics.Init(game, width, height);
             UIText.Init(contentManager);
+
+            Utils.Init();
         }
 
         public static void UpdateGameObjects(GameTime gameTime)

@@ -69,9 +69,6 @@ public class Entity : GameObject
         }
     }
 
-    //TODO Make a static instance somewhere else
-    public static Texture2D OneByOneTexture = new(Graphics.graphics.GraphicsDevice, 1, 1);
-
     public Entity(string id) : this(id, null)
     {
 
@@ -84,7 +81,6 @@ public class Entity : GameObject
 
     public Entity(string id, string spriteName, Vector2? attackDirection) : base(id, spriteName)
     {
-        OneByOneTexture.SetData(new[] { Color.White });
         this.AttackDirection = attackDirection;
     }
 
@@ -256,11 +252,11 @@ public class Entity : GameObject
         base.Draw(spriteBatch);
         if (Options.Debug)
         {
-            spriteBatch.Draw(OneByOneTexture, Bounds, Color.FromNonPremultiplied(255, 0, 0, 64));
+            spriteBatch.Draw(Utils.OneByOneTexture, Bounds, Color.FromNonPremultiplied(255, 0, 0, 64));
         }
         if (ShouldDrawHealth)
         {
-            spriteBatch.Draw(OneByOneTexture, Position.Sum(-25, Bounds.Height / 2 + 10), null, Color.FromNonPremultiplied(255, 100, 100, 192), 0f, Origins.CenterLeft, new Vector2((float)(Health / MaxHealth) * 50, 8), SpriteEffects.None, 0f);
+            spriteBatch.Draw(Utils.OneByOneTexture, Position.Sum(-25, Bounds.Height / 2 + 10), null, Color.FromNonPremultiplied(255, 100, 100, 192), 0f, Origins.CenterLeft, new Vector2((float)(Health / MaxHealth) * 50, 8), SpriteEffects.None, 0f);
         }
     }
 }
