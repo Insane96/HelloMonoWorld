@@ -26,7 +26,7 @@ public class BasicProjectile : Entity
     public float Knockback { get; set; }
     public Entity Owner { get; set; }
 
-    public BasicProjectile(string id, Vector2 direction, float damage, float knockback, Entity owner) : base(id)
+    public BasicProjectile(string spriteName, Vector2 direction, float damage, float knockback, Entity owner) : base(spriteName)
     {
         this.Direction = direction;
         this.Damage = damage;
@@ -34,7 +34,7 @@ public class BasicProjectile : Entity
         this.Owner = owner;
     }
 
-    public BasicProjectile(string id, float damage, float knockback) : this(id, default, damage, knockback, null)
+    public BasicProjectile(string spriteName, float damage, float knockback) : this(spriteName, default, damage, knockback, null)
     {
 
     }

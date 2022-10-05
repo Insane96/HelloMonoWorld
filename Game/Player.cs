@@ -15,7 +15,7 @@ public class Player : Entity
         Position = new Vector2(200, Graphics.Height / 2);
         BaseSpell = new(Spells.MagicBullet, this);
         OriginalColor = Color.Black;
-        MaxHealth = 10;
+        MaxHealth = 100;
         MovementSpeed = 222f;
     }
 

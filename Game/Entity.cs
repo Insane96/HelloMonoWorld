@@ -69,19 +69,12 @@ public class Entity : GameObject
         }
     }
 
-    public Entity(string id) : this(id, null)
-    {
+    public Entity(string spriteName) : this(spriteName, null) { }
 
-    }
-
-    public Entity(string id, Vector2? attackDirection) : this(id, id, attackDirection)
-    {
-
-    }
-
-    public Entity(string id, string spriteName, Vector2? attackDirection) : base(id, spriteName)
+    public Entity(string spriteName, Vector2? attackDirection) : base()
     {
         this.AttackDirection = attackDirection;
+        this.SetSprite(spriteName);
     }
 
     public override void Update()

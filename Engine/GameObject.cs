@@ -1,16 +1,27 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Aseprite.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Transactions;
 
 namespace HelloMonoWorld.Engine;
 
 public abstract class GameObject
 {
-    public string Id { get; private set; }
+    //public string Id { get; private set; }
+
+    private Guid guid;
+
+    public Guid Guid
+    {
+        get { return guid; }
+        private set { guid = value; }
+    }
+
 
     public Vector2 Position { get; set; }
     public Vector2 Origin { get; set; } = new(0.5f, 0.5f);
@@ -28,19 +39,15 @@ public abstract class GameObject
 
     public string SpriteName { get; private set; }
     public Texture2D Texture { get; private set; }
+    public string AnimatedSpriteName { get; private set; }
+    public AnimatedSprite AnimatedSprite { get; private set; }
 
     private static List<GameObject> GameObjects { get; } = new();
     private static List<GameObject> GameObjectsToInstantiate { get; } = new();
 
-    public GameObject(string id) : this(id, "", Vector2.Zero) { Visible = false; }
-
-    public GameObject(string id, string spriteName) : this(id, spriteName, Vector2.Zero) { }
-
-    public GameObject(string id, string spriteName, Vector2 position)
+    public GameObject()
     {
-        Id = id;
-        this.SpriteName = spriteName;
-        this.Position = position;
+        this.Guid = Guid.NewGuid();
     }
 
     public virtual void Initialize(ContentManager contentManager)
@@ -52,6 +59,8 @@ public abstract class GameObject
     {
         if (!string.IsNullOrEmpty(SpriteName))
             Texture = contentManager.Load<Texture2D>($"sprites/{SpriteName}");
+        else
+            this.Visible = false;
     }
 
     public abstract void Update();
@@ -130,5 +139,25 @@ public abstract class GameObject
     internal static IEnumerable<GameObject> GetDrawableGameObjects()
     {
         return GameObjects.Where(g => g.Visible);
+    }
+
+    public GameObject SetPosition(Vector2 vector2)
+    {
+        this.Position = vector2;
+        return this;
+    }
+
+    public GameObject SetPosition(float x, float y) => this.SetPosition(new Vector2(x, y));
+
+    public GameObject SetSprite(string name)
+    {
+        this.SpriteName = name;
+        return this;
+    }
+
+    public GameObject SetAnimatedSprite(string name)
+    {
+        this.AnimatedSpriteName = name;
+        return this;
     }
 }

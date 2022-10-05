@@ -17,7 +17,7 @@ public class AbstractEnemy : Entity
     public float attackSpeed = 2f;
     public float attackDamage = 1f;
 
-    public AbstractEnemy(string id, string spriteName) : base(id, spriteName, Direction.LEFT.vector)
+    public AbstractEnemy(string id, string spriteName) : base(spriteName, Direction.LEFT.vector)
     {
         AttackTime = attackSpeed;
         ShouldDrawHealth = true;

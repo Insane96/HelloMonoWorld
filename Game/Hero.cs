@@ -9,7 +9,7 @@ public class Hero : Entity
 {
     public Entity TargetEnemy { get; set; }
 
-    public Hero() : base("hero", "stickman", Direction.RIGHT.vector)
+    public Hero() : base("stickman", Direction.RIGHT.vector)
     {
         Position = new Vector2(80, Graphics.Height / 2);
         BaseSpell = new(Spells.EnergyBall, this);

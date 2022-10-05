@@ -18,7 +18,7 @@ namespace HelloMonoWorld.Game
 
         private int spawnId = 0;
 
-        public Spawner(double minSpawnTime, double maxSpawnTime) : base("spawner")
+        public Spawner(double minSpawnTime, double maxSpawnTime) : base()
         {
             this.minSpawnTime = minSpawnTime;
             this.maxSpawnTime = maxSpawnTime;
