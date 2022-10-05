@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Aseprite.Documents;
+using MonoGame.Aseprite.Graphics;
 using System;
 
 namespace HelloMonoWorld.Game;
@@ -18,6 +20,9 @@ public class MainGame : Microsoft.Xna.Framework.Game
     private RenderTarget2D target;
 
     public static SpriteFont debugFont;
+
+    public static AsepriteDocument stickmanAnimated;
+    public static AnimatedSprite stickmanAnim;
 
     public MainGame()
     {
@@ -44,6 +49,9 @@ public class MainGame : Microsoft.Xna.Framework.Game
         target = new(GraphicsDevice, Graphics.Width, Graphics.Height);
 
         debugFont = Content.Load<SpriteFont>("fonts/debug");
+        stickmanAnimated = Content.Load<AsepriteDocument>("sprites/stickman_anim");
+        stickmanAnim = new AnimatedSprite(stickmanAnimated);
+        //stickmanAnim.Play("Idle");
         Sounds.LoadContent(Content);
     }
 
@@ -63,6 +71,8 @@ public class MainGame : Microsoft.Xna.Framework.Game
 
         MonoEngine.UpdateGameObjects(gameTime);
 
+        stickmanAnim.Update((float)Time.DeltaTime);
+
         base.Update(gameTime);
     }
 
@@ -78,6 +88,7 @@ public class MainGame : Microsoft.Xna.Framework.Game
         }
 
         MonoEngine.DrawGameObjects(_spriteBatch);
+        stickmanAnim.Render(_spriteBatch);
 
         _spriteBatch.End();
 

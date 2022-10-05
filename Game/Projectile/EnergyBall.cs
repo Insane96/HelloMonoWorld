@@ -42,7 +42,7 @@ namespace HelloMonoWorld.Game.Projectile.Projectile
             {
                 if (other.Hurt(this.Damage))
                 {
-                    Sounds.PlaySoundVariated(this.GetHitSound(), 0.5f, 0.25f);
+                    Sounds.PlaySoundVariated(this.GetHitSound(), 0.25f, 0.25f);
                 }
             }
         }
