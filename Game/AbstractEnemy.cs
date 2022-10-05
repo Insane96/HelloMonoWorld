@@ -51,18 +51,6 @@ public class AbstractEnemy : Entity
     public override void Draw(SpriteBatch spriteBatch)
     {
         base.Draw(spriteBatch);
-        spriteBatch.Draw(
-            Texture,
-            Position,
-            null,
-            Color,
-            0f,
-            new Vector2(Texture.Width * Origin.X, Texture.Height * Origin.Y),
-            Vector2.One,
-            SpriteEffect,
-            0f
-        );
-
     }
 }
 

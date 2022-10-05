@@ -38,20 +38,19 @@ namespace HelloMonoWorld.Engine
 
         public static void ToggleFullscreen()
         {
+            graphics.ToggleFullScreen();
             if (graphics.IsFullScreen)
-            {
-                graphics.PreferredBackBufferWidth = Width;
-                graphics.PreferredBackBufferHeight = Height;
-                graphics.HardwareModeSwitch = false;
-            }
-            else
             {
                 graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
                 graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
                 graphics.HardwareModeSwitch = false;
             }
-
-            graphics.ToggleFullScreen();
+            else
+            {
+                graphics.PreferredBackBufferWidth = Width;
+                graphics.PreferredBackBufferHeight = Height;
+                graphics.HardwareModeSwitch = true;
+            }
         }
     }
 }
