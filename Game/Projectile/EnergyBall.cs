@@ -1,4 +1,5 @@
 ﻿using HelloMonoWorld.Engine;
+using HelloMonoWorld.Game.Entity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System;
@@ -14,7 +15,7 @@ namespace HelloMonoWorld.Game.Projectile.Projectile
     {
         double DamageInterval { get; set; } = 0.2d;
 
-        public EnergyBall(string id, Vector2 direction, float damage, float knockback, Entity owner, double damageInterval) : base(id, direction, damage, knockback, owner)
+        public EnergyBall(string id, Vector2 direction, float damage, float knockback, AbstractEntity owner, double damageInterval) : base(id, direction, damage, knockback, owner)
         {
             DamageInterval = damageInterval;
             AttackTime = damageInterval;
@@ -36,7 +37,7 @@ namespace HelloMonoWorld.Game.Projectile.Projectile
                 AttackTime = DamageInterval;
         }
 
-        public override void OnEntityHit(Entity other)
+        public override void OnEntityHit(AbstractEntity other)
         {
             if (AttackTime <= 0d)
             {

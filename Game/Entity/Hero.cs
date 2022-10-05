@@ -3,11 +3,11 @@ using HelloMonoWorld.Game.Spell;
 using Microsoft.Xna.Framework;
 using System.Linq;
 
-namespace HelloMonoWorld.Game;
+namespace HelloMonoWorld.Game.Entity;
 
-public class Hero : Entity
+public class Hero : AbstractEntity
 {
-    public Entity TargetEnemy { get; set; }
+    public AbstractEntity TargetEnemy { get; set; }
 
     public Hero() : base("stickman", Direction.RIGHT.vector)
     {
@@ -20,27 +20,27 @@ public class Hero : Entity
     {
         base.Update();
 
-        this.BaseSpell.Update();
-        if (this.TargetEnemy == null)
+        BaseSpell.Update();
+        if (TargetEnemy == null)
         {
             GetTarget();
         }
         else
         {
-            if (this.TargetEnemy.IsDead())
-                this.TargetEnemy = null;
+            if (TargetEnemy.IsDead())
+                TargetEnemy = null;
             else
-                this.BaseSpell.TryCast(Utils.GetDirection(this.Position, this.TargetEnemy.Position));
+                BaseSpell.TryCast(Utils.GetDirection(Position, TargetEnemy.Position));
         }
     }
 
     public virtual void GetTarget()
     {
-        GameObject nearestEnemy = GameObject.GetUpdatableGameObjects().OrderBy(g => g.Position.X).FirstOrDefault(g => g is AbstractEnemy);
+        GameObject nearestEnemy = GetUpdatableGameObjects().OrderBy(g => g.Position.X).FirstOrDefault(g => g is AbstractEnemy);
         if (nearestEnemy == null)
             return;
         else
-            this.TargetEnemy = (AbstractEnemy) nearestEnemy;
+            TargetEnemy = (AbstractEnemy)nearestEnemy;
     }
 }
 

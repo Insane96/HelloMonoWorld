@@ -6,9 +6,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 
-namespace HelloMonoWorld.Game;
+namespace HelloMonoWorld.Game.Entity;
 
-public class Player : Entity
+public class Player : AbstractEntity
 {
     public Player() : base("stickman", Direction.RIGHT.vector)
     {
@@ -56,11 +56,11 @@ public class Player : Entity
 
     private void UpdateAttack()
     {
-        this.BaseSpell.Update();
+        BaseSpell.Update();
         var kstate = Keyboard.GetState();
         if (kstate.IsKeyDown(Keys.Right))
         {
-            this.BaseSpell.TryCast(this.AttackDirection);
+            BaseSpell.TryCast(AttackDirection);
         }
 
         /*if (kstate.IsKeyDown(Keys.Space))

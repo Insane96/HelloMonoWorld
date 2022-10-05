@@ -1,4 +1,5 @@
 ﻿using HelloMonoWorld.Engine;
+using HelloMonoWorld.Game.Entity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;

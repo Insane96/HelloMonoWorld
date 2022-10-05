@@ -1,4 +1,5 @@
 ﻿using HelloMonoWorld.Engine;
+using HelloMonoWorld.Game.Entity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using System;
@@ -7,7 +8,7 @@ using System.Linq;
 
 namespace HelloMonoWorld.Game.Projectile;
 
-public class BasicProjectile : Entity
+public class BasicProjectile : AbstractEntity
 {
     private Vector2 direction;
     public Vector2 Direction
@@ -24,9 +25,9 @@ public class BasicProjectile : Entity
     }
     public float Damage { get; set; }
     public float Knockback { get; set; }
-    public Entity Owner { get; set; }
+    public AbstractEntity Owner { get; set; }
 
-    public BasicProjectile(string spriteName, Vector2 direction, float damage, float knockback, Entity owner) : base(spriteName)
+    public BasicProjectile(string spriteName, Vector2 direction, float damage, float knockback, AbstractEntity owner) : base(spriteName)
     {
         this.Direction = direction;
         this.Damage = damage;
@@ -43,9 +44,9 @@ public class BasicProjectile : Entity
     {
         base.Update();
         DeltaMovement = Direction.Multiply(MovementSpeed);
-        IEnumerable<Entity> entitiesCollided = GetCollisionsOfClass(typeof(AbstractEnemy));
+        IEnumerable<AbstractEntity> entitiesCollided = GetCollisionsOfClass(typeof(AbstractEnemy));
 
-        foreach (Entity entity in entitiesCollided)
+        foreach (AbstractEntity entity in entitiesCollided)
         {
             OnEntityHit(entity);
             if (this.RemovalMark)
@@ -53,7 +54,7 @@ public class BasicProjectile : Entity
         }
     }
 
-    public virtual void OnEntityHit(Entity other)
+    public virtual void OnEntityHit(AbstractEntity other)
     {
         other.Hurt(Damage, Knockback);
         Sounds.PlaySoundVariated(this.GetHitSound(), 0.5f, 0.25f);

@@ -1,4 +1,5 @@
 ﻿using HelloMonoWorld.Engine;
+using HelloMonoWorld.Game.Entity;
 using HelloMonoWorld.Game.Projectile;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -28,7 +29,7 @@ public class BasicSpell
         return new(this.Id, this.Damage, this.Knockback);
     }
 
-    public virtual void Cast(Entity owner, Vector2 direction)
+    public virtual void Cast(AbstractEntity owner, Vector2 direction)
     {
         Sounds.PlaySoundVariated(this.GetCastSound(), 0.5f, 0.25f);
         BasicProjectile projectile = this.GetProjectile();

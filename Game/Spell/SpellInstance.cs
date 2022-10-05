@@ -1,4 +1,5 @@
 ﻿using HelloMonoWorld.Engine;
+using HelloMonoWorld.Game.Entity;
 using Microsoft.Xna.Framework;
 using System.Data;
 
@@ -8,9 +9,9 @@ public class SpellInstance
 {
     BasicSpell Spell { get; set; }
     double CurrentCooldown { get; set; }
-    Entity Owner { get; set; }
+    AbstractEntity Owner { get; set; }
 
-    public SpellInstance(BasicSpell spell, Entity owner)
+    public SpellInstance(BasicSpell spell, AbstractEntity owner)
     {
         this.Spell = spell;
         this.Owner = owner;

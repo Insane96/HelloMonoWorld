@@ -9,9 +9,9 @@ using HelloMonoWorld.Engine;
 using Microsoft.Xna.Framework.Graphics;
 using System.Transactions;
 
-namespace HelloMonoWorld.Game;
+namespace HelloMonoWorld.Game.Entity;
 
-public class AbstractEnemy : Entity
+public class AbstractEnemy : AbstractEntity
 {
     //TODO Use Spell
     public float attackSpeed = 2f;
@@ -25,9 +25,9 @@ public class AbstractEnemy : Entity
 
     public override void Update()
     {
-        if (!this.Knockbacked)
+        if (!Knockbacked)
         {
-            if (this.Position.X > 300)
+            if (Position.X > 300)
             {
                 DeltaMovement += GetRelativeMovement(Direction.LEFT.vector);
             }

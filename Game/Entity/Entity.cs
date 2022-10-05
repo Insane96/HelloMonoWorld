@@ -9,9 +9,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HelloMonoWorld.Game;
+namespace HelloMonoWorld.Game.Entity;
 
-public class Entity : GameObject
+public class AbstractEntity : GameObject
 {
     public float MovementSpeed { get; set; } = 100f;
     public Vector2 DeltaMovement { get; set; } = Vector2.Zero;
@@ -69,12 +69,12 @@ public class Entity : GameObject
         }
     }
 
-    public Entity(string spriteName) : this(spriteName, null) { }
+    public AbstractEntity(string spriteName) : this(spriteName, null) { }
 
-    public Entity(string spriteName, Vector2? attackDirection) : base()
+    public AbstractEntity(string spriteName, Vector2? attackDirection) : base()
     {
-        this.AttackDirection = attackDirection;
-        this.SetSprite(spriteName);
+        AttackDirection = attackDirection;
+        SetSprite(spriteName);
     }
 
     public override void Update()
@@ -172,17 +172,17 @@ public class Entity : GameObject
         return Health <= 0f;
     }
 
-    public virtual List<Entity> GetCollisions()
+    public virtual List<AbstractEntity> GetCollisions()
     {
         return GetCollisionsIgnoring();
     }
 
-    public virtual List<Entity> GetCollisionsIgnoring(params Entity[] entitiesToIgnore)
+    public virtual List<AbstractEntity> GetCollisionsIgnoring(params AbstractEntity[] entitiesToIgnore)
     {
-        List<Entity> list = new();
+        List<AbstractEntity> list = new();
         foreach (GameObject gameObject in GetUpdatableGameObjects())
         {
-            if (gameObject is not Entity entity
+            if (gameObject is not AbstractEntity entity
                     || gameObject == this
                     || entitiesToIgnore.Contains(gameObject))
                 continue;
@@ -193,12 +193,12 @@ public class Entity : GameObject
         return list;
     }
 
-    public virtual List<Entity> GetCollisionsIgnoringClass(params Type[] classToIgnore)
+    public virtual List<AbstractEntity> GetCollisionsIgnoringClass(params Type[] classToIgnore)
     {
-        List<Entity> list = new();
+        List<AbstractEntity> list = new();
         foreach (GameObject gameObject in GetUpdatableGameObjects())
         {
-            if (gameObject is not Entity entity
+            if (gameObject is not AbstractEntity entity
                     || gameObject == this)
                 continue;
 
@@ -217,12 +217,12 @@ public class Entity : GameObject
         return list;
     }
 
-    public virtual List<Entity> GetCollisionsOfClass(params Type[] clazz)
+    public virtual List<AbstractEntity> GetCollisionsOfClass(params Type[] clazz)
     {
-        List<Entity> list = new();
+        List<AbstractEntity> list = new();
         foreach (GameObject gameObject in GetUpdatableGameObjects())
         {
-            if (gameObject is not Entity entity
+            if (gameObject is not AbstractEntity entity
                     || gameObject == this)
                 continue;
 

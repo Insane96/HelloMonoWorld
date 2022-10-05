@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HelloMonoWorld.Game
+namespace HelloMonoWorld.Game.Entity
 {
     public class ZombieEnemy : AbstractEnemy
     {
