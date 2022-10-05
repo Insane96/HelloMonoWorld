@@ -25,17 +25,24 @@ public class AbstractEnemy : Entity
 
     public override void Update()
     {
-        if (Position.X <= 300)
+        if (!this.Knockbacked)
         {
-            DeltaMovement = Vector2.Zero;
-            if (AttackTime > 0d)
+            if (this.Position.X > 300)
             {
-                AttackTime -= Time.DeltaTime;
+                DeltaMovement += GetRelativeMovement(Direction.LEFT.vector);
             }
             else
             {
-                MainGame.player.Hurt(attackDamage);
-                AttackTime = attackSpeed;
+                DeltaMovement = Vector2.Zero;
+                if (AttackTime > 0d)
+                {
+                    AttackTime -= Time.DeltaTime;
+                }
+                else
+                {
+                    MainGame.player.Hurt(attackDamage);
+                    AttackTime = attackSpeed;
+                }
             }
         }
         base.Update();

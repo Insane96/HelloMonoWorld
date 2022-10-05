@@ -20,8 +20,6 @@ namespace HelloMonoWorld.Game
 
         public override void Update()
         {
-            if (!Knockbacked)
-                DeltaMovement += GetRelativeMovement(Direction.LEFT.vector);
             base.Update();
         }
 
