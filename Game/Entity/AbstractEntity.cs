@@ -131,7 +131,7 @@ public class AbstractEntity : GameObject
 
     public void UpdateBounds()
     {
-        this.Bounds = new Rectangle((int)(this.GetX() - this.Sprite.Origin.Y), (int)(this.GetY() - this.Sprite.Origin.X), this.GetWidth(), this.GetHeight());
+        this.Bounds = new Rectangle((int)(this.GetX() - this.Sprite.Origin.X), (int)(this.GetY() - this.Sprite.Origin.Y), this.GetWidth(), this.GetHeight());
     }
 
     public virtual bool Hurt(float damage, float knockback = 0f)

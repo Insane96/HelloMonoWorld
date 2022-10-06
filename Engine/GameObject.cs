@@ -41,7 +41,6 @@ public abstract class GameObject
     {
         this.Guid = Guid.NewGuid();
         this.Sprite = new AnimatedSprite(Utils.OneByOneTexture);
-        this.Origin = Origins.Center;
     }
 
     public virtual void Initialize(ContentManager contentManager)
@@ -63,17 +62,6 @@ public abstract class GameObject
     public virtual void Draw(SpriteBatch spriteBatch)
     {
         this.Sprite.Render(spriteBatch);
-        /**spriteBatch.Draw(
-            this.Texture,
-            this.Position,
-            null,
-            this.Color,
-            this.Rotation,
-            new Vector2(this.Texture.Width * this.Origin.X, this.Texture.Height * this.Origin.Y),
-            Vector2.One,
-            this.SpriteEffect,
-            0f
-        );*/
     }
 
     public void Enable() => Enabled = true;
@@ -137,7 +125,11 @@ public abstract class GameObject
         return GameObjects.Where(g => g.Visible);
     }
 
-    public void SetSprite(AsepriteDocument aseprite) => this.Sprite = new AnimatedSprite(aseprite);
+    public void SetSprite(AsepriteDocument aseprite)
+    {
+        this.Sprite = new AnimatedSprite(aseprite);
+        this.Origin = Origins.Center;
+    }
 
     public void SetPosition(Vector2 vector2) => this.Sprite.Position = vector2;
 
