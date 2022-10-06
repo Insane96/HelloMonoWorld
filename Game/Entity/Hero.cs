@@ -9,34 +9,34 @@ public class Hero : AbstractEntity
 {
     public AbstractEntity TargetEnemy { get; set; }
 
-    public Hero() : base("stickman", Direction.RIGHT.vector)
+    public Hero() : base(Sprites.StickmanAnimatedAseprite, Direction.RIGHT.vector)
     {
-        Position = new Vector2(80, Graphics.Height / 2);
-        BaseSpell = new(Spells.EnergyBall, this);
-        OriginalColor = Color.DarkViolet;
+        this.SetPosition(new Vector2(80, Graphics.Height / 2));
+        this.BaseSpell = new(Spells.EnergyBall, this);
+        this.OriginalColor = Color.DarkViolet;
     }
 
     public override void Update()
     {
         base.Update();
 
-        BaseSpell.Update();
-        if (TargetEnemy == null)
+        this.BaseSpell.Update();
+        if (this.TargetEnemy == null)
         {
-            GetTarget();
+            this.GetTarget();
         }
         else
         {
-            if (TargetEnemy.IsDead())
-                TargetEnemy = null;
+            if (this.TargetEnemy.IsDead())
+                this.TargetEnemy = null;
             else
-                BaseSpell.TryCast(Utils.GetDirection(Position, TargetEnemy.Position));
+                this.BaseSpell.TryCast(Utils.GetDirection(this.GetPosition(), this.TargetEnemy.GetPosition()));
         }
     }
 
     public virtual void GetTarget()
     {
-        GameObject nearestEnemy = GetUpdatableGameObjects().OrderBy(g => g.Position.X).FirstOrDefault(g => g is AbstractEnemy);
+        GameObject nearestEnemy = GetUpdatableGameObjects().OrderBy(g => g.GetX()).FirstOrDefault(g => g is AbstractEnemy);
         if (nearestEnemy == null)
             return;
         else

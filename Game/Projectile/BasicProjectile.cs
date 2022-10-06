@@ -2,6 +2,9 @@
 using HelloMonoWorld.Game.Entity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using MonoGame.Aseprite.Documents;
+using MonoGame.Aseprite.Graphics;
+using MonoGame.Extended.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +23,14 @@ public class BasicProjectile : AbstractEntity
         set
         {
             this.direction = value;
-            this.Rotation = ((float)(Math.Asin(value.Y / value.Length())));
+            this.SetRotation((float)Math.Asin(value.Y / value.Length()));
         }
     }
     public float Damage { get; set; }
     public float Knockback { get; set; }
     public AbstractEntity Owner { get; set; }
 
-    public BasicProjectile(string spriteName, Vector2 direction, float damage, float knockback, AbstractEntity owner) : base(spriteName)
+    public BasicProjectile(AsepriteDocument aseprite, Vector2 direction, float damage, float knockback, AbstractEntity owner) : base(aseprite)
     {
         this.Direction = direction;
         this.Damage = damage;
@@ -35,10 +38,7 @@ public class BasicProjectile : AbstractEntity
         this.Owner = owner;
     }
 
-    public BasicProjectile(string spriteName, float damage, float knockback) : this(spriteName, default, damage, knockback, null)
-    {
-
-    }
+    public BasicProjectile(AsepriteDocument aseprite, float damage, float knockback) : this(aseprite, default, damage, knockback, null) { }
 
     public override void Update()
     {

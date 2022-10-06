@@ -2,6 +2,9 @@
 using HelloMonoWorld.Game.Entity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
+using MonoGame.Aseprite.Documents;
+using MonoGame.Aseprite.Graphics;
+using MonoGame.Extended.Sprites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +18,13 @@ namespace HelloMonoWorld.Game.Projectile.Projectile
     {
         double DamageInterval { get; set; } = 0.2d;
 
-        public EnergyBall(string id, Vector2 direction, float damage, float knockback, AbstractEntity owner, double damageInterval) : base(id, direction, damage, knockback, owner)
+        public EnergyBall(AsepriteDocument aseprite, Vector2 direction, float damage, float knockback, AbstractEntity owner, double damageInterval) : base(aseprite, direction, damage, knockback, owner)
         {
             DamageInterval = damageInterval;
             AttackTime = damageInterval;
         }
 
-        public EnergyBall(string id, float damage, float knockback, double damageInterval) : this(id, default, damage, knockback, null, damageInterval)
+        public EnergyBall(AsepriteDocument aseprite, float damage, float knockback, double damageInterval) : this(aseprite, default, damage, knockback, null, damageInterval)
         {
 
         }

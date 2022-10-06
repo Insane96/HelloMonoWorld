@@ -1,34 +1,29 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Aseprite.Documents;
 using MonoGame.Aseprite.Graphics;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Transactions;
 
 namespace HelloMonoWorld.Engine;
 
 public abstract class GameObject
 {
-    //public string Id { get; private set; }
+    public Guid Guid { get; }
 
-    private Guid guid;
-
-    public Guid Guid
+    public Vector2 origin;
+    public Vector2 Origin
     {
-        get { return guid; }
-        private set { guid = value; }
+        get => this.origin;
+        set
+        {
+            this.origin = value;
+            this.Sprite.Origin = new Vector2(this.Sprite.Width * origin.X, this.Sprite.Height * origin.Y);
+        }
     }
-
-
-    public Vector2 Position { get; set; }
-    public Vector2 Origin { get; set; } = new(0.5f, 0.5f);
-
-    public Color Color { get; set; } = Color.White;
-    public float Rotation { get; set; }
-    public SpriteEffects SpriteEffect { get; private set; } = SpriteEffects.None;
 
     public bool Enabled { get; set; } = true;
     public bool Visible { get; set; } = true;
@@ -37,10 +32,7 @@ public abstract class GameObject
     /// </summary>
     public bool RemovalMark { get; set; }
 
-    public string SpriteName { get; private set; }
-    public Texture2D Texture { get; private set; }
-    public string AnimatedSpriteName { get; private set; }
-    public AnimatedSprite AnimatedSprite { get; private set; }
+    public AnimatedSprite Sprite { get; private set; }
 
     private static List<GameObject> GameObjects { get; } = new();
     private static List<GameObject> GameObjectsToInstantiate { get; } = new();
@@ -48,6 +40,8 @@ public abstract class GameObject
     public GameObject()
     {
         this.Guid = Guid.NewGuid();
+        this.Sprite = new AnimatedSprite(Utils.OneByOneTexture);
+        this.Origin = Origins.Center;
     }
 
     public virtual void Initialize(ContentManager contentManager)
@@ -57,17 +51,19 @@ public abstract class GameObject
 
     public virtual void LoadContent(ContentManager contentManager)
     {
-        if (!string.IsNullOrEmpty(SpriteName))
-            Texture = contentManager.Load<Texture2D>($"sprites/{SpriteName}");
-        else
+        if (this.Sprite == null)
             this.Visible = false;
     }
 
-    public abstract void Update();
+    public virtual void Update()
+    {
+        this.Sprite.Update((float)Time.DeltaTime);
+    }
 
     public virtual void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(
+        this.Sprite.Render(spriteBatch);
+        /**spriteBatch.Draw(
             this.Texture,
             this.Position,
             null,
@@ -77,7 +73,7 @@ public abstract class GameObject
             Vector2.One,
             this.SpriteEffect,
             0f
-        );
+        );*/
     }
 
     public void Enable() => Enabled = true;
@@ -141,23 +137,28 @@ public abstract class GameObject
         return GameObjects.Where(g => g.Visible);
     }
 
-    public GameObject SetPosition(Vector2 vector2)
-    {
-        this.Position = vector2;
-        return this;
-    }
+    public void SetSprite(AsepriteDocument aseprite) => this.Sprite = new AnimatedSprite(aseprite);
 
-    public GameObject SetPosition(float x, float y) => this.SetPosition(new Vector2(x, y));
+    public void SetPosition(Vector2 vector2) => this.Sprite.Position = vector2;
 
-    public GameObject SetSprite(string name)
-    {
-        this.SpriteName = name;
-        return this;
-    }
+    public void SetPosition(float x, float y) => this.SetPosition(new Vector2(x, y));
+    public void Travel(Vector2 value) => this.Sprite.Position += value;
 
-    public GameObject SetAnimatedSprite(string name)
-    {
-        this.AnimatedSpriteName = name;
-        return this;
-    }
+    public void SetX(float x) => this.Sprite.Position = new(x, this.Sprite.Y);
+    public void SetY(float y) => this.Sprite.Position = new(this.Sprite.X, y);
+
+    public Vector2 GetPosition() => this.Sprite.Position;
+    public float GetX() => this.Sprite.X;
+    public float GetY() => this.Sprite.Y;
+
+    public int GetWidth() => this.Sprite.Width;
+    public int GetHeight() => this.Sprite.Height;
+
+    public void SetColor(Color color) => this.Sprite.Color = color;
+
+    public void SetRotation(float rot) => this.Sprite.Rotation = rot;
+
+    public void SetScale(Vector2 scale) => this.Sprite.Scale = scale;
+
+    public void SetSpriteEffect(SpriteEffects spriteEffect) => this.Sprite.SpriteEffect = spriteEffect;
 }

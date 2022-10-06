@@ -10,13 +10,13 @@ namespace HelloMonoWorld.Game.Entity;
 
 public class Player : AbstractEntity
 {
-    public Player() : base("stickman", Direction.RIGHT.vector)
+    public Player() : base(Sprites.StickmanAnimatedAseprite, Direction.RIGHT.vector)
     {
-        Position = new Vector2(200, Graphics.Height / 2);
-        BaseSpell = new(Spells.MagicBullet, this);
-        OriginalColor = Color.Black;
-        MaxHealth = 100;
-        MovementSpeed = 222f;
+        this.SetPosition(new Vector2(200, Graphics.Height / 2));
+        this.BaseSpell = new(Spells.MagicBullet, this);
+        this.OriginalColor = Color.Black;
+        this.MaxHealth = 100;
+        this.MovementSpeed = 222f;
     }
 
     public override void Update()
@@ -62,11 +62,5 @@ public class Player : AbstractEntity
         {
             BaseSpell.TryCast(AttackDirection);
         }
-
-        /*if (kstate.IsKeyDown(Keys.Space))
-        {
-            AttackTime = EnergyWeapon.AttackSpeed;
-            EnergyWeapon.Attack();
-        }*/
     }
 }

@@ -17,28 +17,26 @@ namespace HelloMonoWorld.Game
         private double minSpawnTime;
         private double maxSpawnTime;
 
-        private int spawnId = 0;
-
         public Spawner(double minSpawnTime, double maxSpawnTime) : base()
         {
+            //this.SetSprite(Utils.OneByOneTexture);
             this.minSpawnTime = minSpawnTime;
             this.maxSpawnTime = maxSpawnTime;
             spawnTime = 1d / 60d;//Mth.NextDouble(MainGame.random, minSpawnTime, maxSpawnTime);
-            Position = new Vector2(Graphics.Width + 80, Graphics.Height / 2);
+            this.SetPosition(new Vector2(Graphics.Width + 80, Graphics.Height / 2));
         }
 
         public override void Update()
         {
+            base.Update();
             if (spawnTime > 0d)
             {
                 spawnTime -= Time.DeltaTime;
                 if (spawnTime <= 0d)
                 {
                     spawnTime = Mth.NextDouble(MainGame.random, minSpawnTime, maxSpawnTime);
-                    ZombieEnemy zombie = new($"zombie{spawnId++}", "stickman")
-                    {
-                        Position = new Vector2(Position.X, Mth.NextInt(MainGame.random, 100, Graphics.Height - 100)),
-                    };
+                    ZombieEnemy zombie = new(Sprites.StickmanAnimatedAseprite);
+                    zombie.SetPosition(this.GetX(), Mth.NextInt(MainGame.random, 100, Graphics.Height - 100));
                     Instantiate(zombie);
                 }
             }

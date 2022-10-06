@@ -22,9 +22,6 @@ public class MainGame : Microsoft.Xna.Framework.Game
 
     public static SpriteFont debugFont;
 
-    public static AsepriteDocument stickmanAnimated;
-    public static AnimatedSprite stickmanAnim;
-
     public MainGame()
     {
         Content.RootDirectory = "Content";
@@ -34,6 +31,8 @@ public class MainGame : Microsoft.Xna.Framework.Game
 
     protected override void Initialize()
     {
+        Sprites.LoadTextures(MonoEngine.contentManager);
+
         player = new Player();
         GameObject.Instantiate(player);
         hero = new Hero();
@@ -50,8 +49,6 @@ public class MainGame : Microsoft.Xna.Framework.Game
         target = new(GraphicsDevice, Graphics.Width, Graphics.Height);
 
         debugFont = Content.Load<SpriteFont>("fonts/debug");
-        stickmanAnimated = Content.Load<AsepriteDocument>("sprites/stickman_anim");
-        stickmanAnim = new AnimatedSprite(stickmanAnimated);
         //stickmanAnim.Play("Idle");
         Sounds.LoadContent(Content);
     }
@@ -72,8 +69,6 @@ public class MainGame : Microsoft.Xna.Framework.Game
 
         MonoEngine.UpdateGameObjects(gameTime);
 
-        stickmanAnim.Update((float)Time.DeltaTime);
-
         base.Update(gameTime);
     }
 
@@ -85,11 +80,10 @@ public class MainGame : Microsoft.Xna.Framework.Game
 
         if (Options.Debug)
         {
-            MonoEngine.DrawText(debugFont, $"{player.Position.ToString("N1")}(DeltaMov: {player.DeltaMovement.ToString("N1")}){Environment.NewLine}Bounds: {player.Bounds}{Environment.NewLine}Health: {player.Health}", Vector2.One.Sum(2, 2), Color.White, Vector2.Zero, Color.Black);
+            MonoEngine.DrawText(debugFont, $"{player.GetPosition().ToString("N1")}(DeltaMov: {player.DeltaMovement.ToString("N1")}){Environment.NewLine}Bounds: {player.Bounds}{Environment.NewLine}Health: {player.Health}", Vector2.One.Sum(2, 2), Color.White, Vector2.Zero, Color.Black);
         }
 
         MonoEngine.DrawGameObjects(_spriteBatch);
-        stickmanAnim.Render(_spriteBatch);
 
         _spriteBatch.End();
 

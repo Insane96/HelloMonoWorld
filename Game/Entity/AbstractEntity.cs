@@ -1,13 +1,12 @@
 ﻿using HelloMonoWorld.Engine;
 using HelloMonoWorld.Game.Spell;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Aseprite.Documents;
+using MonoGame.Aseprite.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HelloMonoWorld.Game.Entity;
 
@@ -65,20 +64,21 @@ public class AbstractEntity : GameObject
         set
         {
             originalColor = value;
-            Color = value;
+            this.SetColor(value);
         }
     }
 
-    public AbstractEntity(string spriteName) : this(spriteName, null) { }
+    public AbstractEntity(AsepriteDocument aseprite) : this(aseprite, null) { }
 
-    public AbstractEntity(string spriteName, Vector2? attackDirection) : base()
+    public AbstractEntity(AsepriteDocument aseprite, Vector2? attackDirection) : base()
     {
         AttackDirection = attackDirection;
-        SetSprite(spriteName);
+        SetSprite(aseprite);
     }
 
     public override void Update()
     {
+        base.Update();
         Move();
         if (ShouldUpdateBounds)
             UpdateBounds();
@@ -86,7 +86,7 @@ public class AbstractEntity : GameObject
         {
             HitTime -= Time.DeltaTime;
             if (HitTime <= 0d)
-                Color = OriginalColor;
+                this.SetColor(OriginalColor);
         }
         if (AttackTime > 0d)
         {
@@ -96,16 +96,16 @@ public class AbstractEntity : GameObject
 
     public void Move()
     {
-        if (DeltaMovement != Vector2.Zero)
+        if (this.DeltaMovement != Vector2.Zero)
         {
-            Position += Vector2.Multiply(DeltaMovement, (float)Time.DeltaTime);
+            this.Travel(Vector2.Multiply(DeltaMovement, (float)Time.DeltaTime));
 
             if (!Knockbacked)
-                DeltaMovement = Vector2.Zero;
+                this.DeltaMovement = Vector2.Zero;
             else
             {
-                DeltaMovement = Vector2.Multiply(DeltaMovement, (float)(1f - KnockbackResistance));
-                if (DeltaMovement.Length() < 8f)
+                this.DeltaMovement = Vector2.Multiply(this.DeltaMovement, (float)(1f - this.KnockbackResistance));
+                if (this.DeltaMovement.Length() < 8f)
                 {
                     Knockbacked = false;
                 }
@@ -118,63 +118,63 @@ public class AbstractEntity : GameObject
         float length = input.LengthSquared();
         if (length < 1e-4)
             return Vector2.Zero;
-        return Vector2.Multiply(length > 1.0d ? Vector2.Normalize(input) : input, MovementSpeed);
+        return Vector2.Multiply(length > 1.0d ? Vector2.Normalize(input) : input, this.MovementSpeed);
     }
 
     public void Push(Vector2 direction, float force)
     {
         if (force == 0f)
             return;
-        Knockbacked = true;
-        DeltaMovement = Vector2.Multiply(direction, force);
+        this.Knockbacked = true;
+        this.DeltaMovement = Vector2.Multiply(direction, force);
     }
 
     public void UpdateBounds()
     {
-        Bounds = new Rectangle((int)(Position.X - Texture.Width * Origin.X), (int)(Position.Y - Texture.Height * Origin.Y), Texture.Width, Texture.Height);
+        this.Bounds = new Rectangle((int)(this.GetX() - this.Sprite.Origin.Y), (int)(this.GetY() - this.Sprite.Origin.X), this.GetWidth(), this.GetHeight());
     }
 
     public virtual bool Hurt(float damage, float knockback = 0f)
     {
-        if (IsDead())
+        if (this.IsDead())
             return false;
 
-        Health -= damage;
+        this.Health -= damage;
 
-        HitTime = 0.1d;
-        Color = Color.Red;
+        this.HitTime = 0.1d;
+        this.SetColor(Color.Red);
 
-        if (IsDead())
+        if (this.IsDead())
         {
-            OnDeath();
+            this.OnDeath();
         }
         return true;
     }
 
     public virtual void Kill()
     {
-        Health = 0f;
-        OnDeath();
+        this.Health = 0f;
+        this.OnDeath();
     }
 
     public void Discard()
     {
-        MarkForRemoval();
+        this.MarkForRemoval();
     }
 
     public virtual void OnDeath()
     {
-        MarkForRemoval();
+        this.MarkForRemoval();
     }
 
     public virtual bool IsDead()
     {
-        return Health <= 0f;
+        return this.Health <= 0f;
     }
 
     public virtual List<AbstractEntity> GetCollisions()
     {
-        return GetCollisionsIgnoring();
+        return this.GetCollisionsIgnoring();
     }
 
     public virtual List<AbstractEntity> GetCollisionsIgnoring(params AbstractEntity[] entitiesToIgnore)
@@ -187,7 +187,7 @@ public class AbstractEntity : GameObject
                     || entitiesToIgnore.Contains(gameObject))
                 continue;
 
-            if (entity.Enabled && Bounds.Intersects(entity.Bounds))
+            if (entity.Enabled && this.Bounds.Intersects(entity.Bounds))
                 list.Add(entity);
         }
         return list;
@@ -249,7 +249,7 @@ public class AbstractEntity : GameObject
         }
         if (ShouldDrawHealth)
         {
-            spriteBatch.Draw(Utils.OneByOneTexture, Position.Sum(-25, Bounds.Height / 2 + 10), null, Color.FromNonPremultiplied(255, 100, 100, 192), 0f, Origins.CenterLeft, new Vector2((float)(Health / MaxHealth) * 50, 8), SpriteEffects.None, 0f);
+            spriteBatch.Draw(Utils.OneByOneTexture, this.GetPosition().Sum(-25, Bounds.Height / 2 + 10), null, Color.FromNonPremultiplied(255, 100, 100, 192), 0f, Origins.CenterLeft, new Vector2((float)(Health / MaxHealth) * 50, 8), SpriteEffects.None, 0f);
         }
     }
 }

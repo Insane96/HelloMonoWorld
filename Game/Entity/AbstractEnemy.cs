@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using HelloMonoWorld.Engine;
 using Microsoft.Xna.Framework.Graphics;
 using System.Transactions;
+using MonoGame.Aseprite.Graphics;
+using MonoGame.Aseprite.Documents;
 
 namespace HelloMonoWorld.Game.Entity;
 
@@ -17,7 +19,7 @@ public class AbstractEnemy : AbstractEntity
     public float attackSpeed = 2f;
     public float attackDamage = 1f;
 
-    public AbstractEnemy(string id, string spriteName) : base(spriteName, Direction.LEFT.vector)
+    public AbstractEnemy(AsepriteDocument aseprite) : base(aseprite, Direction.LEFT.vector)
     {
         AttackTime = attackSpeed;
         ShouldDrawHealth = true;
@@ -27,7 +29,7 @@ public class AbstractEnemy : AbstractEntity
     {
         if (!Knockbacked)
         {
-            if (Position.X > 300)
+            if (this.GetX() > 300)
             {
                 DeltaMovement += GetRelativeMovement(Direction.LEFT.vector);
             }

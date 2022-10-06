@@ -9,15 +9,13 @@ namespace HelloMonoWorld.Game.Spell;
 
 public class BasicSpell
 {
-    public string Id { get; set; }
     public float Damage { get; set; }
     public float Knockback { get; set; }
     public float ProjectileSpeed { get; set; }
     public float Cooldown { get; set; }
 
-    public BasicSpell(string id, float damage, float knockback, float projectileSpeed, float cooldown)
+    public BasicSpell(float damage, float knockback, float projectileSpeed, float cooldown)
     {
-        Id = id;
         Damage = damage;
         Knockback = knockback;
         ProjectileSpeed = projectileSpeed;
@@ -26,7 +24,7 @@ public class BasicSpell
 
     public virtual BasicProjectile GetProjectile()
     {
-        return new(this.Id, this.Damage, this.Knockback);
+        return new(Sprites.MagicBulletTexture, this.Damage, this.Knockback);
     }
 
     public virtual void Cast(AbstractEntity owner, Vector2 direction)
@@ -36,7 +34,7 @@ public class BasicSpell
         projectile.Owner = owner;
         projectile.Direction = direction;
         projectile.MovementSpeed = this.ProjectileSpeed;
-        projectile.Position = owner.Position;
+        projectile.SetPosition(owner.GetPosition());
         GameObject.Instantiate(projectile);
     }
 
