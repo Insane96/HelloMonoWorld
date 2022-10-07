@@ -11,7 +11,9 @@ namespace HelloMonoWorld.Game
 {
     internal class Options
     {
-        public static float Volume { get; set; } = 0f;
+        private static float volume = 0.5f;
+        public static float Volume { get => Mute ? 0f : volume; set => volume = value; }
+        public static bool Mute { get; set; }
 
         public static int FontSize { get; private set; } = 1;
 
@@ -37,7 +39,7 @@ namespace HelloMonoWorld.Game
         {
             if (kState.IsKeyDown(Keys.NumPad0) && !oldKeyBoardState.IsKeyDown(Keys.NumPad0))
             {
-                Volume = Math.Abs(Volume - 1);
+                Mute = !Mute;
             }
         }
 
