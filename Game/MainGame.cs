@@ -34,7 +34,7 @@ public class MainGame : Microsoft.Xna.Framework.Game
         player = new Player();
         GameObject.Instantiate(player);
         hero = new Hero();
-        GameObject.Instantiate(hero);
+        //GameObject.Instantiate(hero);
         spawner = new(2d, 3d);
         GameObject.Instantiate(spawner);
 

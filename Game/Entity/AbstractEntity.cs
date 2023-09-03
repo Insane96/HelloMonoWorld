@@ -1,12 +1,11 @@
-﻿using HelloMonoWorld.Engine;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using HelloMonoWorld.Engine;
 using HelloMonoWorld.Game.Spell;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Aseprite.Documents;
-using MonoGame.Aseprite.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace HelloMonoWorld.Game.Entity;
 
@@ -134,7 +133,7 @@ public class AbstractEntity : GameObject
         this.Bounds = new Rectangle((int)(this.GetX() - this.Sprite.Origin.X), (int)(this.GetY() - this.Sprite.Origin.Y), this.GetWidth(), this.GetHeight());
     }
 
-    public virtual bool Hurt(float damage, float knockback = 0f)
+    public virtual bool Hurt(AbstractEntity source, AbstractEntity directSource, float damage, float knockback = 0f)
     {
         if (this.IsDead())
             return false;
@@ -164,6 +163,7 @@ public class AbstractEntity : GameObject
 
     public virtual void OnDeath()
     {
+        MainGame.player.AddGold(1);
         this.MarkForRemoval();
     }
 

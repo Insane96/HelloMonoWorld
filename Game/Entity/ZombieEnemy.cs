@@ -1,12 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using MonoGame.Aseprite.Documents;
-using MonoGame.Aseprite.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HelloMonoWorld.Game.Entity
 {
@@ -16,7 +9,7 @@ namespace HelloMonoWorld.Game.Entity
         {
             this.MovementSpeed = 50f;
             this.MaxHealth = 4f;
-            this.OriginalColor = Color.FromNonPremultiplied(183, 138, 16, 255);
+            this.OriginalColor = Color.SaddleBrown;
         }
 
         public override void Update()
@@ -24,9 +17,9 @@ namespace HelloMonoWorld.Game.Entity
             base.Update();
         }
 
-        public override bool Hurt(float damage, float knockback = 0)
+        public override bool Hurt(AbstractEntity source, AbstractEntity directSource, float damage, float knockback = 0)
         {
-            if (base.Hurt(damage))
+            if (base.Hurt(source, directSource, damage, knockback))
             {
                 if (knockback != 0f)
                     this.Push(Direction.RIGHT.vector, knockback);

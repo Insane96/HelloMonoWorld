@@ -1,14 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HelloMonoWorld.Engine;
+﻿using HelloMonoWorld.Engine;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System.Transactions;
-using MonoGame.Aseprite.Graphics;
 using MonoGame.Aseprite.Documents;
 
 namespace HelloMonoWorld.Game.Entity;
@@ -42,7 +34,7 @@ public class AbstractEnemy : AbstractEntity
                 }
                 else
                 {
-                    MainGame.player.Hurt(attackDamage);
+                    MainGame.player.Hurt(this, this, attackDamage);
                     AttackTime = attackSpeed;
                 }
             }

@@ -3,14 +3,6 @@ using HelloMonoWorld.Game.Entity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using MonoGame.Aseprite.Documents;
-using MonoGame.Aseprite.Graphics;
-using MonoGame.Extended.Sprites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HelloMonoWorld.Game.Projectile.Projectile
 {
@@ -44,7 +36,7 @@ namespace HelloMonoWorld.Game.Projectile.Projectile
         {
             if (AttackTime <= 0d)
             {
-                if (other.Hurt(this.Damage))
+                if (other.Hurt(this.Owner, this, this.Damage))
                 {
                     Sounds.PlaySoundVariated(this.GetHitSound(), 0.25f, 0.25f);
                 }

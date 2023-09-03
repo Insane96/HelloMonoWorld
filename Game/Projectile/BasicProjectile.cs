@@ -1,13 +1,10 @@
-﻿using HelloMonoWorld.Engine;
+﻿using System;
+using System.Collections.Generic;
+using HelloMonoWorld.Engine;
 using HelloMonoWorld.Game.Entity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using MonoGame.Aseprite.Documents;
-using MonoGame.Aseprite.Graphics;
-using MonoGame.Extended.Sprites;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace HelloMonoWorld.Game.Projectile;
 
@@ -56,7 +53,7 @@ public class BasicProjectile : AbstractEntity
 
     public virtual void OnEntityHit(AbstractEntity other)
     {
-        other.Hurt(Damage, Knockback);
+        other.Hurt(this.Owner, this, Damage, Knockback);
         Sounds.PlaySoundVariated(this.GetHitSound(), 0.5f, 0.25f);
         Discard();
     }
