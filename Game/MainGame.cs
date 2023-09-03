@@ -31,7 +31,7 @@ public class MainGame : Microsoft.Xna.Framework.Game
 
     protected override void Initialize()
     {
-        Sprites.LoadTextures(MonoEngine.contentManager);
+        Sprites.LoadTextures(MonoEngine.ContentManager);
 
         player = new Player();
         GameObject.Instantiate(player);

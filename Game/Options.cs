@@ -17,11 +17,11 @@ namespace HelloMonoWorld.Game
 
         public static int FontSize { get; private set; } = 1;
 
-        public static SpriteFont GetFont() => UIText.SpriteFonts[FontSize];
+        public static SpriteFont GetFont() => UiText.SpriteFonts[FontSize];
 
-        public static void IncreaseFontSize() => FontSize = Math.Clamp(FontSize + 1, 0, UIText.SpriteFonts.Length - 1);
+        public static void IncreaseFontSize() => FontSize = Math.Clamp(FontSize + 1, 0, UiText.SpriteFonts.Length - 1);
 
-        public static void DecreaseFontSize() => FontSize = Math.Clamp(FontSize - 1, 0, UIText.SpriteFonts.Length - 1);
+        public static void DecreaseFontSize() => FontSize = Math.Clamp(FontSize - 1, 0, UiText.SpriteFonts.Length - 1);
 
         public static bool Debug;
 
@@ -63,7 +63,7 @@ namespace HelloMonoWorld.Game
         {
             if (kState.IsKeyDown(Keys.F11) && !oldKeyBoardState.IsKeyDown(Keys.F11))
             {
-                Graphics.graphics.ToggleFullScreen();
+                Graphics.GraphicsDeviceManager.ToggleFullScreen();
             }
         }
     }

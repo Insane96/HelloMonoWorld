@@ -10,7 +10,10 @@ using System.Threading.Tasks;
 
 namespace HelloMonoWorld.Engine
 {
-    public class UIText
+    /// <summary>
+    /// Takes care of Fonts and drawn text
+    /// </summary>
+    public class UiText
     {
         public string Text { get; set; }
         public SpriteFont SpriteFont { get; set; }

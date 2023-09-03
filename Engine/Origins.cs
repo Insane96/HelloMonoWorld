@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HelloMonoWorld.Engine
 {
-    public class Origins
+    public static class Origins
     {
         public static readonly Vector2 TopLeft = Vector2.Zero;
         public static readonly Vector2 TopCenter = new(0.5f, 0f);

@@ -1,26 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HelloMonoWorld.Engine
 {
-    public class MonoEngine
+    /// <summary>
+    /// The core of the game, updates and draws everything
+    /// </summary>
+    public static class MonoEngine
     {
-        internal static ContentManager contentManager;
+        internal static ContentManager ContentManager;
 
-        internal static List<UIText> StringsToDraw { get; } = new();
+        private static List<UiText> StringsToDraw { get; } = new();
 
         public static void Init(Microsoft.Xna.Framework.Game game, int width, int height)
         {
-            contentManager = game.Content;
+            ContentManager = game.Content;
             Graphics.Init(game, width, height);
-            UIText.Init(contentManager);
+            UiText.Init(ContentManager);
 
             Utils.Init();
         }
@@ -39,7 +37,7 @@ namespace HelloMonoWorld.Engine
 
         public static void DrawStrings(SpriteBatch spriteBatch)
         {
-            foreach (UIText text in StringsToDraw)
+            foreach (UiText text in StringsToDraw)
             {
                 Vector2 textSize = text.SpriteFont.MeasureString(text.Text);
                 Vector2 position = text.Position.Multiply(Graphics.ScaledRatio).Sum(-textSize.X * text.Origin.X, -textSize.Y * text.Origin.Y);
@@ -52,7 +50,7 @@ namespace HelloMonoWorld.Engine
 
         public static void DrawText(SpriteFont font, string text, Vector2 position, Color color, Vector2 origin, Color? shadowColor = null)
         {
-            StringsToDraw.Add(new UIText()
+            StringsToDraw.Add(new UiText()
             {
                 Text = text,
                 SpriteFont = font,

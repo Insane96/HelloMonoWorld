@@ -80,7 +80,7 @@ public abstract class GameObject
     public static void Instantiate(GameObject gameObject)
     {
         GameObjectsToInstantiate.Add(gameObject);
-        gameObject.Initialize(MonoEngine.contentManager);
+        gameObject.Initialize(MonoEngine.ContentManager);
     }
 
     internal static void UpdateGameObjects()

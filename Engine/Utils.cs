@@ -5,7 +5,10 @@ namespace HelloMonoWorld.Engine;
 
 public static class Utils
 {
-    public static Texture2D OneByOneTexture = new(Graphics.graphics.GraphicsDevice, 1, 1);
+    /// <summary>
+    /// Used to draw solid color rectangles
+    /// </summary>
+    public static readonly Texture2D OneByOneTexture = new(Graphics.GraphicsDeviceManager.GraphicsDevice, 1, 1);
 
     internal static void Init()
     {
