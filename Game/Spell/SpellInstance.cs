@@ -1,7 +1,6 @@
 ﻿using HelloMonoWorld.Engine;
 using HelloMonoWorld.Game.Entity;
 using Microsoft.Xna.Framework;
-using System.Data;
 
 namespace HelloMonoWorld.Game.Spell;
 
@@ -32,6 +31,8 @@ public class SpellInstance
             else
                 this.Spell.Cast(this.Owner, this.Owner.AttackDirection.Value);
             this.CurrentCooldown = this.Spell.Cooldown;
+            if (this.Owner is Player player)
+                this.CurrentCooldown -= player.BonusAttackSpeed;
         }
     }
 }

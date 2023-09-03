@@ -41,6 +41,8 @@ public class BasicProjectile : AbstractEntity
     {
         base.Update();
         DeltaMovement = Direction.Multiply(MovementSpeed);
+        if (this.GetPosition().X > Graphics.Width + this.GetWidth() + 10f)
+            this.Discard();
         IEnumerable<AbstractEntity> entitiesCollided = GetCollisionsOfClass(typeof(AbstractEnemy));
 
         foreach (AbstractEntity entity in entitiesCollided)

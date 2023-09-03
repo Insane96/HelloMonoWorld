@@ -10,6 +10,8 @@ namespace HelloMonoWorld.Game.Entity;
 public class Player : AbstractEntity
 {
     public int Gold { get; private set; }
+    public float BonusMovementSpeed { get; set; }
+    public float BonusAttackSpeed { get; set; }
 
     public Player() : base(Sprites.StickmanAnimatedAseprite, Direction.RIGHT.vector)
     {
