@@ -1,11 +1,9 @@
-﻿using HelloMonoWorld.Engine;
+﻿using System;
+using HelloMonoWorld.Engine;
 using HelloMonoWorld.Game.Entity;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Aseprite.Documents;
-using MonoGame.Aseprite.Graphics;
-using System;
 
 namespace HelloMonoWorld.Game;
 
@@ -55,19 +53,18 @@ public class MainGame : Microsoft.Xna.Framework.Game
 
     protected override void Update(GameTime gameTime)
     {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+        if (Input.GamePadState.Buttons.Back == ButtonState.Pressed || Input.IsKeyDown(Keys.Escape))
             Exit();
-        if (Keyboard.GetState().IsKeyDown(Keys.F7))
-            Time.TimeScale = 3f;
+        if (Input.IsKeyPressed(Keys.F7))
+            Time.TimeScale = Time.TimeScale == 1f ? 3f : 1f;
 
-        Options.TryToggleDebug(Keyboard.GetState());
-        Options.TryToggleMute(Keyboard.GetState());
-        Options.TryIncreaseFontSize(Keyboard.GetState());
-        Options.TryDecreaseFontSize(Keyboard.GetState());
-        Options.TryFullScreen(Keyboard.GetState());
-        Options.oldKeyBoardState = Keyboard.GetState();
+        Options.TryToggleDebug();
+        Options.TryToggleMute();
+        Options.TryIncreaseFontSize();
+        Options.TryDecreaseFontSize();
+        Options.TryFullScreen();
 
-        MonoEngine.UpdateGameObjects(gameTime);
+        MonoEngine.Update(gameTime);
 
         base.Update(gameTime);
     }

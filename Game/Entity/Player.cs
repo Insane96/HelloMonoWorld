@@ -1,10 +1,9 @@
-﻿using HelloMonoWorld.Engine;
+﻿using System.Linq;
+using HelloMonoWorld.Engine;
 using HelloMonoWorld.Game.Spell;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 
 namespace HelloMonoWorld.Game.Entity;
 
@@ -12,8 +11,8 @@ public class Player : AbstractEntity
 {
     public Player() : base(Sprites.StickmanAnimatedAseprite, Direction.RIGHT.vector)
     {
-        this.SetPosition(new Vector2(200, Graphics.Height / 2));
-        this.BaseSpell = new(Spells.MagicBullet, this);
+        this.SetPosition(new Vector2(200, Graphics.Height / 2f));
+        this.BaseSpell = new SpellInstance(Spells.MagicBullet, this);
         this.OriginalColor = Color.Black;
         this.MaxHealth = 100;
         this.MovementSpeed = 222f;
@@ -34,16 +33,9 @@ public class Player : AbstractEntity
 
     private void CheckMovementInput()
     {
-        var kstate = Keyboard.GetState();
-
-        Vector2 inputMovement = Vector2.Zero;
-        foreach (Direction direction in Direction.upDownDirections)
-        {
-            if (kstate.IsKeyDown(direction.key))
-            {
-                inputMovement += direction.vector;
-            }
-        }
+        Vector2 inputMovement = Direction.upDownDirections
+            .Where(direction => Input.IsKeyDown(direction.key))
+            .Aggregate(Vector2.Zero, (current, direction) => current + direction.vector);
 
         DeltaMovement += GetRelativeMovement(inputMovement);
     }
@@ -57,8 +49,7 @@ public class Player : AbstractEntity
     private void UpdateAttack()
     {
         BaseSpell.Update();
-        var kstate = Keyboard.GetState();
-        if (kstate.IsKeyDown(Keys.Right))
+        if (Input.IsKeyDown(Keys.Right))
         {
             BaseSpell.TryCast(AttackDirection);
         }

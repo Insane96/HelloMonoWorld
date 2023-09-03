@@ -1,11 +1,7 @@
-﻿using HelloMonoWorld.Engine;
+﻿using System;
+using HelloMonoWorld.Engine;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HelloMonoWorld.Game
 {
@@ -25,43 +21,41 @@ namespace HelloMonoWorld.Game
 
         public static bool Debug;
 
-        public static KeyboardState oldKeyBoardState = Keyboard.GetState();
-
-        public static void TryToggleDebug(KeyboardState kState)
+        public static void TryToggleDebug()
         {
-            if (kState.IsKeyDown(Keys.F3) && !oldKeyBoardState.IsKeyDown(Keys.F3))
+            if (Input.IsKeyPressed(Keys.F3))
             {
                 Debug = !Debug;
             }
         }
 
-        public static void TryToggleMute(KeyboardState kState)
+        public static void TryToggleMute()
         {
-            if (kState.IsKeyDown(Keys.NumPad0) && !oldKeyBoardState.IsKeyDown(Keys.NumPad0))
+            if (Input.IsKeyPressed(Keys.NumPad0))
             {
                 Mute = !Mute;
             }
         }
 
-        public static void TryIncreaseFontSize(KeyboardState kState)
+        public static void TryIncreaseFontSize()
         {
-            if (kState.IsKeyDown(Keys.Add) && !oldKeyBoardState.IsKeyDown(Keys.Add))
+            if (Input.IsKeyPressed(Keys.Add))
             {
                 IncreaseFontSize();
             }
         }
 
-        public static void TryDecreaseFontSize(KeyboardState kState)
+        public static void TryDecreaseFontSize()
         {
-            if (kState.IsKeyDown(Keys.Subtract) && !oldKeyBoardState.IsKeyDown(Keys.Subtract))
+            if (Input.IsKeyPressed(Keys.Subtract))
             {
                 DecreaseFontSize();
             }
         }
 
-        public static void TryFullScreen(KeyboardState kState)
+        public static void TryFullScreen()
         {
-            if (kState.IsKeyDown(Keys.F11) && !oldKeyBoardState.IsKeyDown(Keys.F11))
+            if (Input.IsKeyPressed(Keys.F11))
             {
                 Graphics.GraphicsDeviceManager.ToggleFullScreen();
             }
