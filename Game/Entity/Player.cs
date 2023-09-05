@@ -9,17 +9,15 @@ namespace HelloMonoWorld.Game.Entity;
 
 public class Player : AbstractEntity
 {
-    public int Gold { get; private set; }
-    public float BonusMovementSpeed { get; set; }
-    public float BonusAttackSpeed { get; set; }
+    private int Gold { get; set; }
 
     public Player() : base(Sprites.StickmanAnimatedAseprite, Direction.RIGHT.vector)
     {
         this.SetPosition(new Vector2(200, Graphics.Height / 2f));
         this.BaseSpell = new SpellInstance(Spells.MagicBullet, this);
         this.OriginalColor = Color.Black;
-        this.MaxHealth = 100;
-        this.MovementSpeed = 100f;
+        this.SetMaxHealth(100);
+        this.GetAttribute(Attributes.Attributes.MovementSpeed).BaseValue = 100f;
     }
 
     public override void Update()
@@ -31,8 +29,8 @@ public class Player : AbstractEntity
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-        MonoEngine.DrawText(Options.GetFont(), $"{Health:0.#} / {MaxHealth:0.#}", Origins.GetScreenPosition(Origins.BottomLeft), Color.DarkRed, Origins.BottomLeft);
-        MonoEngine.DrawText(Options.GetFont(), $"Gold: {Gold}", Origins.GetScreenPosition(Origins.BottomRight), Color.Gold, Origins.BottomRight);
+        MonoEngine.DrawText(Options.GetFont(), $"{this.Health:0.#} / {this.GetAttributeValue(Attributes.Attributes.MaxHealth):0.#}", Origins.GetScreenPosition(Origins.BottomLeft), Color.DarkRed, Origins.BottomLeft);
+        MonoEngine.DrawText(Options.GetFont(), $"Gold: {this.Gold}", Origins.GetScreenPosition(Origins.BottomRight), Color.Gold, Origins.BottomRight);
         if (this.IsDead())
             MonoEngine.DrawText(Options.GetFont(), $"Game Over", Origins.GetScreenPosition(Origins.Center), Color.DarkRed, Origins.Center);
         base.Draw(spriteBatch);
@@ -44,7 +42,7 @@ public class Player : AbstractEntity
             .Where(direction => Input.IsKeyDown(direction.key))
             .Aggregate(Vector2.Zero, (current, direction) => current + direction.vector);
 
-        DeltaMovement += GetRelativeMovement(inputMovement);
+        this.DeltaMovement += this.GetRelativeMovement(inputMovement);
     }
 
     public void AddGold(int gold)
@@ -54,17 +52,17 @@ public class Player : AbstractEntity
 
     public override void OnDeath()
     {
-        //Don't destroy the player, just hide him and pause the game
+        //Don't destroy the player, just disable him and pause the game
         Time.TimeScale = 0f;
-        Disable();
+        this.Disable();
     }
 
     private void UpdateAttack()
     {
-        BaseSpell.Update();
+        this.BaseSpell.Update();
         if (Input.IsKeyDown(Keys.Right))
         {
-            BaseSpell.TryCast(AttackDirection);
+            this.BaseSpell.TryCast(this.AttackDirection);
         }
     }
 }

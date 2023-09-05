@@ -2,24 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using HelloMonoWorld.Engine;
+using HelloMonoWorld.Game.Entity.Attributes;
 using HelloMonoWorld.Game.Spell;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Aseprite.Documents;
+using Attribute = HelloMonoWorld.Game.Entity.Attributes.Attribute;
 
 namespace HelloMonoWorld.Game.Entity;
 
 public class AbstractEntity : GameObject
 {
-    public float MovementSpeed { get; set; } = 100f;
+    public List<AttributeInstance> AttributeInstances = new List<AttributeInstance>();
     public Vector2 DeltaMovement { get; set; } = Vector2.Zero;
 
-    private float maxHealth;
+    /*private float maxHealth;
 
     public float MaxHealth
     {
         get { return maxHealth; }
-        //If higher max health than before then heal by the difference, otherwise prevent health from being higher than MaxHealth
+        
+        //TODO If higher max health than before then heal by the difference, otherwise prevent health from being higher than MaxHealth
         set
         {
             float diff = value - maxHealth;
@@ -29,16 +32,15 @@ public class AbstractEntity : GameObject
             else if (diff < 0)
                 Health = Math.Min(Health, maxHealth);
         }
-    }
+    }*/
 
-    public double AttackTime { get; set; } = 0f;
+    public double AttackTime { get; set; }
     public Vector2? AttackDirection { get; set; }
     public SpellInstance BaseSpell { get; set; }
 
-    public float Health { get; set; } = 0f;
-    public double HitTime { get; set; } = 0d;
-    public bool Knockbacked { get; set; } = false;
-    public double KnockbackResistance { get; set; } = 0.1d;
+    public float Health { get; set; }
+    public double HitTime { get; set; }
+    public bool Knockbacked { get; set; }
 
     public Rectangle Bounds { get; set; } = Rectangle.Empty;
 
@@ -69,10 +71,11 @@ public class AbstractEntity : GameObject
 
     public AbstractEntity(AsepriteDocument aseprite) : this(aseprite, null) { }
 
-    public AbstractEntity(AsepriteDocument aseprite, Vector2? attackDirection) : base()
+    public AbstractEntity(AsepriteDocument aseprite, Vector2? attackDirection)
     {
-        AttackDirection = attackDirection;
-        SetSprite(aseprite);
+        this.AttackDirection = attackDirection;
+        this.SetSprite(aseprite);
+        Attributes.Attributes.AttributesList.ForEach(attribute => this.AttributeInstances.Add(new AttributeInstance(attribute)));
     }
 
     public override void Update()
@@ -103,7 +106,7 @@ public class AbstractEntity : GameObject
                 this.DeltaMovement = Vector2.Zero;
             else
             {
-                this.DeltaMovement = Vector2.Multiply(this.DeltaMovement, (float)(1f - this.KnockbackResistance));
+                this.DeltaMovement = Vector2.Multiply(this.DeltaMovement, (float)(1f - this.GetAttributeValue(Attributes.Attributes.KnockbackResistance)));
                 if (this.DeltaMovement.Length() < 8f)
                 {
                     Knockbacked = false;
@@ -117,7 +120,7 @@ public class AbstractEntity : GameObject
         float length = input.LengthSquared();
         if (length < 1e-4)
             return Vector2.Zero;
-        return Vector2.Multiply(length > 1.0d ? Vector2.Normalize(input) : input, this.MovementSpeed);
+        return Vector2.Multiply(length > 1.0d ? Vector2.Normalize(input) : input, (float)this.GetAttributeValue(Attributes.Attributes.MovementSpeed));
     }
 
     public void Push(Vector2 direction, float force)
@@ -249,7 +252,28 @@ public class AbstractEntity : GameObject
         }
         if (ShouldDrawHealth)
         {
-            spriteBatch.Draw(Utils.OneByOneTexture, this.GetPosition().Sum(-25, Bounds.Height / 2 + 10), null, Color.FromNonPremultiplied(255, 100, 100, 192), 0f, Origins.CenterLeft, new Vector2((float)(Health / MaxHealth) * 50, 8), SpriteEffects.None, 0f);
+            spriteBatch.Draw(Utils.OneByOneTexture, this.GetPosition().Sum(-25, Bounds.Height / 2 + 10), null, Color.FromNonPremultiplied(255, 100, 100, 192), 0f, Origins.CenterLeft, new Vector2((float)(Health / this.GetAttributeValue(Attributes.Attributes.MaxHealth)) * 50, 8), SpriteEffects.None, 0f);
         }
+    }
+
+    public void SetMaxHealth(float maxHealth)
+    {
+        this.Health = maxHealth;
+        this.SetAttribute(Attributes.Attributes.MaxHealth, maxHealth);
+    }
+
+    public AttributeInstance GetAttribute(Attribute attribute)
+    {
+        return this.AttributeInstances.First(a => a.Attribute.Equals(attribute));
+    }
+
+    public void SetAttribute(Attribute attribute, float baseValue)
+    {
+        this.AttributeInstances.First(a => a.Attribute.Equals(attribute)).BaseValue = baseValue;
+    }
+
+    public float GetAttributeValue(Attribute attribute)
+    {
+        return this.AttributeInstances.First(a => a.Attribute.Equals(attribute)).Value;
     }
 }

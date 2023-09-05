@@ -1,5 +1,4 @@
 ﻿using HelloMonoWorld.Game.Projectile;
-using HelloMonoWorld.Game.Projectile.Projectile;
 using Microsoft.Xna.Framework.Audio;
 
 namespace HelloMonoWorld.Game.Spell
@@ -12,7 +11,7 @@ namespace HelloMonoWorld.Game.Spell
 
         public override BasicProjectile GetProjectile()
         {
-            return new EnergyBall(Sprites.EnergyBallTexture, this.Damage, this.Knockback, 0.2d);
+            return new EnergyBall(Sprites.EnergyBallTexture, this.Damage, this.Knockback, 0.2f);
         }
 
         protected override SoundEffect GetCastSound()

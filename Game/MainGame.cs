@@ -35,7 +35,7 @@ public class MainGame : Microsoft.Xna.Framework.Game
         GameObject.Instantiate(player);
         hero = new Hero();
         //GameObject.Instantiate(hero);
-        spawner = new(2d, 3d);
+        spawner = new Spawner(2d, 3d);
         GameObject.Instantiate(spawner);
 
         base.Initialize();
@@ -44,7 +44,7 @@ public class MainGame : Microsoft.Xna.Framework.Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        target = new(GraphicsDevice, Graphics.Width, Graphics.Height);
+        target = new RenderTarget2D(GraphicsDevice, Graphics.Width, Graphics.Height);
 
         debugFont = Content.Load<SpriteFont>("fonts/debug");
         //stickmanAnim.Play("Idle");

@@ -1,9 +1,9 @@
 ﻿using HelloMonoWorld.Engine;
 using HelloMonoWorld.Game.Entity;
+using HelloMonoWorld.Game.Entity.Attributes;
 using HelloMonoWorld.Game.Projectile;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using System.Linq;
 
 namespace HelloMonoWorld.Game.Spell;
 
@@ -24,7 +24,7 @@ public class BasicSpell
 
     public virtual BasicProjectile GetProjectile()
     {
-        return new(Sprites.MagicBulletTexture, this.Damage, this.Knockback);
+        return new BasicProjectile(Sprites.MagicBulletTexture, this.Damage, this.Knockback);
     }
 
     public virtual void Cast(AbstractEntity owner, Vector2 direction)
@@ -33,7 +33,7 @@ public class BasicSpell
         BasicProjectile projectile = this.GetProjectile();
         projectile.Owner = owner;
         projectile.Direction = direction;
-        projectile.MovementSpeed = this.ProjectileSpeed;
+        projectile.SetAttribute(Attributes.MovementSpeed, this.ProjectileSpeed);
         projectile.SetPosition(owner.GetPosition());
         GameObject.Instantiate(projectile);
     }

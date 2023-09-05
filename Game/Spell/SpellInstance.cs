@@ -30,9 +30,8 @@ public class SpellInstance
                 this.Spell.Cast(this.Owner, direction.Value);
             else
                 this.Spell.Cast(this.Owner, this.Owner.AttackDirection.Value);
+            //TODO Use the cooldown as an attribute on the player and the spell just changes the base cooldown
             this.CurrentCooldown = this.Spell.Cooldown;
-            if (this.Owner is Player player)
-                this.CurrentCooldown -= player.BonusAttackSpeed;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using HelloMonoWorld.Engine;
 using HelloMonoWorld.Game.Entity;
+using HelloMonoWorld.Game.Entity.Attributes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using MonoGame.Aseprite.Documents;
@@ -10,28 +11,23 @@ namespace HelloMonoWorld.Game.Projectile;
 
 public class BasicProjectile : AbstractEntity
 {
-    private Vector2 direction;
+    private Vector2 _direction;
     public Vector2 Direction
     {
-        get
-        {
-            return direction;
-        }
+        get => this._direction;
         set
         {
-            this.direction = value;
+            this._direction = value;
             this.SetRotation((float)Math.Asin(value.Y / value.Length()));
         }
     }
-    public float Damage { get; set; }
-    public float Knockback { get; set; }
     public AbstractEntity Owner { get; set; }
 
     public BasicProjectile(AsepriteDocument aseprite, Vector2 direction, float damage, float knockback, AbstractEntity owner) : base(aseprite)
     {
         this.Direction = direction;
-        this.Damage = damage;
-        this.Knockback = knockback;
+        this.GetAttribute(Attributes.Damage).BaseValue = damage;
+        this.GetAttribute(Attributes.Knockback).BaseValue = knockback;
         this.Owner = owner;
     }
 
@@ -40,14 +36,14 @@ public class BasicProjectile : AbstractEntity
     public override void Update()
     {
         base.Update();
-        DeltaMovement = Direction.Multiply(MovementSpeed);
+        this.DeltaMovement = this.Direction.Multiply(this.GetAttributeValue(Attributes.MovementSpeed));
         if (this.GetPosition().X > Graphics.Width + this.GetWidth() + 10f)
             this.Discard();
-        IEnumerable<AbstractEntity> entitiesCollided = GetCollisionsOfClass(typeof(AbstractEnemy));
+        IEnumerable<AbstractEntity> entitiesCollided = this.GetCollisionsOfClass(typeof(AbstractEnemy));
 
         foreach (AbstractEntity entity in entitiesCollided)
         {
-            OnEntityHit(entity);
+            this.OnEntityHit(entity);
             if (this.RemovalMark)
                 break;
         }
@@ -55,9 +51,9 @@ public class BasicProjectile : AbstractEntity
 
     public virtual void OnEntityHit(AbstractEntity other)
     {
-        other.Hurt(this.Owner, this, Damage, Knockback);
+        other.Hurt(this.Owner, this, this.GetAttributeValue(Attributes.Damage), this.GetAttributeValue(Attributes.Knockback));
         Sounds.PlaySoundVariated(this.GetHitSound(), 0.5f, 0.25f);
-        Discard();
+        this.Discard();
     }
 
     protected virtual SoundEffect GetHitSound()
