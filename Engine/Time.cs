@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace HelloMonoWorld.Engine;
+namespace Engine;
 
-internal static class Time
+public static class Time
 {
     private static double _deltaTime;
 

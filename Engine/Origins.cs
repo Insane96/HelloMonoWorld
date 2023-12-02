@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace HelloMonoWorld.Engine;
+namespace Engine;
 
 public static class Origins
 {

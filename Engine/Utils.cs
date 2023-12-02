@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace HelloMonoWorld.Engine;
+namespace Engine;
 
 public static class Utils
 {

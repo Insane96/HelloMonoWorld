@@ -1,27 +1,27 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Aseprite.Documents;
-using MonoGame.Aseprite.Graphics;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+using MonoGame.Aseprite.Sprites;
 
-namespace HelloMonoWorld.Engine;
+namespace Engine;
 
 public abstract class GameObject
 {
-    public Guid Guid { get; }
+    public Guid Guid { get; } = Guid.NewGuid();
 
-    public Vector2 origin;
+    public Vector2 Position { get; set; }
+
+    private Vector2 _origin;
     public Vector2 Origin
     {
-        get => this.origin;
+        get => this._origin;
         set
         {
-            this.origin = value;
-            this.Sprite.Origin = new Vector2(this.Sprite.Width * origin.X, this.Sprite.Height * origin.Y);
+            this._origin = value;
+            this.Sprite.Origin = new Vector2(this.Sprite.Width * _origin.X, this.Sprite.Height * _origin.Y);
         }
     }
 
@@ -36,12 +36,6 @@ public abstract class GameObject
 
     private static List<GameObject> GameObjects { get; } = new();
     private static List<GameObject> GameObjectsToInstantiate { get; } = new();
-
-    public GameObject()
-    {
-        this.Guid = Guid.NewGuid();
-        this.Sprite = new AnimatedSprite(Utils.OneByOneTexture);
-    }
 
     public virtual void Initialize(ContentManager contentManager)
     {
@@ -61,7 +55,7 @@ public abstract class GameObject
 
     public virtual void Draw(SpriteBatch spriteBatch)
     {
-        this.Sprite.Render(spriteBatch);
+        this.Sprite?.Draw(spriteBatch, this.Position);
     }
 
     public void Enable() => Enabled = true;
@@ -125,23 +119,21 @@ public abstract class GameObject
         return GameObjects.Where(g => g.Visible);
     }
 
-    public void SetSprite(AsepriteDocument aseprite)
+    public void SetSprite(AnimatedSprite sprite)
     {
-        this.Sprite = new AnimatedSprite(aseprite);
+        this.Sprite = sprite;
         this.Origin = Origins.Center;
     }
 
-    public void SetPosition(Vector2 vector2) => this.Sprite.Position = vector2;
+    public void SetPosition(Vector2 vector2) => this.Position = vector2;
 
-    public void SetPosition(float x, float y) => this.SetPosition(new Vector2(x, y));
-    public void Travel(Vector2 value) => this.Sprite.Position += value;
+    public void Move(Vector2 value) => this.Position += value;
 
-    public void SetX(float x) => this.Sprite.Position = new(x, this.Sprite.Y);
-    public void SetY(float y) => this.Sprite.Position = new(this.Sprite.X, y);
+    public void SetX(float x) => this.Position = new Vector2(x, this.Position.Y);
+    public void SetY(float y) => this.Position = new Vector2(this.Position.X, y);
 
-    public Vector2 GetPosition() => this.Sprite.Position;
-    public float GetX() => this.Sprite.X;
-    public float GetY() => this.Sprite.Y;
+    public float GetX() => this.Position.X;
+    public float GetY() => this.Position.Y;
 
     public int GetWidth() => this.Sprite.Width;
     public int GetHeight() => this.Sprite.Height;
@@ -152,5 +144,5 @@ public abstract class GameObject
 
     public void SetScale(Vector2 scale) => this.Sprite.Scale = scale;
 
-    public void SetSpriteEffect(SpriteEffects spriteEffect) => this.Sprite.SpriteEffect = spriteEffect;
+    public void SetSpriteEffect(SpriteEffects spriteEffect) => this.Sprite.SpriteEffects = spriteEffect;
 }
