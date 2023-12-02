@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "PMU+o6FZbcCgsJa6tdyKf335XgDGiG2hgb01tcf0RgxQmJ4WHj3OjnFTNEpCMN67lefy4NpJi4wd6ifKzLTKfg==",
+  "success": true,
+  "projectFilePath": "D:\\Programming\\C#\\MonoGame\\Engine\\Engine.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\delvi\\.nuget\\packages\\monogame.aseprite\\5.1.2\\monogame.aseprite.5.1.2.nupkg.sha512",
+    "C:\\Users\\delvi\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.1.303\\monogame.framework.desktopgl.3.8.1.303.nupkg.sha512",
+    "C:\\Users\\delvi\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.22\\microsoft.netcore.app.ref.6.0.22.nupkg.sha512",
+    "C:\\Users\\delvi\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.22\\microsoft.windowsdesktop.app.ref.6.0.22.nupkg.sha512",
+    "C:\\Users\\delvi\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.22\\microsoft.aspnetcore.app.ref.6.0.22.nupkg.sha512"
+  ],
+  "logs": []
+}
