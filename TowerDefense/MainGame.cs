@@ -20,6 +20,7 @@ public class MainGame : Game
         Content.RootDirectory = "Content";
         MonoEngine.Init(this, 1280, 720);
         this.IsMouseVisible = true;
+        Input.Game = this;
     }
 
     protected override void Initialize()

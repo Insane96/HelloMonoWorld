@@ -6,6 +6,7 @@ namespace Engine;
 
 public class Input
 {
+    public static Game Game;
     private static KeyboardState _oldKeyboardState;
     public static KeyboardState KeyboardState { get; private set; }
     private static GamePadState _oldGamePadState;
@@ -29,7 +30,7 @@ public class Input
     /// </summary>
     public static bool IsKeyDown(Keys key)
     {
-        return KeyboardState.IsKeyDown(key);
+        return KeyboardState.IsKeyDown(key) && Game.IsActive;
     }
 
     /// <summary>
@@ -39,7 +40,7 @@ public class Input
     {
         if (KeyboardState.IsKeyDown(key))
             Debug.WriteLine($"{KeyboardState.IsKeyDown(key)} {_oldKeyboardState.IsKeyDown(key)}");
-        return KeyboardState.IsKeyDown(key) && !_oldKeyboardState.IsKeyDown(key);
+        return KeyboardState.IsKeyDown(key) && !_oldKeyboardState.IsKeyDown(key) && Game.IsActive;
     }
 
     /// <summary>
@@ -49,7 +50,7 @@ public class Input
     {
         /*if (MouseState.LeftButton == ButtonState.Pressed)
             Debug.WriteLine($"{MouseState.LeftButton} {_oldMouseState.LeftButton}");*/
-        return MouseState.LeftButton == ButtonState.Pressed && _oldMouseState.LeftButton != ButtonState.Pressed && IsMouseInBounds();
+        return MouseState.LeftButton == ButtonState.Pressed && _oldMouseState.LeftButton != ButtonState.Pressed && IsMouseInBounds() && Game.IsActive;
     }
 
     /// <summary>
@@ -59,7 +60,7 @@ public class Input
     {
         /*if (MouseState.RightButton == ButtonState.Pressed)
             Debug.WriteLine($"{MouseState.RightButton} {_oldMouseState.RightButton}");*/
-        return MouseState.RightButton == ButtonState.Pressed && _oldMouseState.RightButton != ButtonState.Pressed && IsMouseInBounds();
+        return MouseState.RightButton == ButtonState.Pressed && _oldMouseState.RightButton != ButtonState.Pressed && IsMouseInBounds() && Game.IsActive;
     }
 
     public static bool IsMouseInBounds()
