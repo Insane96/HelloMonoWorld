@@ -38,7 +38,7 @@ public class Tower : Entity
             dir.Normalize();
             projectile.Direction = dir;
             Instantiate(projectile);
-            this.Cooldown = 1d;
+            this.Cooldown = this.BaseAttackSpeed;
         }
         TryLockOnEntity();
         RotateToLockedEntity();
@@ -47,12 +47,45 @@ public class Tower : Entity
     public override void Draw(SpriteBatch spriteBatch)
     {
         base.Draw(spriteBatch);
+        if (Options.Debug)
+        {
+            spriteBatch.Draw(CreateCircleTexture((int)(this.BaseRange * 2f)), this.Position.Sum(-this.BaseRange, -this.BaseRange), Color.FromNonPremultiplied(255, 0, 0, 64));
+        }
+    }
+    
+    Texture2D CreateCircleTexture(int diameter)
+    {
+        Texture2D texture = new Texture2D(Graphics.GraphicsDeviceManager.GraphicsDevice, diameter, diameter);
+        Color[] colorData = new Color[diameter*diameter];
+
+        float radius = diameter / 2f;
+        float radiusSquared = radius * radius;
+
+        for (int x = 0; x < diameter; x++)
+        {
+            for (int y = 0; y < diameter; y++)
+            {
+                int index = x * diameter + y;
+                Vector2 pos = new Vector2(x - radius, y - radius);
+                if (pos.LengthSquared() <= radiusSquared)
+                    colorData[index] = Color.White;
+                else
+                    colorData[index] = Color.Transparent;
+            }
+        }
+
+        texture.SetData(colorData);
+        return texture;
     }
 
     protected void TryLockOnEntity()
     {
         if (this.LockedOn == null || this.LockedOn.RemovalMark)
-            this.LockedOn = (Entity)GetUpdatableGameObjects().Where(gameObject => gameObject is AbstractEnemy).MinBy(g => ((Entity)g).DistanceTo(this));
+            this.LockedOn = (Entity)GetUpdatableGameObjects().Where(gameObject =>
+            {
+                return gameObject is AbstractEnemy abstractEnemy 
+                       && abstractEnemy.DistanceTo(this) < this.BaseRange * this.BaseRange;
+            }).MinBy(gameObject => ((Entity)gameObject).DistanceTo(this));
     }
 
     protected void RotateToLockedEntity()
