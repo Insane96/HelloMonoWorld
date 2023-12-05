@@ -45,7 +45,7 @@ public class MainGame : Game
             Exit();
         
         if (Input.IsLeftClickPressed())
-            GameObject.Instantiate(new Tower(Sprites.GetAnimatedSprite(Sprites.CrossbowTower, "idle"), 1f, 1f, 200f)
+            GameObject.Instantiate(new Tower(Sprites.GetAnimatedSprite(Sprites.CrossbowTower, "idle"), 1f, 1f, 200f, 0.05f)
             {
                 Position = new Vector2(Input.MouseState.X, Input.MouseState.Y)
             });
