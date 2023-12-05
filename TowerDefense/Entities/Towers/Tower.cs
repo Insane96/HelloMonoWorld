@@ -33,11 +33,11 @@ public class Tower : Entity
     }
     public override void Update()
     {
-        Debug.WriteLine(this.UltingTimer);
+        base.Update();
         this.Cooldown -= Time.DeltaTime;
         if (this.Cooldown <= 0d && this.LockedOn != null)
         {
-            Projectile projectile = new(Sprites.GetAnimatedSprite(Sprites.Arrow, "idle"), this, 150f)
+            Projectile projectile = new(Sprites.GetAnimatedSprite(Sprites.Arrow, "idle"), this, 250f)
             {
                 Position = this.Position
             };
@@ -66,11 +66,12 @@ public class Tower : Entity
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-        base.Draw(spriteBatch);
-        if (Options.Debug)
+        if (this.IsMouseOver())
         {
-            spriteBatch.Draw(CreateCircleTexture((int)(this.BaseRange * 2f)), this.Position.Sum(-this.BaseRange, -this.BaseRange), Color.FromNonPremultiplied(255, 0, 0, 32));
+            spriteBatch.Draw(CreateCircleTexture((int)(this.BaseRange * 2f)), this.Position.Sum(-this.BaseRange, -this.BaseRange), Color.FromNonPremultiplied(192, 0, 0, 32));
         }
+        spriteBatch.Draw(Utils.OneByOneTexture, this.Position.Sum(-7, Bounds.Height / 2f + 5), null, Color.FromNonPremultiplied(255, 204, 102, 192), 0f, Origins.CenterLeft, new Vector2(this.UltimateCharge * 14, 3), SpriteEffects.None, 0f);
+        base.Draw(spriteBatch);
     }
 
     private static Texture2D CreateCircleTexture(int diameter)
@@ -107,6 +108,7 @@ public class Tower : Entity
         {
             this.IsUlting = true;
             this.UltingTimer = 2f;
+            this.Cooldown = 0f;
             Time.TimeScale = 0.5f;
         }
     }

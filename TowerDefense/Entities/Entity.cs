@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Aseprite.Sprites;
 
 namespace TowerDefense.Entities;
@@ -150,5 +152,15 @@ public class Entity : GameObject
                 list.Add(entity);
         }
         return list;
+    }
+
+    public bool IsMouseOver()
+    {
+        return Input.MouseState.X >= this.Bounds.X && Input.MouseState.X <= this.Bounds.X + this.GetWidth() && Input.MouseState.Y >= this.Bounds.Y && Input.MouseState.Y <= this.Bounds.Y + this.GetHeight();
+    }
+    
+    public virtual void OnMouseOver()
+    {
+        
     }
 }

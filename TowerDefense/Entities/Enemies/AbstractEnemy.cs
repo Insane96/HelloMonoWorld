@@ -1,4 +1,6 @@
-﻿using MonoGame.Aseprite.Sprites;
+﻿using Engine;
+using Microsoft.Xna.Framework;
+using MonoGame.Aseprite.Sprites;
 
 namespace TowerDefense.Entities.Enemies;
 
@@ -12,5 +14,11 @@ public class AbstractEnemy : Entity
         this.MaxHealth = health;
         this.Heal(health);
         this.ShouldDrawHealth = true;
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        this.Move(new Vector2(1, 0).Multiply(20f * (float)Time.DeltaTime));
     }
 }

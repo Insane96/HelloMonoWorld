@@ -37,9 +37,9 @@ public class Input
     /// Returns true if the key has been pressed and wasn't previously pressed
     /// </summary>
     public static bool IsKeyPressed(Keys key)
-    {
-        if (KeyboardState.IsKeyDown(key))
-            Debug.WriteLine($"{KeyboardState.IsKeyDown(key)} {_oldKeyboardState.IsKeyDown(key)}");
+    { 
+        //if (KeyboardState.IsKeyDown(key))
+            //Debug.WriteLine($"{KeyboardState.IsKeyDown(key)} {_oldKeyboardState.IsKeyDown(key)}");
         return KeyboardState.IsKeyDown(key) && !_oldKeyboardState.IsKeyDown(key) && Game.IsActive;
     }
 
