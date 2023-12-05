@@ -31,6 +31,7 @@ public class Tower : Entity
         this.BaseRange = baseRange;
         this.UltimateChargeOnHit = ultimateChargeOnHit;
     }
+
     public override void Update()
     {
         base.Update();
@@ -48,8 +49,11 @@ public class Tower : Entity
             this.Cooldown = this.BaseAttackSpeed;
             if (this.IsUlting)
                 this.Cooldown /= 8f;
-                
         }
+
+        if (this.LockedOn != null && this.DistanceTo(this.LockedOn) > this.BaseRange * this.BaseRange)
+            this.LockedOn = null;
+
         if (this.IsUlting)
         {
             this.UltingTimer -= Time.DeltaTime;
@@ -60,6 +64,7 @@ public class Tower : Entity
                 Time.TimeScale = 1f;
             }
         }
+
         TryLockOnEntity();
         RotateToLockedEntity();
     }
@@ -70,14 +75,15 @@ public class Tower : Entity
         {
             spriteBatch.Draw(CreateCircleTexture((int)(this.BaseRange * 2f)), this.Position.Sum(-this.BaseRange, -this.BaseRange), Color.FromNonPremultiplied(192, 0, 0, 32));
         }
-        spriteBatch.Draw(Utils.OneByOneTexture, this.Position.Sum(-7, Bounds.Height / 2f + 5), null, Color.FromNonPremultiplied(255, 204, 102, 192), 0f, Origins.CenterLeft, new Vector2(this.UltimateCharge * 14, 3), SpriteEffects.None, 0f);
+
+        spriteBatch.Draw(Utils.OneByOneTexture, this.Position.Sum(-7, Bounds.Height / 2f + 5), null, Color.FromNonPremultiplied(this.UltimateCharge >= 1f ? 0 : 255, 204, 102, 192), 0f, Origins.CenterLeft, new Vector2(this.UltimateCharge * 14, 3), SpriteEffects.None, 0f);
         base.Draw(spriteBatch);
     }
 
     private static Texture2D CreateCircleTexture(int diameter)
     {
         Texture2D texture = new(Graphics.GraphicsDeviceManager.GraphicsDevice, diameter, diameter);
-        Color[] colorData = new Color[diameter*diameter];
+        Color[] colorData = new Color[diameter * diameter];
 
         float radius = diameter / 2f;
         float radiusSquared = radius * radius;
@@ -101,36 +107,57 @@ public class Tower : Entity
 
     public void OnHitEnemy(AbstractEnemy enemy)
     {
-        if (this.IsUlting) 
+        if (this.IsUlting 
+            || this.UltimateCharge >= 1f)
             return;
         this.UltimateCharge += this.UltimateChargeOnHit;
-        if (this.UltimateCharge >= 1f)
-        {
-            this.IsUlting = true;
-            this.UltingTimer = 2f;
-            this.Cooldown = 0f;
-            Time.TimeScale = 0.5f;
-        }
     }
 
     protected void TryLockOnEntity()
     {
         if (this.LockedOn == null || this.LockedOn.RemovalMark)
-            this.LockedOn = (Entity)GetUpdatableGameObjects().Where(gameObject =>
-            {
-                return gameObject is AbstractEnemy abstractEnemy 
-                       && abstractEnemy.DistanceTo(this) < this.BaseRange * this.BaseRange;
-            }).MinBy(gameObject => ((Entity)gameObject).DistanceTo(this));
+            this.LockedOn = (Entity)GetUpdatableGameObjects().Where(gameObject => gameObject is AbstractEnemy abstractEnemy
+                                                                                  && abstractEnemy.DistanceTo(this) < this.BaseRange * this.BaseRange)
+                .MinBy(gameObject => ((Entity)gameObject).DistanceTo(this));
     }
 
     protected void RotateToLockedEntity()
     {
         if (this.LockedOn == null)
             return;
-        
+
         var deltaX = this.LockedOn.GetX() - this.GetX();
         var deltaY = this.LockedOn.GetY() - this.GetY();
         float rad = (float)Math.Atan2(deltaY, deltaX);
         this.Sprite.Rotation = rad;
+    }
+
+    public override bool Intersects(Entity entity)
+    {
+        if (entity is Tower tower)
+        {
+            return (tower.Position - this.Position).Length() < this.GetWidth();
+        }
+
+        Vector2 vec2 = entity.Position - this.Position;
+        vec2 = Vector2.Clamp(vec2, new Vector2(entity.Bounds.Left, entity.Bounds.Top), new Vector2(entity.Bounds.Right, entity.Bounds.Bottom));
+        vec2 = entity.Position + vec2;
+        return (vec2 - this.Position).Length() <= this.GetWidth();
+    }
+
+    public override bool IsMouseOver()
+    {
+        double distance = this.DistanceTo(new Vector2(Input.MouseState.X, Input.MouseState.Y));
+        return base.IsMouseOver() && distance < this.GetWidth() / 2f * this.GetWidth() / 2f;
+    }
+
+    public override void OnMouseClick()
+    {
+        if (!(this.UltimateCharge >= 1f)) 
+            return;
+        this.IsUlting = true;
+        this.UltingTimer = 2f;
+        this.Cooldown = 0f;
+        Time.TimeScale = 0.5f;
     }
 }

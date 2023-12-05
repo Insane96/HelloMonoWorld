@@ -1,4 +1,5 @@
-﻿using Engine;
+﻿using System.Linq;
+using Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -46,16 +47,29 @@ public class MainGame : Game
             Exit();
         
         if (Input.IsLeftClickPressed())
-            GameObject.Instantiate(new Tower(Sprites.GetAnimatedSprite(Sprites.CrossbowTower, "idle"), 1f, 1f, 200f, 0.05f)
+        {
+            Tower tower = new(Sprites.GetAnimatedSprite(Sprites.CrossbowTower, "idle"), 1f, 1f, 200f, 0.05f)
             {
                 Position = new Vector2(Input.MouseState.X, Input.MouseState.Y)
-            });
+            };
+            tower.UpdateBounds();
+            if (tower.GetCollisionsOfClass(typeof(Tower)).Count == 0)
+                GameObject.Instantiate(tower);
+        }
         
         if (Input.IsRightClickPressed())
-            GameObject.Instantiate(new AbstractEnemy(Sprites.GetAnimatedSprite(Sprites.Zombie, "idle"), 1f, 5f)
-            {
-                Position = new Vector2(Input.MouseState.X, Input.MouseState.Y)
-            });
+        {
+            if (!Input.IsKeyDown(Keys.LeftShift))
+                GameObject.Instantiate(new AbstractEnemy(Sprites.GetAnimatedSprite(Sprites.Zombie, "idle"), 1f, 5f)
+                {
+                    Position = new Vector2(Input.MouseState.X, Input.MouseState.Y)
+                });
+            else 
+                GameObject.Instantiate(new AbstractEnemy(Sprites.GetAnimatedSprite(Sprites.Zombie, "idle"), 1f, 500f)
+                {
+                    Position = new Vector2(Input.MouseState.X, Input.MouseState.Y)
+                });
+        }
 
         Options.TryToggleDebug();
         Options.TryToggleMute();

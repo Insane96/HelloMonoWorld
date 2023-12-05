@@ -43,13 +43,16 @@ public class Entity : GameObject
     public Entity(AnimatedSprite sprite)
     {
         this.SetSprite(sprite);
+        //this.UpdateBounds();
     }
 
     public override void Update()
     {
         base.Update();
-        if (ShouldUpdateBounds)
-            UpdateBounds();
+        if (this.ShouldUpdateBounds)
+            this.UpdateBounds();
+        if (this.IsMouseOver() && Input.IsLeftClickPressed())
+            this.OnMouseClick();
     }
 
     public override void Draw(SpriteBatch spriteBatch)
@@ -81,15 +84,30 @@ public class Entity : GameObject
     {
         return Math.Pow(entity.GetX() - this.GetX(), 2) + Math.Pow(entity.GetY() - this.GetY(), 2);
     }
+    
+    public double DistanceTo(Vector2 vec2)
+    {
+        return Math.Pow(vec2.X - this.GetX(), 2) + Math.Pow(vec2.Y - this.GetY(), 2);
+    }
 
     public double DistanceToSqrt(GameObject entity)
     {
         return Math.Sqrt(DistanceTo(entity));
     }
+
+    public double DistanceToSqrt(Vector2 vec2)
+    {
+        return Math.Sqrt(DistanceTo(vec2));
+    }
     
     public void UpdateBounds()
     {
         this.Bounds = new Rectangle((int)(this.GetX() - this.Sprite.Origin.X), (int)(this.GetY() - this.Sprite.Origin.Y), this.GetWidth(), this.GetHeight());
+    }
+
+    public virtual bool Intersects(Entity entity)
+    {
+        return this.Bounds.Intersects(entity.Bounds);
     }
 
     public virtual List<Entity> GetCollisions()
@@ -107,7 +125,7 @@ public class Entity : GameObject
                     || entitiesToIgnore.Contains(gameObject))
                 continue;
 
-            if (entity.Enabled && this.Bounds.Intersects(entity.Bounds))
+            if (entity.Enabled && this.Intersects(entity))
                 list.Add(entity);
         }
         return list;
@@ -131,7 +149,7 @@ public class Entity : GameObject
             if (flag)
                 continue;
 
-            if (entity.Enabled && Bounds.Intersects(entity.Bounds))
+            if (entity.Enabled && this.Intersects(entity))
                 list.Add(entity);
         }
         return list;
@@ -145,7 +163,7 @@ public class Entity : GameObject
             if (gameObject is not Entity entity
                 || gameObject == this
                 || !entity.Enabled
-                || !Bounds.Intersects(entity.Bounds))
+                || !this.Intersects(entity))
                 continue;
 
             if (clazz.Any(type => type.IsInstanceOfType(gameObject)))
@@ -154,12 +172,17 @@ public class Entity : GameObject
         return list;
     }
 
-    public bool IsMouseOver()
+    public virtual bool IsMouseOver()
     {
         return Input.MouseState.X >= this.Bounds.X && Input.MouseState.X <= this.Bounds.X + this.GetWidth() && Input.MouseState.Y >= this.Bounds.Y && Input.MouseState.Y <= this.Bounds.Y + this.GetHeight();
     }
     
     public virtual void OnMouseOver()
+    {
+        
+    }
+    
+    public virtual void OnMouseClick()
     {
         
     }
