@@ -56,18 +56,28 @@
 /processorParam:TextureFormat=Compressed
 /build:fonts/font4.spritefont
 
-#begin textures/crossbow.aseprite
+#begin textures/towers/crossbow.aseprite
 /importer:AsepriteFileContentImporter
 /processor:AsepriteFileContentProcessor
-/build:textures/crossbow.aseprite
+/build:textures/towers/crossbow.aseprite
 
-#begin textures/zombie.aseprite
+#begin textures/towers/death.aseprite
 /importer:AsepriteFileContentImporter
 /processor:AsepriteFileContentProcessor
-/build:textures/zombie.aseprite
+/build:textures/towers/death.aseprite
+
+#begin textures/enemies/zombie.aseprite
+/importer:AsepriteFileContentImporter
+/processor:AsepriteFileContentProcessor
+/build:textures/enemies/zombie.aseprite
 
 #begin textures/arrow.aseprite
 /importer:AsepriteFileContentImporter
 /processor:AsepriteFileContentProcessor
 /build:textures/arrow.aseprite
+
+#begin textures/death_pool.aseprite
+/importer:AsepriteFileContentImporter
+/processor:AsepriteFileContentProcessor
+/build:textures/death_pool.aseprite
 

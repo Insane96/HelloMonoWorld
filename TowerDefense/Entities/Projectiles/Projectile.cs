@@ -9,10 +9,9 @@ using TowerDefense.Entities.Towers;
 
 namespace TowerDefense.Entities.Projectiles;
 
-public class Projectile : Entity
+public class Projectile : OwnableEntity
 {
     public float BaseSpeed { get; protected set; }
-    public Tower Owner { get; protected set; }
 
     private Vector2 _direction;
     public Vector2 Direction
@@ -25,10 +24,9 @@ public class Projectile : Entity
         }
     }
 
-    public Projectile(AnimatedSprite sprite, Tower owner, float baseSpeed) : base(sprite)
+    public Projectile(AnimatedSprite sprite, Tower owner, float baseSpeed) : base(sprite, owner)
     {
         this.BaseSpeed = baseSpeed;
-        this.Owner = owner;
     }
 
     public override void Update()

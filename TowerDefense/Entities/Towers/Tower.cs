@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using Engine;
 using Microsoft.Xna.Framework;
@@ -18,6 +17,7 @@ public class Tower : Entity
     public float BaseRange { get; protected set; }
     public bool IsUlting { get; protected set; }
     public double UltingTimer { get; protected set; }
+    public double UltimateDuration { get; protected set; } = 2f;
     public float UltimateCharge { get; protected set; }
     public float UltimateChargeOnHit { get; set; }
 
@@ -35,38 +35,10 @@ public class Tower : Entity
     public override void Update()
     {
         base.Update();
-        this.Cooldown -= Time.DeltaTime;
-        if (this.Cooldown <= 0d && this.LockedOn != null)
-        {
-            Projectile projectile = new(Sprites.GetAnimatedSprite(Sprites.Arrow, "idle"), this, 250f)
-            {
-                Position = this.Position
-            };
-            Vector2 dir = new(this.LockedOn.GetX() - this.GetX(), this.LockedOn.GetY() - this.GetY());
-            dir.Normalize();
-            projectile.Direction = dir;
-            Instantiate(projectile);
-            this.Cooldown = this.BaseAttackSpeed;
-            if (this.IsUlting)
-                this.Cooldown /= 8f;
-        }
-
-        if (this.LockedOn != null && this.DistanceTo(this.LockedOn) > this.BaseRange * this.BaseRange)
-            this.LockedOn = null;
-
-        if (this.IsUlting)
-        {
-            this.UltingTimer -= Time.DeltaTime;
-            if (this.UltingTimer <= 0f)
-            {
-                this.IsUlting = false;
-                this.UltimateCharge = 0f;
-                Time.TimeScale = 1f;
-            }
-        }
-
-        TryLockOnEntity();
-        RotateToLockedEntity();
+        this.Attack();
+        this.UpdateUlting();
+        this.TryLockOnEntity();
+        this.RotateToLockedEntity();
     }
 
     public override void Draw(SpriteBatch spriteBatch)
@@ -115,6 +87,9 @@ public class Tower : Entity
 
     protected void TryLockOnEntity()
     {
+        if (this.LockedOn != null && this.DistanceTo(this.LockedOn) > this.BaseRange * this.BaseRange)
+            this.LockedOn = null;
+        
         if (this.LockedOn == null || this.LockedOn.RemovalMark)
             this.LockedOn = (Entity)GetUpdatableGameObjects().Where(gameObject => gameObject is AbstractEnemy abstractEnemy
                                                                                   && abstractEnemy.DistanceTo(this) < this.BaseRange * this.BaseRange)
@@ -145,6 +120,39 @@ public class Tower : Entity
         return (vec2 - this.Position).Length() <= this.GetWidth();
     }
 
+    public virtual void Attack()
+    {
+        this.Cooldown -= Time.DeltaTime;
+        if (this.Cooldown <= 0d && this.LockedOn != null)
+        {
+            Projectile projectile = new(Sprites.GetAnimatedSprite(Sprites.Arrow, "idle"), this, 250f)
+            {
+                Position = this.Position
+            };
+            Vector2 dir = new(this.LockedOn.GetX() - this.GetX(), this.LockedOn.GetY() - this.GetY());
+            dir.Normalize();
+            projectile.Direction = dir;
+            Instantiate(projectile);
+            this.Cooldown = this.BaseAttackSpeed;
+            if (this.IsUlting)
+                this.Cooldown /= 8f;
+        }
+    }
+
+    public virtual void UpdateUlting()
+    {
+        if (this.IsUlting)
+        {
+            this.UltingTimer -= Time.DeltaTime;
+            if (this.UltingTimer <= 0f)
+            {
+                this.IsUlting = false;
+                this.UltimateCharge = 0f;
+                Time.TimeScale = 1f;
+            }
+        }
+    }
+
     public override bool IsMouseOver()
     {
         double distance = this.DistanceTo(new Vector2(Input.MouseState.X, Input.MouseState.Y));
@@ -156,7 +164,7 @@ public class Tower : Entity
         if (!(this.UltimateCharge >= 1f)) 
             return;
         this.IsUlting = true;
-        this.UltingTimer = 2f;
+        this.UltingTimer = this.UltimateDuration;
         this.Cooldown = 0f;
         Time.TimeScale = 0.5f;
     }

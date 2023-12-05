@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Engine;
+﻿using Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -48,10 +47,13 @@ public class MainGame : Game
         
         if (Input.IsLeftClickPressed())
         {
-            Tower tower = new(Sprites.GetAnimatedSprite(Sprites.CrossbowTower, "idle"), 1f, 1f, 200f, 0.05f)
-            {
-                Position = new Vector2(Input.MouseState.X, Input.MouseState.Y)
-            };
+            Tower tower;
+            if (!Input.IsKeyDown(Keys.LeftShift))
+                tower = new Tower(Sprites.GetAnimatedSprite(Sprites.CrossbowTower, "idle"), 1f, 1f, 200f, 0.05f);
+            else
+                tower = new DeathTower();
+
+            tower.Position = new Vector2(Input.MouseState.X, Input.MouseState.Y);
             tower.UpdateBounds();
             if (tower.GetCollisionsOfClass(typeof(Tower)).Count == 0)
                 GameObject.Instantiate(tower);
@@ -65,7 +67,7 @@ public class MainGame : Game
                     Position = new Vector2(Input.MouseState.X, Input.MouseState.Y)
                 });
             else 
-                GameObject.Instantiate(new AbstractEnemy(Sprites.GetAnimatedSprite(Sprites.Zombie, "idle"), 1f, 500f)
+                GameObject.Instantiate(new AbstractEnemy(Sprites.GetAnimatedSprite(Sprites.Zombie, "idle"), 1f, 100f)
                 {
                     Position = new Vector2(Input.MouseState.X, Input.MouseState.Y)
                 });
