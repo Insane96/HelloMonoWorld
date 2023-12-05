@@ -43,6 +43,6 @@ public class Projectile : Entity
         IEnumerable<Entity> entitiesCollided = this.GetCollisionsOfClass(typeof(AbstractEnemy));
         if (!entitiesCollided.Any()) return;
         this.MarkForRemoval();
-        entitiesCollided.First().MarkForRemoval();
+        entitiesCollided.First().Hurt(1f);
     }
 }

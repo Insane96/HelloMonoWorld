@@ -6,8 +6,11 @@ public class AbstractEnemy : Entity
 {
     public float BaseDamage { get; private set; }
 
-    public AbstractEnemy(AnimatedSprite sprite, float baseDamage) : base(sprite)
+    public AbstractEnemy(AnimatedSprite sprite, float baseDamage, float health) : base(sprite)
     {
-        BaseDamage = baseDamage;
+        this.BaseDamage = baseDamage;
+        this.MaxHealth = health;
+        this.Heal(health);
+        this.ShouldDrawHealth = true;
     }
 }

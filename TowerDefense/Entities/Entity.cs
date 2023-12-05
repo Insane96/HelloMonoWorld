@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Engine;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Aseprite.Sprites;
 
 namespace TowerDefense.Entities;
@@ -16,6 +17,26 @@ public class Entity : GameObject
     /// If true, Bounds will be updated each cycle
     /// </summary>
     public bool ShouldUpdateBounds { get; set; } = true;
+
+
+    public float Health { get; set; }
+
+    private float _maxHealth;
+    public float MaxHealth
+    {
+        get => _maxHealth;
+        set
+        {
+            float diff = value - this._maxHealth;
+            this._maxHealth = value;
+            this.Health += diff;
+        }
+    }
+
+    /// <summary>
+    /// If true, health bar will be rendered at the bottom of the sprite
+    /// </summary>
+    public bool ShouldDrawHealth { get; set; } = false;
     
     public Entity(AnimatedSprite sprite)
     {
@@ -27,6 +48,31 @@ public class Entity : GameObject
         base.Update();
         if (ShouldUpdateBounds)
             UpdateBounds();
+    }
+
+    public override void Draw(SpriteBatch spriteBatch)
+    {
+        base.Draw(spriteBatch);
+        if (Options.Debug)
+        {
+            spriteBatch.Draw(Utils.OneByOneTexture, Bounds, Color.FromNonPremultiplied(255, 0, 0, 64));
+        }
+        if (this.ShouldDrawHealth)
+        {
+            spriteBatch.Draw(Utils.OneByOneTexture, this.Position.Sum(-25, Bounds.Height / 2f + 10), null, Color.FromNonPremultiplied(255, 100, 100, 192), 0f, Origins.CenterLeft, new Vector2(this.Health / this.MaxHealth * 50, 5), SpriteEffects.None, 0f);
+        }
+    }
+
+    public void Heal(float amount)
+    {
+        this.Health = Math.Min(this.Health + amount, this.MaxHealth);
+    }
+
+    public void Hurt(float amount)
+    {
+        this.Health -= amount;
+        if (this.Health <= 0f)
+            this.MarkForRemoval();
     }
 
     public double DistanceTo(GameObject entity)

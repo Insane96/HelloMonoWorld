@@ -51,7 +51,7 @@ public class MainGame : Game
             });
         
         if (Input.IsRightClickPressed())
-            GameObject.Instantiate(new AbstractEnemy(Sprites.GetAnimatedSprite(Sprites.Zombie, "idle"), 1f)
+            GameObject.Instantiate(new AbstractEnemy(Sprites.GetAnimatedSprite(Sprites.Zombie, "idle"), 1f, 5f)
             {
                 Position = new Vector2(Input.MouseState.X, Input.MouseState.Y)
             });
