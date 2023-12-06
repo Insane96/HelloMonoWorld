@@ -51,7 +51,7 @@ public class MainGame : Game
             if (!Input.IsKeyDown(Keys.LeftShift))
                 tower = new Tower(Sprites.GetAnimatedSprite(Sprites.CrossbowTower, "idle"), 1f, 1f, 200f, 0.05f);
             else
-                tower = new DeathTower();
+                tower = new LaserTower();
 
             tower.Position = new Vector2(Input.MouseState.X, Input.MouseState.Y);
             tower.UpdateBounds();

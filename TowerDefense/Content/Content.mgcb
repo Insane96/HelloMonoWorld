@@ -66,6 +66,11 @@
 /processor:AsepriteFileContentProcessor
 /build:textures/towers/death.aseprite
 
+#begin textures/towers/laser.aseprite
+/importer:AsepriteFileContentImporter
+/processor:AsepriteFileContentProcessor
+/build:textures/towers/laser.aseprite
+
 #begin textures/enemies/zombie.aseprite
 /importer:AsepriteFileContentImporter
 /processor:AsepriteFileContentProcessor

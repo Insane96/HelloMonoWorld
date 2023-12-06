@@ -12,11 +12,13 @@
     <File>D:/Programming/C#/MonoGame/TowerDefense/Content/fonts/font4.spritefont</File>
     <File>D:/Programming/C#/MonoGame/TowerDefense/Content/textures/towers/crossbow.aseprite</File>
     <File>D:/Programming/C#/MonoGame/TowerDefense/Content/textures/towers/death.aseprite</File>
+    <File>D:/Programming/C#/MonoGame/TowerDefense/Content/textures/towers/laser.aseprite</File>
     <File>D:/Programming/C#/MonoGame/TowerDefense/Content/textures/enemies/zombie.aseprite</File>
     <File>D:/Programming/C#/MonoGame/TowerDefense/Content/textures/arrow.aseprite</File>
     <File>D:/Programming/C#/MonoGame/TowerDefense/Content/textures/death_pool.aseprite</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

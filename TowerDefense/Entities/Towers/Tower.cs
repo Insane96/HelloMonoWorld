@@ -43,6 +43,7 @@ public class Tower : Entity
 
     public override void Draw(SpriteBatch spriteBatch)
     {
+        //Draw the cirlce and ult bar before the tower
         if (this.IsMouseOver())
         {
             spriteBatch.Draw(CreateCircleTexture((int)(this.BaseRange * 2f)), this.Position.Sum(-this.BaseRange, -this.BaseRange), Color.FromNonPremultiplied(192, 0, 0, 32));
