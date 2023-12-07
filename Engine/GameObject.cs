@@ -15,6 +15,9 @@ public abstract class GameObject
     public Vector2 Position { get; set; }
 
     private Vector2 _origin;
+    /// <summary>
+    /// Gets or Sets the x- and y-coordinate (in percentage 0~1) of origin to apply when rendering the <see cref="T:MonoGame.Aseprite.Sprites.Sprite" />.
+    /// </summary>
     public Vector2 Origin
     {
         get => this._origin;

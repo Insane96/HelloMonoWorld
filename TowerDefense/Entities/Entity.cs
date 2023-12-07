@@ -14,6 +14,7 @@ public class Entity : GameObject
 {
 
     public Rectangle Bounds { get; set; } = Rectangle.Empty;
+    public Matrix MatrixBounds = Matrix.Identity;
 
     /// <summary>
     /// If true, Bounds will be updated each cycle
@@ -51,7 +52,7 @@ public class Entity : GameObject
         base.Update();
         if (this.ShouldUpdateBounds)
             this.UpdateBounds();
-        if (this.IsMouseOver() && Input.IsLeftClickPressed())
+        if (Input.IsLeftClickPressed())
             this.OnMouseClick();
     }
 
@@ -60,11 +61,11 @@ public class Entity : GameObject
         base.Draw(spriteBatch);
         if (Options.Debug)
         {
-            spriteBatch.Draw(Utils.OneByOneTexture, Bounds, Color.FromNonPremultiplied(255, 0, 0, 64));
+            spriteBatch.Draw(Utils.OneByOneTexture, this.Bounds, Color.FromNonPremultiplied(255, 0, 0, 64));
         }
         if (this.ShouldDrawHealth)
         {
-            spriteBatch.Draw(Utils.OneByOneTexture, this.Position.Sum(-25, Bounds.Height / 2f + 10), null, Color.FromNonPremultiplied(255, 100, 100, 192), 0f, Origins.CenterLeft, new Vector2(this.Health / this.MaxHealth * 50, 5), SpriteEffects.None, 0f);
+            spriteBatch.Draw(Utils.OneByOneTexture, this.Position.Sum(-25, this.Bounds.Height / 2f + 10), null, Color.FromNonPremultiplied(255, 100, 100, 192), 0f, Origins.CenterLeft, new Vector2(this.Health / this.MaxHealth * 50, 5), SpriteEffects.None, 0f);
         }
     }
 
@@ -100,9 +101,10 @@ public class Entity : GameObject
         return Math.Sqrt(DistanceTo(vec2));
     }
     
-    public void UpdateBounds()
+    public virtual void UpdateBounds()
     {
-        this.Bounds = new Rectangle((int)(this.GetX() - this.Sprite.Origin.X), (int)(this.GetY() - this.Sprite.Origin.Y), this.GetWidth(), this.GetHeight());
+        this.Bounds = new Rectangle((int)(this.GetX() - this.Sprite.Origin.X), (int)(this.GetY() - this.Sprite.Origin.Y), (int)(this.GetWidth() * this.Sprite.ScaleX), (int)(this.GetHeight() * this.Sprite.ScaleY));
+        this.MatrixBounds = Matrix.CreateRotationZ(this.Sprite.Rotation);
     }
 
     public virtual bool Intersects(Entity entity)
@@ -182,8 +184,14 @@ public class Entity : GameObject
         
     }
     
-    public virtual void OnMouseClick()
+    public virtual void OnMouseClickedOn()
     {
         
+    }
+    
+    public virtual void OnMouseClick()
+    {
+        if (this.IsMouseOver())
+            this.OnMouseClickedOn();
     }
 }

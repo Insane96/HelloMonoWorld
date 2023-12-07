@@ -15,6 +15,8 @@ public class MainGame : Game
 
     public static SpriteFont debugFont;
 
+    public static bool IsBuildingTower = true;
+
     public MainGame()
     {
         Content.RootDirectory = "Content";
@@ -40,18 +42,22 @@ public class MainGame : Game
 
     protected override void Update(GameTime gameTime)
     {
+        Options.TryToggleDebug();
+        Options.TryToggleMute();
+        Options.TryIncreaseFontSize();
+        Options.TryDecreaseFontSize();
+        Options.TryFullScreen();
+
+        MonoEngine.Update(gameTime);
+        
         if (Input.GamePadState.Buttons.Back == ButtonState.Pressed || Input.IsKeyDown(Keys.Escape))
             Exit();
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
         
-        if (Input.IsLeftClickPressed())
+        if (IsBuildingTower && Input.IsLeftClickPressed())
         {
-            Tower tower;
-            if (!Input.IsKeyDown(Keys.LeftShift))
-                tower = new Tower(Sprites.GetAnimatedSprite(Sprites.CrossbowTower, "idle"), 1f, 1f, 200f, 0.05f);
-            else
-                tower = new LaserTower();
+            Tower tower = !Input.IsKeyDown(Keys.LeftShift) ? new Tower(Sprites.CrossbowTower) : new LaserTower();
 
             tower.Position = new Vector2(Input.MouseState.X, Input.MouseState.Y);
             tower.UpdateBounds();
@@ -73,13 +79,8 @@ public class MainGame : Game
                 });
         }
 
-        Options.TryToggleDebug();
-        Options.TryToggleMute();
-        Options.TryIncreaseFontSize();
-        Options.TryDecreaseFontSize();
-        Options.TryFullScreen();
-
-        MonoEngine.Update(gameTime);
+        if (Input.IsKeyPressed(Keys.B))
+            IsBuildingTower = !IsBuildingTower;
         
         base.Update(gameTime);
     }

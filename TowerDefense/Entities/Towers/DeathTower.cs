@@ -9,9 +9,11 @@ namespace TowerDefense.Entities.Towers;
 
 public class DeathTower : Tower
 {
-    public DeathTower() : base(Sprites.GetAnimatedSprite(Sprites.DeathTower, "idle"), 2f, 2f, 125f, 0.01f)
+    public DeathTower() : base(Sprites.DeathTower)
     {
-        this.UltimateDuration = 1f;
+        this.BaseAttackSpeed = 2f;
+        this.BaseAttackDamage = 1.5f;
+        this.BaseRange = 125f;
     }
 
     public override void Draw(SpriteBatch spriteBatch)
@@ -54,7 +56,7 @@ public class DeathTower : Tower
                 }
                 this.IsUlting = false;
                 this.UltimateCharge = 0f;
-                Time.TimeScale = 1f;
+                //Time.TimeScale = 1f;
             }
         }
     }

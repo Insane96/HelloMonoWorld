@@ -24,12 +24,12 @@ public class Tower : Entity
     public double Cooldown { get; protected set; }
     public Entity LockedOn { get; protected set; }
 
-    public Tower(AnimatedSprite sprite, float baseAttackSpeed, float baseAttackDamage, float baseRange, float ultimateChargeOnHit) : base(sprite)
+    public Tower(SpriteSheet sprite) : base(Sprites.GetAnimatedSprite(sprite, "idle"))
     {
-        this.BaseAttackSpeed = baseAttackSpeed;
-        this.BaseAttackDamage = baseAttackDamage;
-        this.BaseRange = baseRange;
-        this.UltimateChargeOnHit = ultimateChargeOnHit;
+        this.BaseAttackSpeed = 1f;
+        this.BaseAttackDamage = 1f;
+        this.BaseRange = 200f;
+        this.UltimateChargeOnHit = 0.01f;
     }
 
     public override void Update()
@@ -46,7 +46,7 @@ public class Tower : Entity
         //Draw the cirlce and ult bar before the tower
         if (this.IsMouseOver())
         {
-            spriteBatch.Draw(CreateCircleTexture((int)(this.BaseRange * 2f)), this.Position.Sum(-this.BaseRange, -this.BaseRange), Color.FromNonPremultiplied(192, 0, 0, 32));
+            spriteBatch.Draw(CreateCircleTexture((int)(this.BaseRange * 2f)), this.Position.Sum(-this.BaseRange, -this.BaseRange), Color.FromNonPremultiplied(0, 0, 0, 32));
         }
 
         spriteBatch.Draw(Utils.OneByOneTexture, this.Position.Sum(-7, Bounds.Height / 2f + 5), null, Color.FromNonPremultiplied(this.UltimateCharge >= 1f ? 0 : 255, 204, 102, 192), 0f, Origins.CenterLeft, new Vector2(this.UltimateCharge * 14, 3), SpriteEffects.None, 0f);
@@ -86,7 +86,7 @@ public class Tower : Entity
         this.UltimateCharge += this.UltimateChargeOnHit;
     }
 
-    protected void TryLockOnEntity()
+    protected virtual void TryLockOnEntity()
     {
         if (this.LockedOn != null && this.DistanceTo(this.LockedOn) > this.BaseRange * this.BaseRange)
             this.LockedOn = null;
@@ -149,7 +149,7 @@ public class Tower : Entity
             {
                 this.IsUlting = false;
                 this.UltimateCharge = 0f;
-                Time.TimeScale = 1f;
+                //Time.TimeScale = 1f;
             }
         }
     }
@@ -160,13 +160,13 @@ public class Tower : Entity
         return base.IsMouseOver() && distance < this.GetWidth() / 2f * this.GetWidth() / 2f;
     }
 
-    public override void OnMouseClick()
+    public override void OnMouseClickedOn()
     {
         if (!(this.UltimateCharge >= 1f)) 
             return;
         this.IsUlting = true;
         this.UltingTimer = this.UltimateDuration;
         this.Cooldown = 0f;
-        Time.TimeScale = 0.5f;
+        //Time.TimeScale = 0.5f;
     }
 }

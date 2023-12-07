@@ -86,3 +86,8 @@
 /processor:AsepriteFileContentProcessor
 /build:textures/death_pool.aseprite
 
+#begin textures/laser_ult.aseprite
+/importer:AsepriteFileContentImporter
+/processor:AsepriteFileContentProcessor
+/build:textures/laser_ult.aseprite
+

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>D:/Programming/C#/MonoGame/TowerDefense/Content/textures/arrow.aseprite</SourceFile>
-  <SourceTime>2023-12-02T17:12:24.9593353+01:00</SourceTime>
-  <DestFile>D:/Programming/C#/MonoGame/TowerDefense/Content/bin/DesktopGL/Content/textures/arrow.xnb</DestFile>
-  <DestTime>2023-12-05T18:29:01.0414034+01:00</DestTime>
+  <SourceFile>C:/Users/alberto_delvillano/source/repos/HelloMonoWorld/TowerDefense/Content/textures/arrow.aseprite</SourceFile>
+  <SourceTime>2023-12-05T12:52:18.2408933+01:00</SourceTime>
+  <DestFile>C:/Users/alberto_delvillano/source/repos/HelloMonoWorld/TowerDefense/Content/bin/DesktopGL/Content/textures/arrow.xnb</DestFile>
+  <DestTime>2023-12-07T11:55:31.6186434+01:00</DestTime>
   <Importer>AsepriteFileContentImporter</Importer>
-  <ImporterTime>2023-12-02T11:25:58.1770812+01:00</ImporterTime>
+  <ImporterTime>2023-12-05T12:52:18.2318942+01:00</ImporterTime>
   <Processor>AsepriteFileContentProcessor</Processor>
-  <ProcessorTime>2023-12-02T11:25:58.1770812+01:00</ProcessorTime>
+  <ProcessorTime>2023-12-05T12:52:18.2318942+01:00</ProcessorTime>
   <Dependencies />
   <BuildAsset />
   <BuildOutput />

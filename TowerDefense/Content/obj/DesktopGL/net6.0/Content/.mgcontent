@@ -4,20 +4,22 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>D:/Programming/C#/MonoGame/TowerDefense/Content/fonts/debug.spritefont</File>
-    <File>D:/Programming/C#/MonoGame/TowerDefense/Content/fonts/font0.spritefont</File>
-    <File>D:/Programming/C#/MonoGame/TowerDefense/Content/fonts/font1.spritefont</File>
-    <File>D:/Programming/C#/MonoGame/TowerDefense/Content/fonts/font2.spritefont</File>
-    <File>D:/Programming/C#/MonoGame/TowerDefense/Content/fonts/font3.spritefont</File>
-    <File>D:/Programming/C#/MonoGame/TowerDefense/Content/fonts/font4.spritefont</File>
-    <File>D:/Programming/C#/MonoGame/TowerDefense/Content/textures/towers/crossbow.aseprite</File>
-    <File>D:/Programming/C#/MonoGame/TowerDefense/Content/textures/towers/death.aseprite</File>
-    <File>D:/Programming/C#/MonoGame/TowerDefense/Content/textures/towers/laser.aseprite</File>
-    <File>D:/Programming/C#/MonoGame/TowerDefense/Content/textures/enemies/zombie.aseprite</File>
-    <File>D:/Programming/C#/MonoGame/TowerDefense/Content/textures/arrow.aseprite</File>
-    <File>D:/Programming/C#/MonoGame/TowerDefense/Content/textures/death_pool.aseprite</File>
+    <File>C:/Users/alberto_delvillano/source/repos/HelloMonoWorld/TowerDefense/Content/fonts/debug.spritefont</File>
+    <File>C:/Users/alberto_delvillano/source/repos/HelloMonoWorld/TowerDefense/Content/fonts/font0.spritefont</File>
+    <File>C:/Users/alberto_delvillano/source/repos/HelloMonoWorld/TowerDefense/Content/fonts/font1.spritefont</File>
+    <File>C:/Users/alberto_delvillano/source/repos/HelloMonoWorld/TowerDefense/Content/fonts/font2.spritefont</File>
+    <File>C:/Users/alberto_delvillano/source/repos/HelloMonoWorld/TowerDefense/Content/fonts/font3.spritefont</File>
+    <File>C:/Users/alberto_delvillano/source/repos/HelloMonoWorld/TowerDefense/Content/fonts/font4.spritefont</File>
+    <File>C:/Users/alberto_delvillano/source/repos/HelloMonoWorld/TowerDefense/Content/textures/towers/crossbow.aseprite</File>
+    <File>C:/Users/alberto_delvillano/source/repos/HelloMonoWorld/TowerDefense/Content/textures/towers/death.aseprite</File>
+    <File>C:/Users/alberto_delvillano/source/repos/HelloMonoWorld/TowerDefense/Content/textures/towers/laser.aseprite</File>
+    <File>C:/Users/alberto_delvillano/source/repos/HelloMonoWorld/TowerDefense/Content/textures/enemies/zombie.aseprite</File>
+    <File>C:/Users/alberto_delvillano/source/repos/HelloMonoWorld/TowerDefense/Content/textures/arrow.aseprite</File>
+    <File>C:/Users/alberto_delvillano/source/repos/HelloMonoWorld/TowerDefense/Content/textures/death_pool.aseprite</File>
+    <File>C:/Users/alberto_delvillano/source/repos/HelloMonoWorld/TowerDefense/Content/textures/laser_ult.aseprite</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
