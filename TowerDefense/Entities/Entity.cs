@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using MonoGame.Aseprite.Sprites;
 
 namespace TowerDefense.Entities;
@@ -14,7 +12,6 @@ public class Entity : GameObject
 {
 
     public Rectangle Bounds { get; set; } = Rectangle.Empty;
-    public Matrix MatrixBounds = Matrix.Identity;
 
     /// <summary>
     /// If true, Bounds will be updated each cycle
@@ -104,7 +101,6 @@ public class Entity : GameObject
     public virtual void UpdateBounds()
     {
         this.Bounds = new Rectangle((int)(this.GetX() - this.Sprite.Origin.X), (int)(this.GetY() - this.Sprite.Origin.Y), (int)(this.GetWidth() * this.Sprite.ScaleX), (int)(this.GetHeight() * this.Sprite.ScaleY));
-        this.MatrixBounds = Matrix.CreateRotationZ(this.Sprite.Rotation);
     }
 
     public virtual bool Intersects(Entity entity)

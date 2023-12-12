@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 
 namespace Engine;
@@ -19,6 +18,21 @@ public static class ExtensionMethods
     public static Vector2 Sum(this Vector2 vector, float f)
     {
         return new Vector2(vector.X + f, vector.Y + f);
+    }
+
+    public static Vector2 Subtract(this Vector2 vector, float x, float y)
+    {
+        return new Vector2(vector.X - x, vector.Y - y);
+    }
+
+    public static Vector2 Subtract(this Vector2 vector, float f)
+    {
+        return new Vector2(vector.X - f, vector.Y - f);
+    }
+
+    public static Vector2 Subtract(this Vector2 vector, Vector2 v)
+    {
+        return new Vector2(vector.X - v.X, vector.Y - v.Y);
     }
 
     public static Vector2 Multiply(this Vector2 vector, float x, float y)
