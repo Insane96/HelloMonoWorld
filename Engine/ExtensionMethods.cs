@@ -50,4 +50,9 @@ public static class ExtensionMethods
         double len = Math.Sqrt(Math.Pow(b.X - a.X, 2) + Math.Pow(b.Y - a.Y, 2));
         return new Vector2((float)(a.X + (a.X - b.X) / len * extension), (float)(a.Y + (a.Y - b.Y) / len * extension));
     }
+
+    public static Vector2 PosToVector2(this Rectangle rectangle)
+    {
+        return new Vector2(rectangle.X, rectangle.Y);
+    }
 }

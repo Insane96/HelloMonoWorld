@@ -13,6 +13,7 @@
     <ItemGroup>
         <None Remove="Icon.ico"/>
         <None Remove="Icon.bmp"/>
+        <None Remove="Content\obj\DesktopGL\net6.0\Content\fonts\font2.mgcontent" />
     </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Include="Icon.ico"/>

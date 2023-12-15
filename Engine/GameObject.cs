@@ -138,8 +138,8 @@ public abstract class GameObject
     public float GetX() => this.Position.X;
     public float GetY() => this.Position.Y;
 
-    public int GetWidth() => this.Sprite.Width;
-    public int GetHeight() => this.Sprite.Height;
+    public int GetWidth() => (int)(this.Sprite.Width * this.Sprite.ScaleX);
+    public int GetHeight() => (int)(this.Sprite.Height * this.Sprite.ScaleY);
 
     public void SetColor(Color color) => this.Sprite.Color = color;
 

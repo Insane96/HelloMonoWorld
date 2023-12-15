@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Threading;
 using Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using TowerDefense.Registry;
 
@@ -48,7 +46,7 @@ public class LaserTower : Tower
             spriteBatch.DrawLine(this.Position, this.LockedOn.Position, Color.White, 2f);
         if (this.IsAimingUlt)
         {
-            spriteBatch.DrawLine(this.Position, Input.MouseState.Position.ToVector2().ExtendFrom(this.Position, 1500f), Color.FromNonPremultiplied(51, 204, 255, 32), 35f);
+            spriteBatch.DrawLine(this.Position, Input.MouseState.Position.ToVector2().ExtendFrom(this.Position, 1500f), Color.FromNonPremultiplied(51, 204, 255, 64), 35f);
         }
     }
 
@@ -104,7 +102,7 @@ public class LaserTower : Tower
             };
             this.IsAimingUlt = false;
             Instantiate(ult);
-            //this.UltimateCharge = 0f;
+            this.UltimateCharge = 0f;
         }
         if (this.IsMouseOver())
         {

@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 using Engine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using TowerDefense.Entities.Enemies;
 using TowerDefense.Registry;
 
@@ -27,18 +27,19 @@ public class LaserUlt : Entity
         base.Update();
         double oTimeAlive = this._timeAlive;
         this._timeAlive -= Time.DeltaTime;
-        if (oTimeAlive >= 0.175d && this._timeAlive < 0.175d)
+        if (oTimeAlive >= 0.10d && this._timeAlive < 0.10d)
         {
             Vector2 direction = new((float)Math.Cos(this.Sprite.Rotation), (float)Math.Sin(this.Sprite.Rotation));
             direction.Normalize();
-            Vector2 w = new(direction.Y - this.Position.Y, this.Position.X - direction.X);
+            float traslation = this.GetHeight() / 2f - 2f;
+            Vector2 dirC = Utils.RotateDirectionClockwise(direction);
+            Vector2 traslatedPosC = this.Position.Translate(dirC.X * traslation, dirC.Y * traslation);
+            Vector2 dirCc = Utils.RotateDirectionCounterClockwise(direction);
+            Vector2 traslatedPosCc = this.Position.Translate(dirCc.X * traslation, dirCc.Y * traslation);
             GetUpdatableGameObjects().OfType<AbstractEnemy>().ToList().ForEach(enemy =>
             {
-                float dot1 = Vector2.Dot(new Vector2(enemy.Bounds.X - this.Position.X, enemy.Bounds.Y - this.Position.Y), w);
-                float dot2 = Vector2.Dot(new Vector2(enemy.Bounds.X + enemy.Bounds.Width - this.Position.X, enemy.Bounds.Y - this.Position.Y), w);
-                float dot3 = Vector2.Dot(new Vector2(enemy.Bounds.X - this.Position.X, enemy.Bounds.Y + enemy.Bounds.Height - this.Position.Y), w);
-                float dot4 = Vector2.Dot(new Vector2(enemy.Bounds.X + enemy.Bounds.Width - this.Position.X, enemy.Bounds.Y + enemy.Bounds.Height - this.Position.Y), w);
-                Debug.WriteLine($"{dot1} {dot2} {dot3} {dot4}");
+                if (Utils.Intersects(this.Position, this.Position + direction.Multiply(this.GetWidth()), enemy.Bounds) || Utils.Intersects(traslatedPosC, traslatedPosC + direction.Multiply(this.GetWidth()), enemy.Bounds) || Utils.Intersects(traslatedPosCc, traslatedPosCc + direction.Multiply(this.GetWidth()), enemy.Bounds))
+                    enemy.Hurt(50f);
             });
         }
         if (this._timeAlive <= 0d)
@@ -50,6 +51,16 @@ public class LaserUlt : Entity
         this.Sprite?.Draw(spriteBatch, this.Position);
         if (Options.Debug)
         {
+            Vector2 direction = new((float)Math.Cos(this.Sprite.Rotation), (float)Math.Sin(this.Sprite.Rotation));
+            direction.Normalize();
+            float traslation = this.GetHeight() / 2f - 2f;
+            Vector2 dirC = Utils.RotateDirectionClockwise(direction);
+            Vector2 traslatedPosC = this.Position.Translate(dirC.X * traslation, dirC.Y * traslation);
+            Vector2 dirCc = Utils.RotateDirectionCounterClockwise(direction);
+            Vector2 traslatedPosCc = this.Position.Translate(dirCc.X * traslation, dirCc.Y * traslation);
+            spriteBatch.DrawLine(this.Position, this.Position + direction.Multiply(this.GetWidth()), Color.FromNonPremultiplied(255, 0, 0, 64));
+            spriteBatch.DrawLine(traslatedPosC, traslatedPosC + direction.Multiply(this.GetWidth()), Color.FromNonPremultiplied(255, 0, 0, 64));
+            spriteBatch.DrawLine(traslatedPosCc, traslatedPosCc + direction.Multiply(this.GetWidth()), Color.FromNonPremultiplied(255, 0, 0, 64));
             //spriteBatch.Draw(Utils.OneByOneTexture, this.Bounds, Color.FromNonPremultiplied(255, 0, 0, 64));
         }
     }
