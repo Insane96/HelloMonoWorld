@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using TowerDefense.Entities.Enemies;
 using TowerDefense.Entities.Towers;
 using TowerDefense.Registry;
 
@@ -67,7 +66,7 @@ public class MainGame : Game
         
         if (Input.IsRightClickPressed())
         {
-            if (!Input.IsKeyDown(Keys.LeftShift))
+            /*if (!Input.IsKeyDown(Keys.LeftShift))
                 GameObject.Instantiate(new AbstractEnemy(Sprites.GetAnimatedSprite(Sprites.Zombie, "idle"), 1f, 5f)
                 {
                     Position = new Vector2(Input.MouseState.X, Input.MouseState.Y)
@@ -76,7 +75,8 @@ public class MainGame : Game
                 GameObject.Instantiate(new AbstractEnemy(Sprites.GetAnimatedSprite(Sprites.Zombie, "idle"), 1f, 100f)
                 {
                     Position = new Vector2(Input.MouseState.X, Input.MouseState.Y)
-                });
+                });*/
+            
         }
 
         if (Input.IsKeyPressed(Keys.B))
