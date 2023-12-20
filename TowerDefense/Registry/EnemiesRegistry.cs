@@ -1,21 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TowerDefense.Entities.Enemies;
 
 namespace TowerDefense.Registry;
 
 public static class EnemiesRegistry
 {
-    public static Dictionary<string, AbstractEnemy> Enemies = new();
-    private static AbstractEnemy Zombie = Register("zombie", new AbstractEnemy(Sprites.GetAnimatedSprite(Sprites.Zombie, "idle"), 1f, 5f));
+    public static Dictionary<string, Func<AbstractEnemy>> Enemies = new();
+    public static readonly Func<AbstractEnemy> Zombie = Register("zombie", new GenericMovingEnemy(Sprites.GetAnimatedSprite(Sprites.Zombie, "idle")));
+    public static readonly Func<AbstractEnemy> Spider = Register("spider", new GenericMovingEnemy(Sprites.GetAnimatedSprite(Sprites.Zombie, "idle")));
 
-    private static AbstractEnemy Register(string id, AbstractEnemy abstractEnemy)
+    private static Func<AbstractEnemy> Register(string id, AbstractEnemy abstractEnemy)
     {
-        Enemies.Add(id, abstractEnemy);
-        return abstractEnemy;
+        Enemies.Add(id, () => abstractEnemy);
+        return () => abstractEnemy;
     }
 
     public static AbstractEnemy CreateFromId(string id)
     {
-        return new AbstractEnemy()
+        return !Enemies.TryGetValue(id, out Func<AbstractEnemy> enemy) ? null : enemy.Invoke();
     }
 }
