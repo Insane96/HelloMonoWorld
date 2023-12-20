@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Engine;
 using Microsoft.Xna.Framework;
@@ -27,6 +26,7 @@ public class Projectile : OwnableEntity
     public Projectile(AnimatedSprite sprite, Tower owner, float baseSpeed) : base(sprite, owner)
     {
         this.BaseSpeed = baseSpeed;
+        this.ShouldUpdateBounds = false;
     }
 
     public override void Update()
@@ -36,15 +36,20 @@ public class Projectile : OwnableEntity
         
         if (this.GetX() < -this.GetWidth() || this.GetX() > Graphics.Width + this.GetWidth() || this.GetY() < -this.GetHeight() || this.GetY() > Graphics.Height + this.GetHeight())
             this.MarkForRemoval();
-        TryCollide();
+        TryHit();
     }
 
-    public void TryCollide()
+    public void TryHit()
     {
-        IEnumerable<Entity> entitiesCollided = this.GetCollisionsOfClass(typeof(AbstractEnemy));
-        if (!entitiesCollided.Any()) return;
-        this.MarkForRemoval();
-        entitiesCollided.First().Hurt(1f);
-        this.Owner.OnHitEnemy(entitiesCollided.First() as AbstractEnemy);
+        Vector2 direction = new((float)Math.Cos(this.Sprite.Rotation), (float)Math.Sin(this.Sprite.Rotation));
+        direction.Normalize();
+        foreach (var enemy in GetUpdatableGameObjects().OfType<AbstractEnemy>().ToList())
+        {
+            if (!Utils.Intersects(this.Position, this.Position + direction.Multiply(this.GetWidth() / 2f), enemy.Bounds)) 
+                continue;
+            this.MarkForRemoval();
+            enemy.Hurt(1f);
+            this.Owner.OnHitEnemy(enemy);
+        }
     }
 }
