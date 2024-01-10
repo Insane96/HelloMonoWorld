@@ -23,15 +23,24 @@ public class Projectile : OwnableEntity
         }
     }
 
-    public Projectile(AnimatedSprite sprite, Tower owner, float baseSpeed) : base(sprite, owner)
+    private Entity Target;
+
+    public Projectile(AnimatedSprite sprite, Tower owner, float baseSpeed, Entity target = null) : base(sprite, owner)
     {
         this.BaseSpeed = baseSpeed;
         this.ShouldUpdateBounds = false;
+        this.Target = target;
     }
 
     public override void Update()
     {
         base.Update();
+        if (this.Target != null && !this.Target.IsDead())
+        {
+            Vector2 dir = new(this.Target.GetX() - this.GetX(), this.Target.GetY() - this.GetY());
+            dir.Normalize();
+            this.Direction = dir;
+        }
         this.Move(this.Direction.Multiply((float)(this.BaseSpeed * Time.DeltaTime)));
         
         if (this.GetX() < -this.GetWidth() || this.GetX() > Graphics.Width + this.GetWidth() || this.GetY() < -this.GetHeight() || this.GetY() > Graphics.Height + this.GetHeight())
@@ -50,6 +59,7 @@ public class Projectile : OwnableEntity
             this.MarkForRemoval();
             enemy.Hurt(1f);
             this.Owner.OnHitEnemy(enemy);
+            break;
         }
     }
 }
