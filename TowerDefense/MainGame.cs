@@ -78,7 +78,7 @@ public class MainGame : Game
                     Position = new Vector2(Input.MouseState.X, Input.MouseState.Y)
                 });*/
             //AbstractEnemy abstractEnemy = EnemiesRegistry.CreateFromId("zombie");
-            AbstractEnemy abstractEnemy = EnemiesRegistry.Zombie.Invoke();
+            AbstractEnemy abstractEnemy = EnemiesRegistry.GetFromId("zombie").Create();
             abstractEnemy.Position = new Vector2(Input.MouseState.X, Input.MouseState.Y);
             GameObject.Instantiate(abstractEnemy);
         }
