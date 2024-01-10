@@ -17,14 +17,14 @@ public class LaserTower : Tower
         this.BaseAttackSpeed = 0.1f;
         this.BaseAttackDamage = 0.1f;
         this.BaseRange = 350f;
-        this.UltimateChargeOnHit = 0.1f;
+        this.UltimateChargeOnHit = 0.001f;
         this.UltimateDuration = 0.35f;
     }
 
     public override void Attack()
     {
         this.Cooldown -= Time.DeltaTime;
-        if (this.LockedOn == null)
+        if (this.LockedOn == null || this.LockedOn.IsDead())
         {
             this.TimeLockedOn = 0f;
             return;
@@ -48,11 +48,6 @@ public class LaserTower : Tower
         {
             spriteBatch.DrawLine(this.Position, Input.MouseState.Position.ToVector2().ExtendFrom(this.Position, 1500f), Color.FromNonPremultiplied(51, 204, 255, 64), 35f);
         }
-    }
-
-    protected override void TryLockOnEntity()
-    {
-        base.TryLockOnEntity();
     }
 
     public override void UpdateUlting()
@@ -81,12 +76,7 @@ public class LaserTower : Tower
     {
         if (this.IsAimingUlt)
         {
-            /*this.IsUlting = true;
-            this.IsAimingUlt = false;*/
             Time.TimeScale = 1f;
-            /*this.UltingTimer = this.UltimateDuration;
-            this.LockedOn = null;
-            this.Cooldown = 0f;*/
             this.LockedOn = null;
             
             var deltaX = Input.MouseState.X - this.GetX();
