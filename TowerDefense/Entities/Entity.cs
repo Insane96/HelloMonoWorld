@@ -78,6 +78,8 @@ public class Entity : GameObject
             this.MarkForRemoval();
     }
 
+    public bool IsDead() => this.Health <= 0f;
+
     public double DistanceTo(GameObject entity)
     {
         return Math.Pow(entity.GetX() - this.GetX(), 2) + Math.Pow(entity.GetY() - this.GetY(), 2);
