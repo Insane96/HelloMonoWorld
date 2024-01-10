@@ -43,7 +43,7 @@ public class Tower : Entity
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-        //Draw the cirlce and ult bar before the tower
+        //Draw the circle and ult bar before the tower
         if (this.IsMouseOver())
         {
             spriteBatch.Draw(CreateCircleTexture((int)(this.BaseRange * 2f)), this.Position.Sum(-this.BaseRange, -this.BaseRange), Color.FromNonPremultiplied(0, 0, 0, 32));
@@ -126,7 +126,7 @@ public class Tower : Entity
         this.Cooldown -= Time.DeltaTime;
         if (this.Cooldown <= 0d && this.LockedOn != null)
         {
-            Projectile projectile = new(Sprites.GetAnimatedSprite(Sprites.Arrow, "idle"), this, 250f)
+            Projectile projectile = new(Sprites.GetAnimatedSprite(Sprites.Arrow, "idle"), this, 250f, this.LockedOn)
             {
                 Position = this.Position
             };
