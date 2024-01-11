@@ -1,4 +1,5 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=1015D8B5_002DECF4_002D4ACF_002DBB05_002D38E2E8255475_002Fd_003AEntities_002Fd_003ATowers_002Ff_003ATower_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\delvi\.nuget\packages\monogame.aseprite\3.1.0\lib\net6.0\MonoGame.Aseprite.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\delvi\.nuget\packages\monogame.extended.graphics\3.8.0\lib\netstandard2.0\MonoGame.Extended.Graphics.dll" /&gt;&#xD;

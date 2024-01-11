@@ -19,7 +19,7 @@ public static partial class EnemiesRegistry
         return registryObject;
     }
 
-    public static RegistryObject<AbstractEnemy> GetFromId(string id)
+    public static RegistryObject<AbstractEnemy>? GetFromId(string id)
     {
         return Enemies.FirstOrDefault(registryObject => registryObject.Id.Equals(id));
     }

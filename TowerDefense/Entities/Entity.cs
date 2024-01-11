@@ -36,8 +36,8 @@ public class Entity : GameObject
     /// <summary>
     /// If true, health bar will be rendered at the bottom of the sprite
     /// </summary>
-    public bool ShouldDrawHealth { get; set; } = false;
-    
+    public bool ShouldDrawHealth { get; set; }
+
     public Entity(AnimatedSprite sprite)
     {
         this.SetSprite(sprite);

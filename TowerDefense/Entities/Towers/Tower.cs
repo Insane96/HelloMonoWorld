@@ -22,7 +22,7 @@ public class Tower : Entity
     public float UltimateChargeOnHit { get; set; }
 
     public double Cooldown { get; protected set; }
-    public Entity LockedOn { get; protected set; }
+    public Entity? LockedOn { get; protected set; }
 
     public Tower(SpriteSheet sprite) : base(Sprites.GetAnimatedSprite(sprite, "idle"))
     {
@@ -49,7 +49,12 @@ public class Tower : Entity
             spriteBatch.Draw(CreateCircleTexture((int)(this.BaseRange * 2f)), this.Position.Sum(-this.BaseRange, -this.BaseRange), Color.FromNonPremultiplied(0, 0, 0, 32));
         }
 
-        spriteBatch.Draw(Utils.OneByOneTexture, this.Position.Sum(-7, Bounds.Height / 2f + 5), null, Color.FromNonPremultiplied(this.UltimateCharge >= 1f ? 0 : 255, 204, 102, 192), 0f, Origins.CenterLeft, new Vector2(this.UltimateCharge * 14, 3), SpriteEffects.None, 0f);
+        Color ultBarColor = Color.FromNonPremultiplied(255, 204, 102, 192);
+        if (this.IsUlting)
+            ultBarColor = Color.FromNonPremultiplied(255, 0, 0, 192);
+        else if (this.UltimateCharge >= 1f)
+            ultBarColor = Color.FromNonPremultiplied(0, 204, 102, 192);
+        spriteBatch.Draw(Utils.OneByOneTexture, this.Position.Sum(-7, Bounds.Height / 2f + 5), null, ultBarColor, 0f, Origins.CenterLeft, new Vector2(this.UltimateCharge * 14, 3), SpriteEffects.None, 0f);
         base.Draw(spriteBatch);
     }
 
@@ -80,10 +85,12 @@ public class Tower : Entity
 
     public void OnHitEnemy(AbstractEnemy enemy)
     {
-        if (this.IsUlting 
+        if (this.IsUlting
             || this.UltimateCharge >= 1f)
             return;
         this.UltimateCharge += this.UltimateChargeOnHit;
+        if (this.UltimateCharge > 1f)
+            this.UltimateCharge = 1f;
     }
 
     protected virtual void TryLockOnEntity()
@@ -92,7 +99,7 @@ public class Tower : Entity
             this.LockedOn = null;
         
         if (this.LockedOn == null || this.LockedOn.RemovalMark)
-            this.LockedOn = (Entity)GetUpdatableGameObjects().Where(gameObject => gameObject is AbstractEnemy abstractEnemy
+            this.LockedOn = (Entity?)GetUpdatableGameObjects().Where(gameObject => gameObject is AbstractEnemy abstractEnemy
                                                                                   && abstractEnemy.DistanceTo(this) < this.BaseRange * this.BaseRange)
                 .MinBy(gameObject => ((Entity)gameObject).DistanceTo(this));
     }
@@ -136,7 +143,7 @@ public class Tower : Entity
             Instantiate(projectile);
             this.Cooldown = this.BaseAttackSpeed;
             if (this.IsUlting)
-                this.Cooldown /= 8f;
+                this.Cooldown /= 10f;
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using Engine;
 using Microsoft.Xna.Framework;
 using MonoGame.Aseprite.Sprites;
+using MonoGame.Extended;
 
 namespace TowerDefense.Entities.Enemies;
 
@@ -13,6 +14,6 @@ public class GenericMovingEnemy : AbstractEnemy
     public override void Update()
     {
         base.Update();
-        this.Move(new Vector2(1, 0).Multiply(20f * (float)Time.DeltaTime));
+        this.Move(new Vector2(MainGame.EndingPoint.Position.X - this.Position.X, MainGame.EndingPoint.Position.Y - this.Position.Y).NormalizedCopy().Multiply(this.BaseMovementSpeed * (float)Time.DeltaTime));
     }
 }

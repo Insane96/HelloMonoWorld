@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using TowerDefense.Entities.Enemies;
+using TowerDefense.Entities;
 using TowerDefense.Entities.Towers;
 using TowerDefense.Registry;
 
@@ -10,12 +10,22 @@ namespace TowerDefense;
 
 public class MainGame : Game
 {
-    private SpriteBatch _spriteBatch;
-    private RenderTarget2D target;
+    private SpriteBatch? _spriteBatch;
+    private RenderTarget2D? _target;
 
     public static SpriteFont debugFont;
 
     public static bool IsBuildingTower = true;
+
+    public static StartingPoint StartingPoint = new()
+    {
+        Position = new Vector2(-50, -50)
+    };
+
+    public static EndingPoint EndingPoint = new(Sprites.GetAnimatedSprite(Sprites.DeathTower, "idle"))
+    {
+        Position = new Vector2(1000, 500)
+    };
 
     public MainGame()
     {
@@ -23,6 +33,19 @@ public class MainGame : Game
         MonoEngine.Init(this, 1280, 720);
         this.IsMouseVisible = true;
         Input.Game = this;
+        Graphics.GraphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
+        Graphics.GraphicsDeviceManager.PreparingDeviceSettings += (_, args) =>
+        {
+            Graphics.GraphicsDeviceManager.PreferMultiSampling = true;
+            var rasterizerState = new RasterizerState
+            {
+                MultiSampleAntiAlias = true,
+            };
+
+            GraphicsDevice.RasterizerState = rasterizerState;
+            args.GraphicsDeviceInformation.PresentationParameters.MultiSampleCount = 2;
+            Graphics.GraphicsDeviceManager.ApplyChanges();
+        };
     }
 
     protected override void Initialize()
@@ -30,12 +53,14 @@ public class MainGame : Game
         Sprites.LoadTextures(MonoEngine.ContentManager);
         
         base.Initialize();
+        GameObject.Instantiate(StartingPoint);
+        GameObject.Instantiate(EndingPoint);
     }
 
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        target = new RenderTarget2D(GraphicsDevice, Graphics.Width, Graphics.Height);
+        _target = new RenderTarget2D(GraphicsDevice, Graphics.Width, Graphics.Height);
 
         debugFont = Content.Load<SpriteFont>("fonts/debug");
     }
@@ -49,6 +74,11 @@ public class MainGame : Game
         Options.TryFullScreen();
 
         MonoEngine.Update(gameTime);
+
+        if (Input.IsKeyDown(Keys.F10))
+            Time.TimeScale = 3f;
+        else
+            Time.TimeScale = 1f;
         
         if (Input.GamePadState.Buttons.Back == ButtonState.Pressed || Input.IsKeyDown(Keys.Escape))
             Exit();
@@ -78,9 +108,6 @@ public class MainGame : Game
                     Position = new Vector2(Input.MouseState.X, Input.MouseState.Y)
                 });*/
             //AbstractEnemy abstractEnemy = EnemiesRegistry.CreateFromId("zombie");
-            AbstractEnemy abstractEnemy = EnemiesRegistry.GetFromId("zombie").Create();
-            abstractEnemy.Position = new Vector2(Input.MouseState.X, Input.MouseState.Y);
-            GameObject.Instantiate(abstractEnemy);
         }
 
         if (Input.IsKeyPressed(Keys.B))
@@ -91,7 +118,7 @@ public class MainGame : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.SetRenderTarget(target);
+        GraphicsDevice.SetRenderTarget(_target);
         GraphicsDevice.Clear(Color.CornflowerBlue);
         _spriteBatch.Begin();
 
@@ -109,7 +136,7 @@ public class MainGame : Game
 
         _spriteBatch.Begin();
         //_spriteBatch.Draw(target, Vector2.Zero, Color.White);
-        _spriteBatch.Draw(target, new Rectangle(0, 0, Graphics.ViewportWidth, Graphics.ViewportHeight), Color.White); //TODO Force 16:9
+        _spriteBatch.Draw(_target, new Rectangle(0, 0, Graphics.ViewportWidth, Graphics.ViewportHeight), Color.White); //TODO Force 16:9
         MonoEngine.DrawStrings(_spriteBatch);
         _spriteBatch.End();
 

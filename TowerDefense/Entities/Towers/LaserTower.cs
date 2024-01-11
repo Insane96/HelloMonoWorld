@@ -68,7 +68,7 @@ public class LaserTower : Tower
         {
             this.IsAimingUlt = true;
             //MainGame.IsAimingUlt = this;
-            Time.TimeScale = 0.4f;
+            Time.TimeScale = 0.25f;
         }
     }
 
