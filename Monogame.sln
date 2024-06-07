@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csproj", "{84DE5825-7BE6-400B-AB6C-BE6FF03D1526}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoEngine", "MonoEngine\MonoEngine.csproj", "{84DE5825-7BE6-400B-AB6C-BE6FF03D1526}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowerDefense", "TowerDefense\TowerDefense.csproj", "{1015D8B5-ECF4-4ACF-BB05-38E2E8255475}"
 EndProject

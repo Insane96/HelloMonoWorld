@@ -27,7 +27,7 @@
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\Engine\Engine.csproj" />
+      <ProjectReference Include="..\MonoEngine\MonoEngine.csproj" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Content\data\" />

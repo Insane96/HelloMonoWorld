@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Engine;
+namespace MonoEngine;
 
 /// <summary>
 /// The core of the game, updates and draws everything

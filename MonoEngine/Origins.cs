@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Engine;
+namespace MonoEngine;
 
 public static class Origins
 {
