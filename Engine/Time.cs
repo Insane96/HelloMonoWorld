@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace MonoEngine;
+namespace Engine;
 
 public static class Time
 {

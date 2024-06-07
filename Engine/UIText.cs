@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MonoEngine;
+namespace Engine;
 
 /// <summary>
 /// Takes care of Fonts and drawn text

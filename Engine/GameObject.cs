@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Aseprite.Sprites;
 
-namespace MonoEngine;
+namespace Engine;
 
 public abstract class GameObject
 {

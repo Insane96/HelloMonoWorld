@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MonoEngine;
+namespace Engine;
 
 public class Mth
 {
