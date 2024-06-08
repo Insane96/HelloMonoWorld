@@ -10,6 +10,7 @@ namespace Engine;
 
 public abstract class GameObject
 {
+    internal static Game Game = null!;
     public Guid Guid { get; } = Guid.NewGuid();
 
     public Vector2 Position { get; set; }
@@ -77,7 +78,7 @@ public abstract class GameObject
     public static void Instantiate(GameObject gameObject)
     {
         GameObjectsToInstantiate.Add(gameObject);
-        gameObject.Initialize(MonoEngine.ContentManager);
+        gameObject.Initialize(Game.Content);
     }
 
     internal static void UpdateGameObjects()
