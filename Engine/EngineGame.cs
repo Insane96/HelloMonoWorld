@@ -82,7 +82,7 @@ public abstract class EngineGame : Game
         base.Draw(gameTime);
     }
 
-    public void DrawStrings()
+    public virtual void DrawStrings()
     {
         foreach (UiText text in this.StringsToDraw)
         {
@@ -95,7 +95,12 @@ public abstract class EngineGame : Game
         this.StringsToDraw.Clear();
     }
 
-    public void AddText(SpriteFont font, string text, Vector2 position, Color color, Vector2 origin, float rotation, Vector2 scale, Color? shadowColor = null)
+    public virtual void AddText(SpriteFont font, string text, Vector2 position, Color color, Vector2 origin, float rotation = 0f, Color? shadowColor = null)
+    {
+        this.AddText(font, text, position, color, origin, Vector2.One, rotation, shadowColor);
+    }
+    
+    public virtual void AddText(SpriteFont font, string text, Vector2 position, Color color, Vector2 origin, Vector2 scale, float rotation = 0f, Color? shadowColor = null)
     {
         this.StringsToDraw.Add(new UiText
         {
