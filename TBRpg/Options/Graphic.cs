@@ -1,4 +1,7 @@
-﻿namespace TBRpg.Options;
+﻿using Engine;
+using Microsoft.Xna.Framework.Input;
+
+namespace TBRpg.Options;
 
 public class Graphic
 {
@@ -16,5 +19,13 @@ public class Graphic
     {
         TextScale -= 0.1f;
         if (TextScale < MinScale) TextScale = MinScale;
+    }
+
+    public static void TryChangeScale()
+    {
+        if (Input.IsKeyPressed(Keys.PageUp))
+            IncreaseScale();
+        else if (Input.IsKeyPressed(Keys.PageDown))
+            DecreaseScale();
     }
 }

@@ -36,7 +36,7 @@ public abstract class GameObject
     /// </summary>
     public bool RemovalMark { get; set; }
 
-    public AnimatedSprite Sprite { get; private set; }
+    public AnimatedSprite? Sprite { get; private set; }
 
     private static List<GameObject> GameObjects { get; } = new();
     private static List<GameObject> GameObjectsToInstantiate { get; } = new();

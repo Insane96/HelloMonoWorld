@@ -27,11 +27,8 @@ public class RpgGame() : EngineGame(1280, 720)
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        if (Input.IsKeyPressed(Keys.PageUp))
-            Graphic.IncreaseScale();
-        else if (Input.IsKeyPressed(Keys.PageDown))
-            Graphic.DecreaseScale();
-        AddText(BaseFont, $"Hello World {Graphic.TextScale}", new Vector2(10, 10), Color.BlanchedAlmond, Origins.TopLeft);
+        Graphic.TryChangeScale();
+        //AddText(BaseFont, $"Hello World {Graphic.TextScale}", new Vector2(10, 10), Color.BlanchedAlmond, Origins.TopLeft);
     }
 
     protected override void Draw(GameTime gameTime)
