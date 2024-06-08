@@ -1,2 +1,2 @@
-﻿using var game = new TwinShooter.MainGame();
+﻿using var game = new TwinShooter.RpgGame();
 game.Run();
