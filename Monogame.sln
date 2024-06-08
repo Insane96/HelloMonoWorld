@@ -14,7 +14,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowerDefense", "TowerDefense\TowerDefense.csproj", "{1015D8B5-ECF4-4ACF-BB05-38E2E8255475}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwinShooter", "TwinShooter\TwinShooter.csproj", "{85BA19D7-95E6-44B4-988C-A5A6F254EA67}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TBRpg", "TBRpg\TBRpg.csproj", "{85BA19D7-95E6-44B4-988C-A5A6F254EA67}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

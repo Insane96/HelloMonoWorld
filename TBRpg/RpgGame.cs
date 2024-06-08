@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using TwinShooter.Options;
+using TBRpg.Options;
 
-namespace TwinShooter;
+namespace TBRpg;
 
 public class RpgGame() : EngineGame(1280, 720)
 {
@@ -31,7 +31,7 @@ public class RpgGame() : EngineGame(1280, 720)
             Graphic.IncreaseScale();
         else if (Input.IsKeyPressed(Keys.PageDown))
             Graphic.DecreaseScale();
-        AddText(BaseFont, $"Hello World {Graphic.TextScale}", new Vector2(10, 10), Color.BlanchedAlmond, Origins.TopLeft, 0f);
+        AddText(BaseFont, $"Hello World {Graphic.TextScale}", new Vector2(10, 10), Color.BlanchedAlmond, Origins.TopLeft);
     }
 
     protected override void Draw(GameTime gameTime)

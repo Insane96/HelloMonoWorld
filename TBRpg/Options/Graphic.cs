@@ -1,4 +1,4 @@
-﻿namespace TwinShooter.Options;
+﻿namespace TBRpg.Options;
 
 public class Graphic
 {
