@@ -44,14 +44,19 @@ public class MainGame : Game
         _target = new RenderTarget2D(GraphicsDevice, Graphics.Width, Graphics.Height);
     }
 
+
+    private float scale = 1f;
     protected override void Update(GameTime gameTime)
     {
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
         // TODO: Add your update logic here
-
-        MonoEngine.AddText(BaseFont, "Hello World", new Vector2(10, 10), Color.BlanchedAlmond, Origins.TopLeft);
+        if (Input.IsKeyPressed(Keys.PageUp))
+            scale += 0.1f;
+        else if (Input.IsKeyPressed(Keys.PageDown))
+            scale -= 0.1f;
+        MonoEngine.AddText(BaseFont, $"Hello World: {scale}", new Vector2(10, 10), Color.BlanchedAlmond, Origins.TopLeft, 0f, Vector2.One.Multiply(scale));
         base.Update(gameTime);
         MonoEngine.Update(gameTime);
 

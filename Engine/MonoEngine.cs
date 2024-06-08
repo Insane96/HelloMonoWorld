@@ -42,19 +42,21 @@ public static class MonoEngine
             Vector2 textSize = text.SpriteFont.MeasureString(text.Text);
             Vector2 position = text.Position.Multiply(Graphics.ScaledRatio).Sum(-textSize.X * text.Origin.X, -textSize.Y * text.Origin.Y);
             if (text.ShadowColor.HasValue)
-                spriteBatch.DrawString(text.SpriteFont, text.Text, position.Sum(1, 1), text.ShadowColor.Value);
-            spriteBatch.DrawString(text.SpriteFont, text.Text, position, text.Color);
+                spriteBatch.DrawString(text.SpriteFont, text.Text, position.Sum(1, 1), text.ShadowColor.Value, text.Rotation, Vector2.Zero, text.Scale, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(text.SpriteFont, text.Text, position, text.Color, text.Rotation, Vector2.Zero, text.Scale, SpriteEffects.None, 0f);
         }
         StringsToDraw.Clear();
     }
 
-    public static void AddText(SpriteFont font, string text, Vector2 position, Color color, Vector2 origin, Color? shadowColor = null)
+    public static void AddText(SpriteFont font, string text, Vector2 position, Color color, Vector2 origin, float rotation, Vector2 scale, Color? shadowColor = null)
     {
         StringsToDraw.Add(new UiText
         {
             Text = text,
             SpriteFont = font,
             Position = position,
+            Rotation = rotation,
+            Scale = scale,
             Color = color,
             Origin = origin,
             ShadowColor = shadowColor
