@@ -8,12 +8,12 @@ namespace Engine;
 /// </summary>
 public record UiText
 {
-    public string Text { get; set; }
-    public SpriteFont SpriteFont { get; set; }
-    public Vector2 Position { get; set; }
-    public Vector2 Scale { get; set; } = Vector2.One;
-    public float Rotation { get; set; } = 0f;
-    public Color Color { get; set; }
-    public Vector2 Origin { get; set; }
-    public Color? ShadowColor { get; set; }
+    public string Text { get; init; }
+    public SpriteFont SpriteFont { get; init; }
+    public Vector2 Position { get; init; }
+    public Vector2 Scale { get; init; } = Vector2.One;
+    public float Rotation { get; init; } = 0f;
+    public Color Color { get; init; }
+    public Vector2 Origin { get; init; }
+    public Color? ShadowColor { get; init; }
 }

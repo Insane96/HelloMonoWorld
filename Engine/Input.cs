@@ -1,12 +1,11 @@
-﻿using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace Engine;
 
 public class Input
 {
-    public static Game Game;
+    public static Game Game = null!;
     private static KeyboardState _oldKeyboardState;
     public static KeyboardState KeyboardState { get; private set; }
     private static GamePadState _oldGamePadState;

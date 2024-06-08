@@ -1,8 +1,8 @@
-﻿using Engine;
+﻿using AsepriteDotNet.Aseprite;
+using AsepriteDotNet.Processors;
+using Engine;
 using Microsoft.Xna.Framework.Content;
 using MonoGame.Aseprite;
-using MonoGame.Aseprite.Content.Processors;
-using MonoGame.Aseprite.Sprites;
 
 namespace TowerDefense.Registry;
 

@@ -17,7 +17,7 @@ public static class Graphics
 
     public static float ScaledRatio => ViewportWidth / (float)Width;
 
-    public static GraphicsDeviceManager GraphicsDeviceManager;
+    public static GraphicsDeviceManager GraphicsDeviceManager = null!;
 
     public static void Init(Game game, int width, int height)
     {

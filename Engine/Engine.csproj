@@ -5,7 +5,7 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="MonoGame.Aseprite" Version="5.1.2" />
+        <PackageReference Include="MonoGame.Aseprite" Version="6.0.5" />
         <PackageReference Include="MonoGame.Extended" Version="3.8.0" />
         <PackageReference Include="MonoGame.Extended.Content.Pipeline" Version="3.8.0" />
         <PackageReference Include="MonoGame.Extended.Graphics" Version="3.8.0" />

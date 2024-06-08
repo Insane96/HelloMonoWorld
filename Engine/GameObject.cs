@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Aseprite.Sprites;
+using MonoGame.Aseprite;
 
 namespace Engine;
 
@@ -122,7 +122,7 @@ public abstract class GameObject
     {
         return GameObjects.Where(g => g.Visible);
     }
-
+    
     public void SetSprite(AnimatedSprite sprite)
     {
         this.Sprite = sprite;

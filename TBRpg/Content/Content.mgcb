@@ -10,8 +10,14 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\libs\Monogame.Aseprite.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
+
+#begin entities/characters/fighter.aseprite
+/importer:AsepriteFileContentImporter
+/processor:AsepriteFileContentProcessor
+/build:entities/characters/fighter.aseprite
 
 #begin fonts/BaseFont.spritefont
 /importer:FontDescriptionImporter

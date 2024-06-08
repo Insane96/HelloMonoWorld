@@ -2,7 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using TBRpg.Entities;
 using TBRpg.Options;
+using TBRpg.Registries;
 
 namespace TBRpg;
 
@@ -12,13 +14,14 @@ public class RpgGame() : EngineGame(1280, 720)
 
     protected override void Initialize()
     {
-        BaseFont = Content.Load<SpriteFont>("fonts/BaseFont");
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
         base.LoadContent();
+        BaseFont = Content.Load<SpriteFont>("fonts/BaseFont");
+        Sprites.LoadSpriteSheets(this.Content);
     }
 
     protected override void Update(GameTime gameTime)
@@ -27,6 +30,11 @@ public class RpgGame() : EngineGame(1280, 720)
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
+        if (Input.IsKeyPressed(Keys.P))
+        {
+            GameObject.Instantiate(new Character(Sprites.Fighter));
+        }
+        
         Graphic.TryChangeScale();
         //AddText(BaseFont, $"Hello World {Graphic.TextScale}", new Vector2(10, 10), Color.BlanchedAlmond, Origins.TopLeft);
     }
