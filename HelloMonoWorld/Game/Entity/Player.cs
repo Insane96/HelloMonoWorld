@@ -29,10 +29,10 @@ public class Player : AbstractEntity
 
     public override void Draw(SpriteBatch spriteBatch)
     {
-        MonoEngine.DrawText(Options.GetFont(), $"{this.Health:0.#} / {this.GetAttributeValue(Attributes.Attributes.MaxHealth):0.#}", Origins.GetScreenPosition(Origins.BottomLeft), Color.DarkRed, Origins.BottomLeft);
-        MonoEngine.DrawText(Options.GetFont(), $"Gold: {this.Gold}", Origins.GetScreenPosition(Origins.BottomRight), Color.Gold, Origins.BottomRight);
+        EngineGame.DrawText(Options.GetFont(), $"{this.Health:0.#} / {this.GetAttributeValue(Attributes.Attributes.MaxHealth):0.#}", Origins.GetScreenPosition(Origins.BottomLeft), Color.DarkRed, Origins.BottomLeft);
+        EngineGame.DrawText(Options.GetFont(), $"Gold: {this.Gold}", Origins.GetScreenPosition(Origins.BottomRight), Color.Gold, Origins.BottomRight);
         if (this.IsDead())
-            MonoEngine.DrawText(Options.GetFont(), $"Game Over", Origins.GetScreenPosition(Origins.Center), Color.DarkRed, Origins.Center);
+            EngineGame.DrawText(Options.GetFont(), $"Game Over", Origins.GetScreenPosition(Origins.Center), Color.DarkRed, Origins.Center);
         base.Draw(spriteBatch);
     }
 

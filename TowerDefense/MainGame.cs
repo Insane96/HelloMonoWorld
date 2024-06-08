@@ -30,7 +30,7 @@ public class MainGame : Game
     public MainGame()
     {
         Content.RootDirectory = "Content";
-        MonoEngine.Init(this, 1280, 720);
+        EngineGame.Init(this, 1280, 720);
         this.IsMouseVisible = true;
         Input.Game = this;
         Graphics.GraphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
@@ -50,7 +50,7 @@ public class MainGame : Game
 
     protected override void Initialize()
     {
-        Sprites.LoadTextures(MonoEngine.ContentManager);
+        Sprites.LoadTextures(EngineGame.ContentManager);
         
         base.Initialize();
         GameObject.Instantiate(StartingPoint);
@@ -73,7 +73,7 @@ public class MainGame : Game
         Options.TryDecreaseFontSize();
         Options.TryFullScreen();
 
-        MonoEngine.Update(gameTime);
+        EngineGame.Update(gameTime);
 
         if (Input.IsKeyDown(Keys.F10))
             Time.TimeScale = 3f;
@@ -124,11 +124,11 @@ public class MainGame : Game
 
         /*if (Options.Debug)
         {
-            MonoEngine.DrawText(debugFont, $"{player.GetPosition().ToString("N1")}(DeltaMov: {player.DeltaMovement.ToString("N1")}){Environment.NewLine}Bounds: {player.Bounds}{Environment.NewLine}Health: {player.Health}", Vector2.One.Sum(2, 2), Color.White, Vector2.Zero, Color.Black);
+            EngineGame.DrawText(debugFont, $"{player.GetPosition().ToString("N1")}(DeltaMov: {player.DeltaMovement.ToString("N1")}){Environment.NewLine}Bounds: {player.Bounds}{Environment.NewLine}Health: {player.Health}", Vector2.One.Sum(2, 2), Color.White, Vector2.Zero, Color.Black);
         }*/
-        //MonoEngine.DrawText(debugFont, "Test", Vector2.One.Sum(2, 2), Color.White, Vector2.Zero, Color.Black);
+        //EngineGame.DrawText(debugFont, "Test", Vector2.One.Sum(2, 2), Color.White, Vector2.Zero, Color.Black);
 
-        MonoEngine.DrawGameObjects(_spriteBatch);
+        EngineGame.DrawGameObjects(_spriteBatch);
 
         _spriteBatch.End();
 
@@ -137,7 +137,7 @@ public class MainGame : Game
         _spriteBatch.Begin();
         //_spriteBatch.Draw(target, Vector2.Zero, Color.White);
         _spriteBatch.Draw(_target, new Rectangle(0, 0, Graphics.ViewportWidth, Graphics.ViewportHeight), Color.White); //TODO Force 16:9
-        MonoEngine.DrawStrings(_spriteBatch);
+        EngineGame.DrawStrings(_spriteBatch);
         _spriteBatch.End();
 
         base.Draw(gameTime);

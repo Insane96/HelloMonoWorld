@@ -23,13 +23,13 @@ public class MainGame : Microsoft.Xna.Framework.Game
     public MainGame()
     {
         Content.RootDirectory = "Content";
-        MonoEngine.Init(this, 1280, 720);
+        EngineGame.Init(this, 1280, 720);
         IsMouseVisible = false;
     }
 
     protected override void Initialize()
     {
-        Sprites.LoadTextures(MonoEngine.ContentManager);
+        Sprites.LoadTextures(EngineGame.ContentManager);
 
         player = new Player();
         GameObject.Instantiate(player);
@@ -64,7 +64,7 @@ public class MainGame : Microsoft.Xna.Framework.Game
         Options.TryDecreaseFontSize();
         Options.TryFullScreen();
 
-        MonoEngine.Update(gameTime);
+        EngineGame.Update(gameTime);
 
         base.Update(gameTime);
     }
@@ -77,10 +77,10 @@ public class MainGame : Microsoft.Xna.Framework.Game
 
         if (Options.Debug)
         {
-            MonoEngine.DrawText(debugFont, $"{player.GetPosition().ToString("N1")}(DeltaMov: {player.DeltaMovement.ToString("N1")}){Environment.NewLine}Bounds: {player.Bounds}{Environment.NewLine}Health: {player.Health}", Vector2.One.Sum(2, 2), Color.White, Vector2.Zero, Color.Black);
+            EngineGame.DrawText(debugFont, $"{player.GetPosition().ToString("N1")}(DeltaMov: {player.DeltaMovement.ToString("N1")}){Environment.NewLine}Bounds: {player.Bounds}{Environment.NewLine}Health: {player.Health}", Vector2.One.Sum(2, 2), Color.White, Vector2.Zero, Color.Black);
         }
 
-        MonoEngine.DrawGameObjects(_spriteBatch);
+        EngineGame.DrawGameObjects(_spriteBatch);
 
         _spriteBatch.End();
 
@@ -89,7 +89,7 @@ public class MainGame : Microsoft.Xna.Framework.Game
         _spriteBatch.Begin();
         //_spriteBatch.Draw(target, Vector2.Zero, Color.White);
         _spriteBatch.Draw(_target, new Rectangle(0, 0, Graphics.ViewportWidth, Graphics.ViewportHeight), Color.White); //TODO Force 16:9
-        MonoEngine.DrawStrings(_spriteBatch);
+        EngineGame.DrawStrings(_spriteBatch);
         _spriteBatch.End();
 
         base.Draw(gameTime);
