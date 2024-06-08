@@ -18,9 +18,9 @@ public static class MonoEngine
     {
         ContentManager = game.Content;
         Graphics.Init(game, width, height);
-        UiText.Init(ContentManager);
 
         Utils.Init();
+        Input.Game = game;
     }
 
     public static void Update(GameTime gameTime)
@@ -48,9 +48,9 @@ public static class MonoEngine
         StringsToDraw.Clear();
     }
 
-    public static void DrawText(SpriteFont font, string text, Vector2 position, Color color, Vector2 origin, Color? shadowColor = null)
+    public static void AddText(SpriteFont font, string text, Vector2 position, Color color, Vector2 origin, Color? shadowColor = null)
     {
-        StringsToDraw.Add(new UiText()
+        StringsToDraw.Add(new UiText
         {
             Text = text,
             SpriteFont = font,

@@ -1,10 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <RollForward>Major</RollForward>
         <PublishReadyToRun>false</PublishReadyToRun>
         <TieredCompilation>false</TieredCompilation>
+        <LangVersion>12</LangVersion>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
     <PropertyGroup>
         <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -19,11 +21,39 @@
         <EmbeddedResource Include="Icon.bmp"/>
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="MonoGame.Extended" Version="3.8.0" />
+        <PackageReference Include="MonoGame.Extended.Content.Pipeline" Version="3.8.0" />
         <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303"/>
         <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303"/>
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\Engine\Engine.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended\3.8.0\contentFiles\any\netstandard2.0\libmojoshader_64.dll" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended\3.8.0\contentFiles\any\netstandard2.0\CppNet.dll" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\CppNet.dll" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\libmojoshader_64.dll" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended\3.8.0\contentFiles\any\netstandard2.0\mgfxc.dll" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\mgfxc.dll" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\mgfxc.deps.json" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended\3.8.0\contentFiles\any\netstandard2.0\mgfxc.deps.json" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended\3.8.0\contentFiles\any\netstandard2.0\mgfxc.runtimeconfig.json" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended\3.8.0\contentFiles\any\netstandard2.0\mgfxc.runtimeconfig.dev.json" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended\3.8.0\contentFiles\any\netstandard2.0\mgfxc.pdb" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\mgfxc.runtimeconfig.json" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended\3.8.0\contentFiles\any\netstandard2.0\mgfxc.exe" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\mgfxc.runtimeconfig.dev.json" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\mgfxc.pdb" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\mgfxc.exe" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended\3.8.0\contentFiles\any\netstandard2.0\SharpDX.dll" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\SharpDX.xml" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended\3.8.0\contentFiles\any\netstandard2.0\SharpDX.xml" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended\3.8.0\contentFiles\any\netstandard2.0\SharpDX.D3DCompiler.xml" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended\3.8.0\contentFiles\any\netstandard2.0\SharpDX.D3DCompiler.dll" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\SharpDX.dll" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\SharpDX.D3DCompiler.xml" />
+      <Content Remove="C:\Users\delvi\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\SharpDX.D3DCompiler.dll" />
     </ItemGroup>
     <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
         <Message Text="Restoring dotnet tools" Importance="High"/>

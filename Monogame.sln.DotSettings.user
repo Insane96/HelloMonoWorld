@@ -3,5 +3,6 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\delvi\.nuget\packages\monogame.aseprite\3.1.0\lib\net6.0\MonoGame.Aseprite.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\delvi\.nuget\packages\monogame.extended.graphics\3.8.0\lib\netstandard2.0\MonoGame.Extended.Graphics.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Users\delvi\.nuget\packages\monogame.extended.content.pipeline\3.8.0\contentFiles\any\netcoreapp3.1\CppNet.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	</wpf:ResourceDictionary>
