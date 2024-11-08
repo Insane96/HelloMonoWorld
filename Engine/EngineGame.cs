@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Engine.ExtensionMethods;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -22,19 +23,6 @@ public abstract class EngineGame : Game
         Utils.Init();
         Input.Game = this;
         GameObject.Game = this;
-        Graphics.GraphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
-        Graphics.GraphicsDeviceManager.PreparingDeviceSettings += (_, args) =>
-        {
-            Graphics.GraphicsDeviceManager.PreferMultiSampling = true;
-            var rasterizerState = new RasterizerState
-            {
-                MultiSampleAntiAlias = true,
-            };
-
-            GraphicsDevice.RasterizerState = rasterizerState;
-            args.GraphicsDeviceInformation.PresentationParameters.MultiSampleCount = 2;
-            Graphics.GraphicsDeviceManager.ApplyChanges();
-        };
     }
 
     protected override void Initialize()

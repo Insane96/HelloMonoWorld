@@ -30,6 +30,20 @@ public static class Graphics
             PreferredBackBufferHeight = height,
         };
         GraphicsDeviceManager.ApplyChanges();
+        
+        GraphicsDeviceManager.GraphicsProfile = GraphicsProfile.HiDef;
+        GraphicsDeviceManager.PreparingDeviceSettings += (_, args) =>
+        {
+            GraphicsDeviceManager.PreferMultiSampling = true;
+            var rasterizerState = new RasterizerState
+            {
+                MultiSampleAntiAlias = true,
+            };
+
+            game.GraphicsDevice.RasterizerState = rasterizerState;
+            args.GraphicsDeviceInformation.PresentationParameters.MultiSampleCount = 2;
+            GraphicsDeviceManager.ApplyChanges();
+        };
     }
 
     public static void ToggleFullscreen()
