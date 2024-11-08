@@ -1,4 +1,4 @@
-﻿using MonoGame.Aseprite.Sprites;
+﻿using MonoGame.Aseprite;
 using TowerDefense.Entities.Towers;
 
 namespace TowerDefense.Entities;

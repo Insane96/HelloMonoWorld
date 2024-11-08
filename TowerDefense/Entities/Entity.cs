@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Engine;
+using Engine.ExtensionMethods;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Aseprite.Sprites;
+using MonoGame.Aseprite;
 
 namespace TowerDefense.Entities;
 

@@ -1,5 +1,4 @@
 ﻿using AsepriteDotNet.Aseprite;
-using AsepriteDotNet.Processors;
 using Engine;
 using Microsoft.Xna.Framework.Content;
 using MonoGame.Aseprite;
@@ -18,13 +17,13 @@ public static class Sprites
 
     public static void LoadTextures(ContentManager contentManager)
     {
-        CrossbowTower = SpriteSheetProcessor.Process(Graphics.GraphicsDeviceManager.GraphicsDevice, contentManager.Load<AsepriteFile>("textures/towers/crossbow"));
-        DeathTower = SpriteSheetProcessor.Process(Graphics.GraphicsDeviceManager.GraphicsDevice, contentManager.Load<AsepriteFile>("textures/towers/death"));
-        DeathPool = SpriteSheetProcessor.Process(Graphics.GraphicsDeviceManager.GraphicsDevice, contentManager.Load<AsepriteFile>("textures/death_pool"));
-        LaserTower = SpriteSheetProcessor.Process(Graphics.GraphicsDeviceManager.GraphicsDevice, contentManager.Load<AsepriteFile>("textures/towers/laser"));
-        LaserUlt = SpriteSheetProcessor.Process(Graphics.GraphicsDeviceManager.GraphicsDevice, contentManager.Load<AsepriteFile>("textures/laser_ult"));
-        Zombie = SpriteSheetProcessor.Process(Graphics.GraphicsDeviceManager.GraphicsDevice, contentManager.Load<AsepriteFile>("textures/enemies/zombie"));
-        Arrow = SpriteSheetProcessor.Process(Graphics.GraphicsDeviceManager.GraphicsDevice, contentManager.Load<AsepriteFile>("textures/arrow"));
+        CrossbowTower = contentManager.Load<AsepriteFile>("textures/towers/crossbow").CreateSpriteSheet(Graphics.GraphicsDeviceManager.GraphicsDevice, onlyVisibleLayers: true);
+        DeathTower = contentManager.Load<AsepriteFile>("textures/towers/death").CreateSpriteSheet(Graphics.GraphicsDeviceManager.GraphicsDevice, onlyVisibleLayers: true);
+        DeathPool = contentManager.Load<AsepriteFile>("textures/death_pool").CreateSpriteSheet(Graphics.GraphicsDeviceManager.GraphicsDevice, onlyVisibleLayers: true);
+        LaserTower = contentManager.Load<AsepriteFile>("textures/towers/laser").CreateSpriteSheet(Graphics.GraphicsDeviceManager.GraphicsDevice, onlyVisibleLayers: true);
+        LaserUlt = contentManager.Load<AsepriteFile>("textures/laser_ult").CreateSpriteSheet(Graphics.GraphicsDeviceManager.GraphicsDevice, onlyVisibleLayers: true);
+        Zombie = contentManager.Load<AsepriteFile>("textures/enemies/zombie").CreateSpriteSheet(Graphics.GraphicsDeviceManager.GraphicsDevice, onlyVisibleLayers: true);
+        Arrow = contentManager.Load<AsepriteFile>("textures/arrow").CreateSpriteSheet(Graphics.GraphicsDeviceManager.GraphicsDevice, onlyVisibleLayers: true);
     }
 
     public static AnimatedSprite GetAnimatedSprite(SpriteSheet spriteSheet, string tag)

@@ -1,6 +1,7 @@
 ﻿using Engine;
+using Engine.ExtensionMethods;
 using Microsoft.Xna.Framework;
-using MonoGame.Aseprite.Sprites;
+using MonoGame.Aseprite;
 using MonoGame.Extended;
 
 namespace TowerDefense.Entities.Enemies;

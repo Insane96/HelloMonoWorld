@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
 using Engine;
+using Engine.ExtensionMethods;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Aseprite.Sprites;
+using MonoGame.Aseprite;
 using TowerDefense.Entities.Enemies;
 using TowerDefense.Entities.Projectiles;
 using TowerDefense.Registry;

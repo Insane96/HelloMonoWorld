@@ -1,5 +1,5 @@
 ﻿using Engine;
-using MonoGame.Aseprite.Sprites;
+using MonoGame.Aseprite;
 
 namespace TowerDefense.Entities.Enemies;
 
