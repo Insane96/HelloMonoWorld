@@ -14,7 +14,7 @@ public class LaserUlt : Entity
 {
     private double _timeAlive;
     
-    public LaserUlt(double timeAlive) : base(Sprites.GetAnimatedSprite(Sprites.LaserUlt, ""))
+    public LaserUlt(double timeAlive) : base(Sprites.GetAnimatedSprite(Sprites.LaserAbility, ""))
     {
         this._timeAlive = timeAlive;
         this.Origin = Origins.CenterLeft;
