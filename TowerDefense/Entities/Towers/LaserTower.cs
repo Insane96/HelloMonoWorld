@@ -18,8 +18,8 @@ public class LaserTower : Tower
         this.BaseAttackSpeed = 0.1f;
         this.BaseAttackDamage = 0.1f;
         this.BaseRange = 350f;
-        this.UltimateChargeOnHit = 0.001f;
-        this.UltimateDuration = 0.35f;
+        this.UltimateChargeOnHit = 0.1f;
+        this.UltimateDuration = 3f;
     }
 
     public override void Attack()
@@ -51,16 +51,6 @@ public class LaserTower : Tower
         }
     }
 
-    public override void UpdateUlting()
-    {
-        if (this.IsUlting)
-        {
-            this.UltingTimer -= Time.DeltaTime;
-            this.HasUltDamaged = true;
-            
-        }
-    }
-
     public override void OnMouseClickedOn()
     {
         if (this.UltimateCharge < 1f) 
@@ -71,11 +61,20 @@ public class LaserTower : Tower
             //MainGame.IsAimingUlt = this;
             Time.TimeScale = 0.25f;
         }
+        else
+        {
+            this.IsAimingUlt = false;
+            Time.TimeScale = 1f;
+        }
     }
 
     public override void OnMouseClick()
     {
-        if (this.IsAimingUlt)
+        if (this.IsMouseOver())
+        {
+            this.OnMouseClickedOn();
+        }
+        else if (this.IsAimingUlt)
         {
             Time.TimeScale = 1f;
             this.LockedOn = null;
@@ -83,7 +82,7 @@ public class LaserTower : Tower
             var deltaX = Input.MouseState.X - this.GetX();
             var deltaY = Input.MouseState.Y - this.GetY();
             float rad = (float)Math.Atan2(deltaY, deltaX);
-            LaserUlt ult = new(0.35f)
+            LaserAbility ability = new(this.UltimateDuration)
             {
                 Position = this.Position,
                 Sprite =
@@ -92,12 +91,9 @@ public class LaserTower : Tower
                 }
             };
             this.IsAimingUlt = false;
-            Instantiate(ult);
-            this.UltimateCharge = 0f;
-        }
-        if (this.IsMouseOver())
-        {
-            this.OnMouseClickedOn();
+            Instantiate(ability);
+            this.IsUlting = true;
+            this.UltingTimer = this.UltimateDuration;
         }
     }
 }

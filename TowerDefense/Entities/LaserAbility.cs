@@ -10,25 +10,25 @@ using TowerDefense.Registry;
 
 namespace TowerDefense.Entities;
 
-public class LaserUlt : Entity
+public class LaserAbility : Entity
 {
-    private double _timeAlive;
+    private double _life;
+    private double _lifeSpan;
     
-    public LaserUlt(double timeAlive) : base(Sprites.GetAnimatedSprite(Sprites.LaserAbility, ""))
+    public LaserAbility(double lifeSpan) : base(Sprites.GetAnimatedSprite(Sprites.LaserAbility, ""))
     {
-        this._timeAlive = timeAlive;
+        this._lifeSpan = lifeSpan;
         this.Origin = Origins.CenterLeft;
-        this.Sprite.IsPingPong = true;
-        this.Sprite.Play(2);
+        this.Sprite!.IsPingPong = false;
+        this.Sprite.Play();
         this.Sprite.ScaleX = 1500f;
     }
 
     public override void Update()
     {
         base.Update();
-        double oTimeAlive = this._timeAlive;
-        this._timeAlive -= Time.DeltaTime;
-        if (oTimeAlive >= 0.10d && this._timeAlive < 0.10d)
+        this._life += Time.DeltaTime;
+        if (this._life >= 0.25f)
         {
             Vector2 direction = new((float)Math.Cos(this.Sprite.Rotation), (float)Math.Sin(this.Sprite.Rotation));
             direction.Normalize();
@@ -40,10 +40,11 @@ public class LaserUlt : Entity
             GetUpdatableGameObjects().OfType<AbstractEnemy>().ToList().ForEach(enemy =>
             {
                 if (Utils.Intersects(this.Position, this.Position + direction.Multiply(this.GetWidth()), enemy.Bounds) || Utils.Intersects(traslatedPosC, traslatedPosC + direction.Multiply(this.GetWidth()), enemy.Bounds) || Utils.Intersects(traslatedPosCc, traslatedPosCc + direction.Multiply(this.GetWidth()), enemy.Bounds))
-                    enemy.Hurt(50f);
+                    enemy.Hurt((float)(50f * Time.DeltaTime));
             });
+            this.Sprite.Pause();
         }
-        if (this._timeAlive <= 0d)
+        if (this._life >= this._lifeSpan)
             this.MarkForRemoval();
     }
 
