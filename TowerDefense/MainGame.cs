@@ -1,6 +1,7 @@
-﻿using Engine;
+﻿using System.IO;
+using Engine;
+using FontStashSharp;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using TowerDefense.Entities;
 using TowerDefense.Entities.Towers;
@@ -10,10 +11,11 @@ namespace TowerDefense;
 
 public class MainGame : EngineGame
 {
-    public static SpriteFont debugFont;
-
     public static bool IsBuildingTower = true;
-
+    private static FontSystem _fontSystem;
+    private static SpriteFontBase _spriteFontBase;
+    private static int fontSize = 10;
+    
     public static StartingPoint StartingPoint = new()
     {
         Position = new Vector2(-50, -50)
@@ -41,8 +43,8 @@ public class MainGame : EngineGame
     protected override void LoadContent()
     {
         base.LoadContent();
-
-        debugFont = Content.Load<SpriteFont>("fonts/debug");
+        _fontSystem = new FontSystem();
+        _fontSystem.AddFont(File.ReadAllBytes("assets/fonts/Consolas.ttf"));
     }
 
     protected override void Update(GameTime gameTime)
@@ -86,9 +88,6 @@ public class MainGame : EngineGame
                 });*/
             //AbstractEnemy abstractEnemy = EnemiesRegistry.CreateFromId("zombie");
         }
-
-        if (Input.IsKeyPressed(Keys.B))
-            IsBuildingTower = !IsBuildingTower;
         
         base.Update(gameTime);
     }

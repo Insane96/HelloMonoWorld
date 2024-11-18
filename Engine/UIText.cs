@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using FontStashSharp;
+using Microsoft.Xna.Framework;
 
 namespace Engine;
 
@@ -9,7 +9,7 @@ namespace Engine;
 public record UiText
 {
     public string Text { get; init; }
-    public SpriteFont SpriteFont { get; init; }
+    public SpriteFontBase SpriteFont { get; init; }
     public Vector2 Position { get; init; }
     public Vector2 Scale { get; init; } = Vector2.One;
     public float Rotation { get; init; } = 0f;
