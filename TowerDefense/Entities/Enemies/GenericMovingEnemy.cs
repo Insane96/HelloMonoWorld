@@ -15,6 +15,9 @@ public class GenericMovingEnemy : AbstractEnemy
     public override void Update()
     {
         base.Update();
-        this.Move(new Vector2(MainGame.EndingPoint.Position.X - this.Position.X, MainGame.EndingPoint.Position.Y - this.Position.Y).NormalizedCopy().Multiply(this.BaseMovementSpeed * (float)Time.DeltaTime));
+        Vector2 target = this.GetNextTurningPoint();
+        if (this.DistanceTo(target) <= 10f) 
+            return;
+        this.Move(new Vector2(target.X - this.Position.X, target.Y - this.Position.Y).NormalizedCopy().Multiply(this.BaseMovementSpeed * (float)Time.DeltaTime));
     }
 }

@@ -158,7 +158,7 @@ public class Entity : GameObject
 
     public virtual List<Entity> GetCollisionsOfClass(params Type[] clazz)
     {
-        List<Entity> list = new();
+        List<Entity> list = [];
         foreach (GameObject gameObject in GetUpdatableGameObjects())
         {
             if (gameObject is not Entity entity

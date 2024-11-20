@@ -1,8 +1,11 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Engine;
 using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using Newtonsoft.Json;
+using TowerDefense.Data;
 using TowerDefense.Entities;
 using TowerDefense.Entities.Towers;
 using TowerDefense.Registry;
@@ -36,15 +39,27 @@ public class MainGame : EngineGame
         Sprites.LoadTextures(this.Content);
         
         base.Initialize();
+        StartingPoint = new StartingPoint
+        {
+            Position = testMap.StartPosition
+        };
         GameObject.Instantiate(StartingPoint);
+        EndingPoint = new EndingPoint(Sprites.GetAnimatedSprite(Sprites.DeathTower, "idle"))
+        {
+            Position = testMap.TowerPosition
+        };
         GameObject.Instantiate(EndingPoint);
     }
 
+    public static Map testMap;
+    
     protected override void LoadContent()
     {
         base.LoadContent();
         _fontSystem = new FontSystem();
         _fontSystem.AddFont(File.ReadAllBytes("assets/fonts/Consolas.ttf"));
+
+        testMap = JsonConvert.DeserializeObject<Map>(File.ReadAllText("assets/data/maps/test_map.json")) ?? throw new NullReferenceException("failed to parse map");
     }
 
     protected override void Update(GameTime gameTime)
