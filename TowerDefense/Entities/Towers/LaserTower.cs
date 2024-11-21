@@ -18,7 +18,7 @@ public class LaserTower : Tower
         this.BaseAttackSpeed = 0.1f;
         this.BaseAttackDamage = 0.1f;
         this.BaseRange = 350f;
-        this.UltimateChargeOnHit = 0.1f;
+        this.UltimateChargeOnHit = 0.001f;
         this.UltimateDuration = 3f;
     }
 

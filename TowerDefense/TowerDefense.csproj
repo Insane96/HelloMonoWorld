@@ -41,6 +41,9 @@
     <ItemGroup>
       <Compile Remove="Content\**" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="assets\data\waves\" />
+    </ItemGroup>
     <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
         <Message Text="Restoring dotnet tools" Importance="High"/>
         <Exec Command="dotnet tool restore"/>

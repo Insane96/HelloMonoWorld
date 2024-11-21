@@ -40,7 +40,7 @@ public class LaserAbility : Entity
             GetUpdatableGameObjects().OfType<AbstractEnemy>().ToList().ForEach(enemy =>
             {
                 if (Utils.Intersects(this.Position, this.Position + direction.Multiply(this.GetWidth()), enemy.Bounds) || Utils.Intersects(traslatedPosC, traslatedPosC + direction.Multiply(this.GetWidth()), enemy.Bounds) || Utils.Intersects(traslatedPosCc, traslatedPosCc + direction.Multiply(this.GetWidth()), enemy.Bounds))
-                    enemy.Hurt((float)(50f * Time.DeltaTime));
+                    enemy.Hurt((float)(30f * Time.DeltaTime));
             });
             this.Sprite.Pause();
         }
