@@ -36,7 +36,7 @@ public class MainGame : EngineGame
 
     protected override void Initialize()
     {
-        Sprites.LoadTextures(this.Content);
+        Sprites.LoadTextures(Graphics.GraphicsDeviceManager.GraphicsDevice);
         
         base.Initialize();
         StartingPoint = new StartingPoint
