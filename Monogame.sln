@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Engine", "Engine\Engine.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TowerDefense", "TowerDefense\TowerDefense.csproj", "{1015D8B5-ECF4-4ACF-BB05-38E2E8255475}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SideScrollerHitAndBlock", "SideScrollerHitAndBlock\SideScrollerHitAndBlock.csproj", "{64119B1A-37FB-40FF-BCA5-105D4544C511}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{1015D8B5-ECF4-4ACF-BB05-38E2E8255475}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1015D8B5-ECF4-4ACF-BB05-38E2E8255475}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1015D8B5-ECF4-4ACF-BB05-38E2E8255475}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64119B1A-37FB-40FF-BCA5-105D4544C511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64119B1A-37FB-40FF-BCA5-105D4544C511}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64119B1A-37FB-40FF-BCA5-105D4544C511}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64119B1A-37FB-40FF-BCA5-105D4544C511}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
